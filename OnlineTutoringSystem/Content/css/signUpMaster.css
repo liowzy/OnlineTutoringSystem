@@ -1,0 +1,19 @@
+﻿/* Css for Sign Up / Log in Page*/
+body {
+    margin: 0px;
+    font-family: 'Lucida Sans'
+}
+
+
+.logo-responsive {
+    width: 30%;
+    height: auto;
+}
+
+.nav-item.active .link:hover {
+    color: #FF6636;
+    background: rgba(255, 102, 54, 0.5);
+}
+
+
+

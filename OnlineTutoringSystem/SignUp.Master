@@ -1,0 +1,51 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SignUp.Master.cs" Inherits="OnlineTutoringSystem.Testing" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link href="Content/css/signUpMaster.css" rel="stylesheet" />
+    <!-- Boostrap -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div style="z-index: 1000;"> 
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="#">
+                    <img src="imgs/logo.png" class="logo-responsive  ml-5"/> &nbsp;
+                    E Tutor
+                </a>
+
+                
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="mr-auto">
+                        
+
+                    </div>
+
+                    <ul class="navbar-nav ml-5">
+                        <li class="nav-item active">
+                            <asp:TextBox class="nav-link" ID="Textbox1" BorderStyle="None" runat="server">Don't have account?</asp:TextBox>
+                        </li>
+                        <li class="nav-item active mr-3">
+                            <asp:LinkButton class="nav-link link" ID="LinkButton4" runat="server">Create Account</asp:LinkButton>
+                        </li>                        
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+
+</body>
+</html>
