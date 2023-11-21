@@ -13,5 +13,17 @@ namespace OnlineTutoringSystem.Student
         {
 
         }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            // Redirect to Login.aspx
+            Response.Redirect("../Entry/Login.aspx");
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../Entry/Registration.aspx");
+
+        }
     }
 }

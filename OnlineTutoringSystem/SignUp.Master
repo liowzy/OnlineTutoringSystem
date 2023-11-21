@@ -16,8 +16,8 @@
     <form id="form1" runat="server">
         <div style="z-index: 1000;"> 
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="#">
-                    <img src="imgs/logo.png" class="logo-responsive  ml-5"/> &nbsp;
+                <a class="navbar-brand" href="../Student/HomePage.aspx">
+                    <img src="../imgs/logo.png" class="logo-responsive  ml-5"/> &nbsp;
                     E Tutor
                 </a>
 

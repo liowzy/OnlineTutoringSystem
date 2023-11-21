@@ -106,30 +106,15 @@
     <Content Include="Content\bootstrap-5.3.2-dist\js\bootstrap.min.js" />
     <Content Include="Content\css\signUpMaster.css" />
     <Content Include="Content\css\studentMaster.css" />
-    <Content Include="Entry\Login.aspx" />
-    <Content Include="Entry\Registration.aspx" />
     <Content Include="imgs\bg1.png" />
     <Content Include="imgs\bg2.png" />
     <Content Include="imgs\logo.png" />
     <Content Include="Student\HomePage.aspx" />
     <Content Include="Web.config" />
-    <Content Include="WebForm1.aspx" />
+    <Content Include="Entry\Registration.aspx" />
+    <Content Include="Entry\Login.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entry\Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Entry\Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Entry\Registration.aspx.cs">
-      <DependentUpon>Registration.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Entry\Registration.aspx.designer.cs">
-      <DependentUpon>Registration.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Student\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
@@ -145,12 +130,19 @@
     <Compile Include="SignUp.Master.designer.cs">
       <DependentUpon>SignUp.Master</DependentUpon>
     </Compile>
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Entry\Registration.aspx.cs">
+      <DependentUpon>Registration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Entry\Registration.aspx.designer.cs">
+      <DependentUpon>Registration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Entry\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Entry\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

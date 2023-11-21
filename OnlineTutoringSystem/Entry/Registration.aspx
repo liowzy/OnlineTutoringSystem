@@ -1,194 +1,150 @@
-﻿<%@ Page Language="C#"  AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="OnlineTutoringSystem.Entry.Registration" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SignUp.Master" AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="OnlineTutoringSystem.WebForm1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <%--font awesome--%>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-Wl7pF/WKUaSGvdQdVZ5oIqD8IqHki/MkAu7ZR2jK9gY=" crossorigin="anonymous">
 
     <style>
-        form{
-            font-family: 'Lucida Sans';
-            margin: 2% 10% 100px 10%;
-            border: 1px solid #C4C4C4;
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
         }
-        .pageTitle{
-            width: 100%;
-            text-align: center;
-            margin-top: 5%;
-            font-weight: bold;
-            font-size: 2.5vw;
+
+        .signForm{
+            padding: 10% 16%; 
+
         }
-        .table1, .table2{
-            width: 85%;
-            margin: 5% auto 5% auto;
-            font-family: 'Lucida Sans';
-            font-size: 1.2vw;
-            border-collapse: separate;
-            border-spacing: 100px 0px;
-        }
-        td{
-            vertical-align: top;
-        }
-        .textBox{
-            width: 100%;
-            height: 35px;
-            font-family: 'Lucida Sans';
-            font-size: 1.2vw;
-            margin-bottom: 15px;
-        }
+        
         .formTitle{
-            font-size: 1.5vw;
-            font-weight: 500;
-            padding-bottom: 40px;
+            font-size: 1.8vw;
+            font-weight: bold;
+            text-align: center; /* Center horizontally */
+            vertical-align: middle; /* Center vertically */
+            padding: 6%;
+            padding-bottom:0;
         }
-        .btn{
-            width: 100%;
-            text-align: center;
-            padding-bottom: 50px;
+
+        .inputField{
+            padding-top: 3%; 
         }
-        .btnCreate, .btnBack, .btnSubmit, .btnSend{
-            font-family: 'Lucida Sans';
-            font-weight: 500;
-            border: none;
-            padding: 20px 40px;
-            margin-right: 20px;
-            width: 280px;
+
+        .btn-orange {
+            background-color: #FF6636; /* Orange background color */
+            color: #fff;   
+            font-size: 1.1vw;  
+            border: none;  
+            margin-top: 9%;
+            margin-right: 20%;
+            padding: 1% 5% 1% 5%;
         }
-        .btnCreate, .btnSubmit, .btnSend{
-            background-color: black;
-            color: white;
+
+        .btn-orange:hover {
+            background-color: #FF8C00;  
+            color: #fff;  
         }
-        .btnBack{
-            background-color: transparent;
-            color: #828282;
+         
+        .auto-style1 {
+            height: 36px;
         }
-        .btnCreate:hover, .btnBack:hover, .btnSubmit:hover, .btnSend:hover{
-            cursor: pointer;
-        }
-        .btnSubmit{
-            display: none;
-        }
-        .verifyRow{
-            visibility: hidden;
-        }
-        .table1{
-            display: none;
-        }
+         
     </style>
 
-    <div class="pageTitle">
-        <asp:Label ID="Label1" runat="server" Text="Create Your Account"></asp:Label>
+    <div class="container-fluid">
+        <div class="row">
+            <%--bg div--%>
+            <div class="col-md-5" style="padding:0;">
+                <div class=" d-flex align-items-center "> 
+                    <img src="../imgs/bg1.png" class="img-fluid h-50 w-100" alt="Background Image">
+                </div>
+            </div>
+
+            <%--sign up form div--%>
+            <div class="col-md-7">
+                <div class="p-3">
+                    <!-- Your content goes here --> 
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 formTitle">
+                                Create your account
+                            </div>
+                        </div>
+                        <div class="row inputField">
+                            <div class="col-md-12">
+                                <asp:Label ID="Label5" runat="server" BorderStyle="None" Text="Full Name"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <asp:TextBox ID="tbFirstN" runat="server" Placeholder="First Name" CssClass="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <asp:TextBox ID="tbLastN" runat="server" Placeholder="Last Name" CssClass="form-control" />
+                            </div>
+                        </div>
+                        <div class="row inputField">
+                            <div class="col-md-12">
+                                <asp:Label ID="Label4" runat="server" BorderStyle="None" Text="Username"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <asp:TextBox ID="tbUserN" runat="server" Placeholder="Username" CssClass="form-control" />
+                            </div>
+                        </div>
+                        <div class="row inputField">
+                            <div class="col-md-12">
+                                <asp:Label ID="Label3" runat="server" BorderStyle="None" Text="Email"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <asp:TextBox ID="tbEmail" runat="server" Placeholder="Email address" CssClass="form-control" />
+                            </div>
+                        </div>
+                        <div class="row inputField">
+                            <div class="col-md-6">
+                                <asp:Label ID="Label1" runat="server" BorderStyle="None" Text="Password"></asp:Label>
+                            </div>
+                            <div class="col-md-6">
+                                <asp:Label ID="Label2" runat="server" BorderStyle="None" Text="Confirm Password"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <asp:TextBox ID="tbPw" runat="server" Placeholder="Create Password" CssClass="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <asp:TextBox ID="TextBox2" runat="server" Placeholder="Confirm Password" CssClass="form-control" />
+                            </div>
+                        </div>
+                        <div class="row inputField">
+                            <div class="col-md-12">
+                                <asp:Label ID="Label6" runat="server" BorderStyle="None" Text="Sign Up As : Student / Tutor"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control">
+                                    <asp:ListItem Value="Student">Become A Student</asp:ListItem>
+                                    <asp:ListItem Value="Tutor">Become A Tutor</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6"> 
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-end">
+                                <asp:Button ID="btnCreate" runat="server" CssClass="btn-orange" Text="Create Account" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
-
-    <form runat="server">
-        <table class="table1" id="table1" runat="server">
-            <tr>
-               <td class="formTitle" colspan="2">
-                   <asp:Label ID="Label2" runat="server" Text="Email Verification"></asp:Label>
-               </td>
-           </tr>
-            <tr>
-               <td style="width: 25%;">
-                   <asp:Label ID="lblEmail" runat="server" Text="Email"></asp:Label>                   
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="tbEmail" ErrorMessage="Email is required" Display="None" ForeColor="Red">*</asp:RequiredFieldValidator>      
-               </td>
-               <td style="width: 75%;">
-                   <asp:TextBox CssClass="textBox" ID="tbEmail" runat="server" placeholder="Email" TextMode="Email"></asp:TextBox>
-               </td>
-           </tr>
-
-            <tr class="verifyRow" id="verifyRow" runat="server">
-                <td style="width: 25%;">
-                   <asp:Label ID="Label3" runat="server" Text="Verification Code"></asp:Label>                   
-                   <!-- <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="tbCode" ErrorMessage="Code is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>      -->
-               </td>
-               <td style="width: 75%;">
-                   <asp:TextBox CssClass="textBox" ID="tbCode" runat="server" placeholder="Verification Code" TextMode="SingleLine"></asp:TextBox>
-               </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <asp:Button CssClass="btnSend" ID="btnSend" runat="server" Text="SEND VERIFICATION CODE" OnClick="btnSend_Click" />
-                    <asp:Button CssClass="btnSubmit" ID="btnSubmit" runat="server" Text="SUBMIT" OnClick="btnSubmit_Click" />
-                    <asp:Label ID="lblErrorMsg" runat="server" Text=""></asp:Label>
-                </td>
-            </tr>
-        </table>
-    
-       <table class="table2" id="table2" runat="server">
-           <tr>
-               <td class="formTitle" colspan="2">
-                   &nbsp;</td>
-           </tr>
-           <tr>
-               <td style="width: 25%;">
-                   <asp:Label ID="lblFfName" runat="server" Text="First name"></asp:Label>
-                   <!-- <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbFName" ErrorMessage="First name is required" Display="Static" ForeColor="Red">*</asp:RequiredFieldValidator> -->
-               </td>
-               <td style="width: 75%;">
-                   <asp:TextBox CssClass="textBox" ID="tbFName" runat="server" placeholder="First Name"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   <asp:Label ID="lblLName" runat="server" Text="Last name"></asp:Label>                   
-                    <!-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbLName" ErrorMessage="Last name is required" Display="Static" ForeColor="Red">*</asp:RequiredFieldValidator>-->
-               </td>
-               <td>
-                   <asp:TextBox CssClass="textBox" ID="tbLName" runat="server" placeholder="Last Name"></asp:TextBox>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   <asp:Label ID="lblPsw" runat="server" Text="Password"></asp:Label>
-                    <!-- <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="tbPsw" ErrorMessage="Password is required" Display="Static" ForeColor="Red">*</asp:RequiredFieldValidator>-->
-               </td>
-               <td>
-                   <asp:TextBox CssClass="textBox" ID="tbPsw" runat="server" placeholder="Password" TextMode="Password"></asp:TextBox>                   
-                    <!-- <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="tbPsw" ErrorMessage="Password should have at least 8 characters" Display="Dynamic" ValidationExpression=".{8}" ForeColor="Red"></asp:RegularExpressionValidator>-->
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   <asp:Label ID="lblCPsw" runat="server" Text="Confirm Password"></asp:Label>
-                   <!-- <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="tbCPsw" ErrorMessage="Confirm password is required" Display="Static" ForeColor="Red">*</asp:RequiredFieldValidator>
-                   <asp:CompareValidator runat="server" ControlToCompare="tbPsw" ControlToValidate="tbCPsw" ErrorMessage="Passwords do not match." ForeColor="Red" Display="Dynamic">
-                       *</asp:CompareValidator>-->
-               </td>
-               <td>
-                   <asp:TextBox CssClass="textBox" ID="tbCPsw" runat="server" placeholder="Confirm Password" TextMode="Password"></asp:TextBox>
-                   
-               </td>
-           </tr>
-           
-           <tr>
-               <td>
-                   <asp:Label ID="lblGender" runat="server" Text="Gender"></asp:Label>                    
-                   <!-- <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="rblGender" ErrorMessage="Gender is required" Display="Static" ForeColor="Red">*</asp:RequiredFieldValidator>-->
-               </td>
-               <td>
-                   <div class="textBox">
-                       <asp:RadioButtonList ID="rblGender" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
-                            <asp:ListItem>Male</asp:ListItem>
-                            <asp:ListItem>Female</asp:ListItem>
-                        </asp:RadioButtonList>
-                   </div>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   <asp:Label ID="lblPhone" runat="server" Text="Phone Number"></asp:Label>
-                   <!-- <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="tbPhone" ErrorMessage="Phone Number is required" Display="Static" ForeColor="Red">*</asp:RequiredFieldValidator>-->
-               </td>
-               <td>
-                   <asp:TextBox CssClass="textBox" ID="tbPhone" runat="server" TextMode="Phone" ></asp:TextBox>
-               </td>
-           </tr>
-           </table>
-
-       <div class="btn" id="btn" runat="server">
-           <asp:Button CssClass="btnCreate" ID="btnCreate" runat="server" Text="CREATE AN ACCOUNT" OnClick="btnCreate_Click" />
-           <asp:Button CssClass="btnBack" ID="btnBack" runat="server" Text="BACK" />
-       </div>
-
-       <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" HeaderText="The following problems have been encountered" ShowMessageBox="True" ShowSummary="False" />
-   </form>
-
-</asp:Content> 
+</asp:Content>

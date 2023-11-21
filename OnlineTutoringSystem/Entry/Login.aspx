@@ -1,91 +1,110 @@
-﻿<%@ Page Language="C#"  AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="OnlineTutoringSystem.Entry.Login" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SignUp.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="OnlineTutoringSystem.WebForm2" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <%--font awesome--%>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-Wl7pF/WKUaSGvdQdVZ5oIqD8IqHki/MkAu7ZR2jK9gY=" crossorigin="anonymous">
 
-<style>
-        form{
-            font-family: 'Lucida Sans';
-            margin: 2% 10% 100px 10%;
-            border: 1px solid #C4C4C4;
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
         }
-        .pageTitle{
-            width: 100%;
-            text-align: center;
-            margin-top: 5%;
+
+        .signForm {
+            padding: 10%;
+        }
+
+        .formTitle {
+            font-size: 1.8vw;
             font-weight: bold;
-            font-size: 2.5vw;
+            text-align: center; /* Center horizontally */
+            vertical-align: middle; /* Center vertically */
+            padding: 6%;
+            padding-bottom: 0;
         }
-        .table{
-            width: 85%;
-            margin: 5% auto 5% auto;
-            font-family: 'Lucida Sans';
-            font-size: 1.2vw;
-            border-collapse: separate;
-            border-spacing: 100px 0px;
+
+        .inputField {
+            padding-top: 5%;
+            padding-left:25%;
         }
-        td{
-            vertical-align: top;
-        }
-        .textBox{
-            width: 100%;
-            height: 35px;
-            font-family: 'Lucida Sans';
-            font-size: 1.2vw;
-            margin-bottom: 15px;
-        }
-        .formTitle{
-            font-size: 1.5vw;
-            font-weight: 500;
-            padding-bottom: 40px;
-        }
-        .btnLogin{
-            font-family: 'Lucida Sans';
-            font-weight: 500;
+
+        .btn-orange {
+            background-color: #FF6636; /* Orange background color */
+            color: #fff;
+            font-size: 1.1vw;
             border: none;
-            padding: 20px 40px;
-            width: 280px;
-            background-color: black;
-            color: white;
-            margin-top: 50px;
+            margin-top: 9%;
+            margin-right: 20%;
+            padding: 1% 5% 1% 5%;
         }
-        .btnLogin:hover{
-            cursor: pointer;
+
+        .btn-orange:hover {
+            background-color: #FF8C00;
+            color: #fff;
         }
+
+        .auto-style1 {
+            height: 36px;
+        }
+
+        .leftSide{
+            padding-left:25%;
+        }
+
+
+    
     </style>
 
-    <div class="pageTitle">
-        <asp:Label ID="Label1" runat="server" Text="Login Your Account"></asp:Label>
+
+    <div class="container-fluid">
+        <div class="row">
+            <%--bg div--%>
+            <div class="col-md-5" style="padding:0;">
+                <div class=" d-flex align-items-center "> 
+                    <img src="../imgs/bg2.png" class="img-fluid h-50 w-100" alt="Background Image">
+                </div>
+            </div>
+
+            <%--sign in form div--%>
+            <div class="col-md-7">
+                <div class="p-3">
+                    <!-- Your content goes here --> 
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 formTitle">
+                                Sign in to your account
+                            </div>
+                        </div>
+                        <div class="row inputField">
+                            <div class="col-md-12">
+                                <asp:Label ID="Label5" runat="server" BorderStyle="None" Text="Email"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row leftSide">
+                            <div class="col-md-9">
+                                <asp:TextBox ID="tbFirstN" runat="server" Placeholder="Username or email address" CssClass="form-control" />
+                            </div> 
+                        </div>
+                        <div class="row inputField">
+                            <div class="col-md-12">
+                                <asp:Label ID="Label4" runat="server" BorderStyle="None" Text="Password"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row leftSide">
+                            <div class="col-md-9">
+                                <asp:TextBox ID="tbUserN" runat="server" Placeholder="Password" CssClass="form-control" />
+                            </div>
+                        </div>
+                            <div class="col-md-12 d-flex justify-content-end">
+                                <asp:Button ID="btnCreate" runat="server" CssClass="btn-orange" Text="Sign In" />
+                            </div>
+                        </div> 
+
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <form id="form1" runat="server">
-        <table class="table">
-            <tr>
-               <td class="formTitle" colspan="2">
-                   <asp:Label ID="formTitle" runat="server" Text="Your Email"></asp:Label>
-               </td>
-           </tr>
-            <tr>
-                <td>
-                   <asp:Label ID="lblEmail" runat="server" Text="Email"></asp:Label>                   
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="tbEmail" ErrorMessage="Email is required" Display="Static" ForeColor="Red">*</asp:RequiredFieldValidator>      
-               </td>
-                <td>
-                   <asp:TextBox CssClass="textBox" ID="tbEmail" runat="server" placeholder="Email" TextMode="Email"></asp:TextBox>
-               </td>
-            </tr>
-            <tr>
-                <td>
-                   <asp:Label ID="lblPsw" runat="server" Text="Password"></asp:Label>
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="tbPsw" ErrorMessage="Password is required" Display="Static" ForeColor="Red">*</asp:RequiredFieldValidator>
-               </td>
-                <td>
-                   <asp:TextBox CssClass="textBox" ID="tbPsw" runat="server" placeholder="Password" TextMode="Password"></asp:TextBox>                   
-               </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: center;">
-                    <asp:Button CssClass="btnLogin" ID="btnLogin" runat="server" Text="LOGIN" />
-                </td>
-            </tr>
-        </table>
-    </form>
 </asp:Content>
