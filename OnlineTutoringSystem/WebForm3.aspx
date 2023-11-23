@@ -18,11 +18,14 @@
         .bigger-row {
             height: 400px;
         }
+        .card {
+        width: 200px; /* Set the desired width for the card */
+    }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container-fluid">
+    <div class="container-fluid p-2">
         <div class="row bigger-row" style="background-color: #F0F2F5;">
             <div class="col-md-5 p-5" style="display: flex; flex-direction: column; align-items: flex-start;">
                 <asp:Label ID="lblTitle" runat="server" Text="Learn with Expert Anytime Anywhere" CssClass="h2 mb-3 font-weight-bold"></asp:Label>
@@ -32,5 +35,36 @@
             <div class="col-md-7 bg-image" style="background-image: url('imgs/img1.png');"> 
             </div> 
         </div>
+
+        <%--------------------------------------------section 2 start----------------------------------%>
+
+        <div class="row p-2 d-flex align-items-center justify-content-center">
+            <!-- Browse Top Categories Section -->
+            <div class="row top-category">
+                <div class="col">
+                    <asp:Label ID="Label2" runat="server" Text="Browse Top Categories" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
+                </div>
+            </div>
+
+            <!-- Item Display Section using DataList -->
+            <div class="row">
+                <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource1" RepeatColumns="4">
+                    <ItemTemplate>
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%# Eval("cat_name") %></h5>
+                                    <p class="card-text"><%# Eval("cat_sum") %> Courses</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:DataList>
+            </div> 
+
+        </div>
+
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [Category]"></asp:SqlDataSource>
+
     </div>
 </asp:Content>

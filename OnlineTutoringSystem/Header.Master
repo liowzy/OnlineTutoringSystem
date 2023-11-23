@@ -40,6 +40,17 @@
     font-size: 1.2em;
     margin-left: 10px;
 }
+  .heart-link {
+        color: black;
+        text-decoration: none;  
+    }
+
+    .heart-link:hover {
+        color: red;
+        text-decoration: none;  
+    }  color: red;
+    }
+
     </style>
 
 
@@ -72,46 +83,46 @@
                 </div>
             </nav>
         </div>
-<div class="row">
-    <nav class="navbar navbar-expand-lg navbar-light w-100">
-        <!-- Logo and Text on the left -->
-        <div class="col">
-            <a class="navbar-brand" href="../Student/HomePage.aspx">
-                <div class="logo-container">
-                    <asp:Image ID="imgLogo" runat="server" ImageUrl="~/imgs/logo.png" CssClass="logo-responsive" AlternateText="Logo" />
-                    <asp:Label ID="lblCompanyName" runat="server" Text="E Tutor" CssClass="company-name"></asp:Label>
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-light w-100">
+                <!-- Logo and Text on the left -->
+                <div class="col">
+                    <a class="navbar-brand" href="../Student/HomePage.aspx">
+                        <div class="logo-container">
+                            <asp:Image ID="imgLogo" runat="server" ImageUrl="~/imgs/logo.png" CssClass="logo-responsive" AlternateText="Logo" />
+                            <asp:Label ID="lblCompanyName" runat="server" Text="E Tutor" CssClass="company-name"></asp:Label>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
 
-        <!-- Search Bar on the left -->
-        <div class="col-4">
-            <div class="input-group">
-                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2"></asp:TextBox>
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">Search</button>
+                <!-- Search Bar on the left -->
+                <div class="col-4">
+                    <div class="input-group">
+                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2"></asp:TextBox>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">Search</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+                <!-- Icon and Buttons on the right -->
+                <div class="col-12 col-md-6 text-md-right">
+                    <!-- Love Icon (replace "fa-heart" with the appropriate class for your icon) -->
+                    <asp:LinkButton ID="lnkHeart" runat="server" CssClass="mr-3 heart-link">
+                        <i class="fas fa-heart"></i>
+                    </asp:LinkButton>
+
+
+                    <!-- Create Account Button -->
+                    <asp:Button ID="btnCreateAccount" runat="server" Text="Create Account" CssClass="btn btn-outline-secondary mx-2"
+                        style="background-color: #FFEEE8; color: #FF6636; border: none; border-radius: 0; font-weight: bold;" OnClick="btnCreateAccount_Click" />
+
+                    <!-- Sign In Button -->
+                    <asp:Button ID="btnSignIn" runat="server" Text="Sign In" CssClass="btn btn-outline-secondary"
+                        style="background-color: #FF6636; color: white; border: none; border-radius: 0; font-weight: bold;" OnClick="btnSignIn_Click" />
+                </div>
+            </nav>
         </div>
-
-        <!-- Icon and Buttons on the right -->
-        <div class="col-12 col-md-6 text-md-right">
-            <!-- Love Icon (replace "fa-heart" with the appropriate class for your icon) -->
-            <asp:LinkButton ID="lnkHeart" runat="server" CssClass="mr-3">
-                <i class="fas fa-heart" style="color: black; margin-top: 5%;"></i>
-            </asp:LinkButton>
-
-
-            <!-- Create Account Button -->
-            <asp:Button ID="btnCreateAccount" runat="server" Text="Create Account" CssClass="btn btn-outline-secondary mx-2"
-                style="background-color: #FFEEE8; color: #FF6636; border: none; border-radius: 0; font-weight: bold;" OnClick="btnCreateAccount_Click" />
-
-            <!-- Sign In Button -->
-            <asp:Button ID="btnSignIn" runat="server" Text="Sign In" CssClass="btn btn-outline-secondary"
-                style="background-color: #FF6636; color: white; border: none; border-radius: 0; font-weight: bold;" OnClick="btnSignIn_Click" />
-        </div>
-    </nav>
-</div>
 
 
 
