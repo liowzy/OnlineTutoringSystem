@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -110,6 +111,30 @@
     <Content Include="imgs\bg2.png" />
     <Content Include="imgs\logo.png" />
     <Content Include="Student\HomePage.aspx" />
+    <Content Include="Tutor\assets\css\style.css" />
+    <Content Include="Tutor\assets\img\apple-touch-icon.png" />
+    <Content Include="Tutor\assets\img\card.jpg" />
+    <Content Include="Tutor\assets\img\favicon.png" />
+    <Content Include="Tutor\assets\img\logo.png" />
+    <Content Include="Tutor\assets\img\messages-1.jpg" />
+    <Content Include="Tutor\assets\img\messages-2.jpg" />
+    <Content Include="Tutor\assets\img\messages-3.jpg" />
+    <Content Include="Tutor\assets\img\news-1.jpg" />
+    <Content Include="Tutor\assets\img\news-2.jpg" />
+    <Content Include="Tutor\assets\img\news-3.jpg" />
+    <Content Include="Tutor\assets\img\news-4.jpg" />
+    <Content Include="Tutor\assets\img\news-5.jpg" />
+    <Content Include="Tutor\assets\img\not-found.svg" />
+    <Content Include="Tutor\assets\img\product-1.jpg" />
+    <Content Include="Tutor\assets\img\product-2.jpg" />
+    <Content Include="Tutor\assets\img\product-3.jpg" />
+    <Content Include="Tutor\assets\img\product-4.jpg" />
+    <Content Include="Tutor\assets\img\product-5.jpg" />
+    <Content Include="Tutor\assets\img\profile-img.jpg" />
+    <Content Include="Tutor\assets\img\slides-1.jpg" />
+    <Content Include="Tutor\assets\img\slides-2.jpg" />
+    <Content Include="Tutor\assets\img\slides-3.jpg" />
+    <Content Include="Tutor\WebForm1.aspx" />
     <Content Include="Web.config" />
     <Content Include="Entry\Registration.aspx" />
     <Content Include="Entry\Login.aspx" />
@@ -144,6 +169,20 @@
     <Compile Include="Entry\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Tutor\TutorSideBar.Master.cs">
+      <DependentUpon>TutorSideBar.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\TutorSideBar.Master.designer.cs">
+      <DependentUpon>TutorSideBar.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Tutor\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-5.3.2-dist\css\bootstrap-grid.css.map" />
@@ -170,6 +209,7 @@
     <Content Include="Content\bootstrap-5.3.2-dist\js\bootstrap.min.js.map" />
     <None Include="packages.config" />
     <Content Include="SignUp.Master" />
+    <Content Include="Tutor\TutorSideBar.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -177,7 +217,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -208,7 +250,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets'))" />
   </Target>
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
