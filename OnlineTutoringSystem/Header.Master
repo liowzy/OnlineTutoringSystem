@@ -1,0 +1,127 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Header.master.cs" Inherits="OnlineTutoringSystem.Header" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link href="Content/css/signUpMaster.css" rel="stylesheet" />
+    <!-- Boostrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- FontAwesome CSS -->
+    <link href="~/Content/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet">
+
+    <style> 
+        .company-name {
+        font-weight: bold;
+        font-size: 1.2em;
+        margin-left: 10px;
+    }
+
+    .logo-responsive {
+        width: 35%;
+        height: auto;
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+        color: white;
+        border-top: 2px solid transparent; /* Set transparent border by default */
+    }
+
+    .navbar-dark .navbar-nav .nav-link:hover {
+        border-top-color: orange; /* Set the color on hover */
+    }
+
+    .navbar-dark .navbar-toggler-icon {
+        background-color: white;  
+    } 
+    .company-name {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-left: 10px;
+}
+    </style>
+
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+   <form id="form1" runat="server">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto"> <!-- Use mx-auto to center the ul -->
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item active ">
+                            <a class="nav-link" href="#">Courses</a>
+                        </li>
+                        <li class="nav-item active ">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Become an Instructor</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+<div class="row">
+    <nav class="navbar navbar-expand-lg navbar-light w-100">
+        <!-- Logo and Text on the left -->
+        <div class="col">
+            <a class="navbar-brand" href="../Student/HomePage.aspx">
+                <div class="logo-container">
+                    <asp:Image ID="imgLogo" runat="server" ImageUrl="~/imgs/logo.png" CssClass="logo-responsive" AlternateText="Logo" />
+                    <asp:Label ID="lblCompanyName" runat="server" Text="E Tutor" CssClass="company-name"></asp:Label>
+                </div>
+            </a>
+        </div>
+
+        <!-- Search Bar on the left -->
+        <div class="col-4">
+            <div class="input-group">
+                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2"></asp:TextBox>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Icon and Buttons on the right -->
+        <div class="col-12 col-md-6 text-md-right">
+            <!-- Love Icon (replace "fa-heart" with the appropriate class for your icon) -->
+            <asp:LinkButton ID="lnkHeart" runat="server" CssClass="mr-3">
+                <i class="fas fa-heart" style="color: black; margin-top: 5%;"></i>
+            </asp:LinkButton>
+
+
+            <!-- Create Account Button -->
+            <asp:Button ID="btnCreateAccount" runat="server" Text="Create Account" CssClass="btn btn-outline-secondary mx-2"
+                style="background-color: #FFEEE8; color: #FF6636; border: none; border-radius: 0; font-weight: bold;" OnClick="btnCreateAccount_Click" />
+
+            <!-- Sign In Button -->
+            <asp:Button ID="btnSignIn" runat="server" Text="Sign In" CssClass="btn btn-outline-secondary"
+                style="background-color: #FF6636; color: white; border: none; border-radius: 0; font-weight: bold;" OnClick="btnSignIn_Click" />
+        </div>
+    </nav>
+</div>
+
+
+
+
+    </div>
+       <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+</form>
+
+</body>
+</html>
