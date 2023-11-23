@@ -4,9 +4,14 @@ body {
     font-family: 'Lucida Sans'
 }
 
+.company-name {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-left: 10px;
+}
 
 .logo-responsive {
-    width: 30%;
+    width: 80%;
     height: auto;
 }
 
