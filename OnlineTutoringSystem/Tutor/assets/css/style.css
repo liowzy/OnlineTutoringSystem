@@ -389,9 +389,10 @@ h6 {
 
 .header .toggle-sidebar-btn {
   font-size: 32px;
-  padding-left: 10px;
-  cursor: pointer;
-  color: #012970;
+  padding-left: ity: 0;
+  }
+
+  .header .search-bar-sh;
 }
 
 .header .search-bar {
@@ -679,41 +680,28 @@ h6 {
   margin: 10px 0 5px 15px;
 }
 
-.sidebar-nav .nav-link {
-  display: flex;
-  align-items: center;
-  font-size: 15px;
-  font-weight: 600;
-  color: #4154f1;
-  transition: 0.3;
-  background: #f6f9ff;
-  padding: 10px 15px;
-  border-radius: 4px;
-}
-
 .sidebar-nav .nav-link i {
   font-size: 16px;
   margin-right: 10px;
   color: #4154f1;
 }
 
-.sidebar-nav .nav-link.collapsed {
-  color: #012970;
-  background: #fff;
-}
+    .sidebar-nav .nav-link.collapsed {
+        color: #8C94A3;
+    }
 
 .sidebar-nav .nav-link.collapsed i {
   color: #899bbd;
 }
 
-.sidebar-nav .nav-link:hover {
-  color: #4154f1;
-  background: #f6f9ff;
-}
+    .sidebar-nav .nav-link:hover {
+        color: white;
+        background: #f6f9ff;
+    }
 
-.sidebar-nav .nav-link:hover i {
-  color: #4154f1;
-}
+        .sidebar-nav .nav-link:hover i {
+            color: white;
+        }
 
 .sidebar-nav .nav-link .bi-chevron-down {
   margin-right: 0;
@@ -1013,12 +1001,12 @@ h6 {
 }
 
 .profile .profile-card .social-links a {
-  font-size: 20px;
-  display: inline-block;
-  color: rgba(1, 41, 112, 0.5);
-  line-height: 0;
-  margin-right: 10px;
-  transition: 0.3s;
+    font-size: 20px;
+    display: inline-block;
+    color: #ff771d;
+    line-height: 0;
+    margin-right: 10px;
+    transition: 0.3s;
 }
 
 .profile .profile-card .social-links a:hover {
@@ -1230,4 +1218,5 @@ h6 {
   text-align: center;
   font-size: 13px;
   color: #012970;
+
 }

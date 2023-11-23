@@ -3406,6 +3406,8 @@
     <Content Include="imgs\img1.png" />
     <Content Include="imgs\logo.png" />
     <Content Include="Student\HomePage.aspx" />
+    <Content Include="Content\bootstrap-icons\bootstrap-icons.css" />
+    <Content Include="Content\bootstrap-icons\bootstrap-icons.min.css" />
     <Content Include="Tutor\assets\css\style.css" />
     <Content Include="Tutor\assets\img\apple-touch-icon.png" />
     <Content Include="Tutor\assets\img\card.jpg" />
@@ -3429,7 +3431,8 @@
     <Content Include="Tutor\assets\img\slides-1.jpg" />
     <Content Include="Tutor\assets\img\slides-2.jpg" />
     <Content Include="Tutor\assets\img\slides-3.jpg" />
-    <Content Include="Tutor\WebForm1.aspx" />
+    <Content Include="Tutor\Profile.aspx" />
+    <Content Include="Tutor\Schedule.aspx" />
     <Content Include="Web.config" />
     <Content Include="Entry\Registration.aspx" />
     <Content Include="Entry\Login.aspx" />
@@ -3479,12 +3482,19 @@
     <Compile Include="Tutor\TutorSideBar.Master.designer.cs">
       <DependentUpon>TutorSideBar.Master</DependentUpon>
     </Compile>
-    <Compile Include="Tutor\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Tutor\Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Tutor\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Tutor\Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tutor\Schedule.aspx.cs">
+      <DependentUpon>Schedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\Schedule.aspx.designer.cs">
+      <DependentUpon>Schedule.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebForm3.aspx.cs">
       <DependentUpon>WebForm3.aspx</DependentUpon>
@@ -3629,6 +3639,10 @@
     <None Include="packages.config" />
     <Content Include="SignUp.Master" />
     <Content Include="Tutor\TutorSideBar.Master" />
+    <Content Include="Content\bootstrap-icons\bootstrap-icons.json" />
+    <Content Include="Content\bootstrap-icons\bootstrap-icons.scss" />
+    <Content Include="Content\bootstrap-icons\fonts\bootstrap-icons.woff" />
+    <Content Include="Content\bootstrap-icons\fonts\bootstrap-icons.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
