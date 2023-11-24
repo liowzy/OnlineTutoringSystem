@@ -17,7 +17,7 @@
       <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
        .sidebar {
             /* Your sidebar styles */
@@ -66,18 +66,17 @@
         }
 
         .profile .profile-card .social-links a {
-    font-size: 20px;
-    display: inline-block;
-    color: #ff771d;
-    line-height: 0;
-    margin-right: 10px;
-    transition: 0.3s;
-}
-
+            font-size: 20px;
+            display: inline-block;
+            color: #ff771d;
+            line-height: 0;
+            margin-right: 10px;
+            transition: 0.3s;
+        }
     </style>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
      <form id="form1" runat="server">
@@ -114,13 +113,16 @@
                // Attach click event listener to each link
                navLinks.forEach(function (link) {
                    link.addEventListener('click', function (e) {
-                       // Remove the "active" class from all links
-                       navLinks.forEach(function (innerLink) {
-                           innerLink.parentNode.classList.remove('active');
-                       });
+                       // Check if the link is interactive (pointer-events is not set to none)
+                       if (window.getComputedStyle(link, null).getPropertyValue('pointer-events') !== 'none') {
+                           // Remove the "active" class from all links
+                           navLinks.forEach(function (innerLink) {
+                               innerLink.parentNode.classList.remove('active');
+                           });
 
-                       // Add the "active" class to the clicked link's parent (li) element
-                       link.parentNode.classList.add('active');
+                           // Add the "active" class to the clicked link's parent (li) element
+                           link.parentNode.classList.add('active');
+                       }
                    });
                });
            </script>
@@ -128,7 +130,7 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
         </header><!-- End Header -->
 
-        <!-- ======= Sidebar ======= -->
+       <!-- ======= Sidebar ======= -->
         <aside id="sidebar" class="sidebar">
             <ul class="sidebar-nav" id="sidebar-nav">
                 <li class="nav-item">
@@ -138,7 +140,7 @@
                     </a>
                 </li><!-- End Dashboard Nav -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#">
+                    <a class="nav-link collapsed" href="CreateCourse.aspx">
                         <i class="bi bi-file-earmark-plus"></i>
                         <span>Create New Courses</span>
                     </a>
