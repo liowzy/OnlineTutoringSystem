@@ -3478,6 +3478,7 @@
     </Compile>
     <Compile Include="Tutor\TutorSideBar.Master.cs">
       <DependentUpon>TutorSideBar.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Tutor\TutorSideBar.Master.designer.cs">
       <DependentUpon>TutorSideBar.Master</DependentUpon>
