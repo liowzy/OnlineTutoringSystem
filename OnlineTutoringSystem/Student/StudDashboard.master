@@ -1,0 +1,71 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Header.Master" AutoEventWireup="true" CodeBehind="StudDashboard.master.cs" Inherits="OnlineTutoringSystem.StudDashboard" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Lightbox2 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+
+    <link rel="stylesheet" href="../Content/css/studentMaster.css" />
+    <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css">
+
+    <style>
+        .btn-or {
+            border-top: 2px solid transparent; /* Set transparent border by default */
+        }
+
+            .btn-or:hover {
+                border-bottom-color: orange; /* Set the color on hover */
+            }
+
+        .inputField {
+            padding-top: 3%;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="container-fluid" style="background-color: #FFEEE8; padding: 20px;">
+        <div class="row justify-content-center">
+            <div class="col-md-8 bg-white p-4 rounded">
+                <!-- First Row -->
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Left Side: Round Picture -->
+                        <img src="../imgs/T1.png" class="img-fluid rounded-circle" alt="Profile Picture" style="width: auto; height: 20vh;">
+                        <asp:Label ID="Label12" runat="server" Text="Name" CssClass="h3 fw-bold p-2"></asp:Label>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-end align-self-center">
+                        <!-- Right Side: button -->
+                        <asp:LinkButton ID="btnCreateAccont" runat="server" CssClass="btn btn-outline-secondary mx-2"
+                            Style="background-color: #FFEEE8; color: #FF6636; border: none; border-radius: 0; font-weight: bold;">Become An Tutor
+                    <asp:Literal runat="server" Text='<i class="fas fa-arrow-right"></i>'></asp:Literal></asp:LinkButton>
+                    </div>
+                </div>
+
+                <!-- Orange Line -->
+                <hr class="my-4" style="border-color: orange;">
+
+                <!-- Second Row -->
+                <div class="row mt-3 d-flex justify-content-center">
+                    <div class="col-md-3">
+                        <!-- Left Side: Wishlist -->
+                        <asp:Button ID="btnWishlist" runat="server" Text="Wishlist" CssClass="btn btn-or btn-block" OnClick="btnWishlist_Click"/> 
+                    </div>
+                    <div class="col-md-3">
+                        <!-- Right Side: Settings -->
+                        <asp:Button ID="btnSettings" runat="server" Text="Settings" CssClass="btn btn-or btn-block" OnClick="btnSettings_Click"/>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+
+    </div>
+</asp:Content>

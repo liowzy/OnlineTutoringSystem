@@ -5,25 +5,35 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace OnlineTutoringSystem.Student
+namespace OnlineTutoringSystem
 {
-    public partial class HomePage : System.Web.UI.Page
+    public partial class WebForm3 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
+        //change color for card
+        protected string GetCardColor(int index)
         {
-            // Redirect to Login.aspx
-            Response.Redirect("../Entry/Login.aspx");
+            string[] colors = { "#EBEBFF", "#E1F7E3", "#FFF2E5", "#FFF0F0", "#F5F7FA" };
+            return colors[index % colors.Length];
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void btnCreateAccount_Click(object sender, EventArgs e)
         {
-            Response.Redirect("../Entry/Registration.aspx");
+            Response.Redirect("~/Entry/Registration.aspx");
+        }
 
+        protected void LinkButton13_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Student/Course.aspx");
+        }
+
+        protected void LinkButton19_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Entry/Registration.aspx");
         }
     }
 }

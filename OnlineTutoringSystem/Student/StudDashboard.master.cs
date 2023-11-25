@@ -7,21 +7,23 @@ using System.Web.UI.WebControls;
 
 namespace OnlineTutoringSystem
 {
-    public partial class Header : System.Web.UI.MasterPage
+    public partial class StudDashboard : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected void btnSignIn_Click(object sender, EventArgs e)
+        protected void btnSettings_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Entry/Login.aspx");
+            Response.Redirect("StudAccount.aspx");
+
         }
 
-        protected void btnCreateAccount_Click(object sender, EventArgs e)
+        protected void btnWishlist_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Entry/Registration.aspx");
+            Response.Redirect("StudWishlist.aspx");
+
         }
     }
 }

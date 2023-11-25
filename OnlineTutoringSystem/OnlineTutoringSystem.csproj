@@ -3405,9 +3405,12 @@
     <Content Include="imgs\bg2.png" />
     <Content Include="imgs\img1.png" />
     <Content Include="imgs\logo.png" />
-    <Content Include="Student\HomePage.aspx" />
     <Content Include="Content\bootstrap-icons\bootstrap-icons.css" />
     <Content Include="Content\bootstrap-icons\bootstrap-icons.min.css" />
+    <Content Include="imgs\T1.png" />
+    <Content Include="Student\StudAccount.aspx" />
+    <Content Include="Student\StudWishlist.aspx" />
+    <Content Include="TempAddData.aspx" />
     <Content Include="Tutor\assets\css\style.css" />
     <Content Include="Tutor\assets\img\apple-touch-icon.png" />
     <Content Include="Tutor\assets\img\card.jpg" />
@@ -3436,7 +3439,8 @@
     <Content Include="Web.config" />
     <Content Include="Entry\Registration.aspx" />
     <Content Include="Entry\Login.aspx" />
-    <Content Include="WebForm3.aspx" />
+    <Content Include="Student\HomePage.aspx" />
+    <Content Include="Student\Course.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Header.Master.cs">
@@ -3447,13 +3451,6 @@
       <DependentUpon>Header.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Student\HomePage.aspx.cs">
-      <DependentUpon>HomePage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Student\HomePage.aspx.designer.cs">
-      <DependentUpon>HomePage.aspx</DependentUpon>
-    </Compile>
     <Compile Include="SignUp.Master.cs">
       <DependentUpon>SignUp.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3474,6 +3471,34 @@
     </Compile>
     <Compile Include="Entry\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\StudDashboard.master.cs">
+      <DependentUpon>StudDashboard.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\StudDashboard.master.designer.cs">
+      <DependentUpon>StudDashboard.master</DependentUpon>
+    </Compile>
+    <Compile Include="Student\StudAccount.aspx.cs">
+      <DependentUpon>StudAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\StudAccount.aspx.designer.cs">
+      <DependentUpon>StudAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\StudWishlist.aspx.cs">
+      <DependentUpon>StudWishlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\StudWishlist.aspx.designer.cs">
+      <DependentUpon>StudWishlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TempAddData.aspx.cs">
+      <DependentUpon>TempAddData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TempAddData.aspx.designer.cs">
+      <DependentUpon>TempAddData.aspx</DependentUpon>
     </Compile>
     <Compile Include="Tutor\TutorSideBar.Master.cs">
       <DependentUpon>TutorSideBar.Master</DependentUpon>
@@ -3496,12 +3521,19 @@
     <Compile Include="Tutor\Schedule.aspx.designer.cs">
       <DependentUpon>Schedule.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebForm3.aspx.cs">
-      <DependentUpon>WebForm3.aspx</DependentUpon>
+    <Compile Include="Student\HomePage.aspx.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebForm3.aspx.designer.cs">
-      <DependentUpon>WebForm3.aspx</DependentUpon>
+    <Compile Include="Student\HomePage.aspx.designer.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Course.aspx.cs">
+      <DependentUpon>Course.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Course.aspx.designer.cs">
+      <DependentUpon>Course.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -3643,6 +3675,7 @@
     <Content Include="Content\bootstrap-icons\bootstrap-icons.scss" />
     <Content Include="Content\bootstrap-icons\fonts\bootstrap-icons.woff" />
     <Content Include="Content\bootstrap-icons\fonts\bootstrap-icons.woff2" />
+    <Content Include="Student\StudDashboard.master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

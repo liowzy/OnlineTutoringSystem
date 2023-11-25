@@ -128,7 +128,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control">
+                                <asp:DropDownList ID="DropDownList11" runat="server" CssClass="form-select">
                                     <asp:ListItem Value="Student">Become A Student</asp:ListItem>
                                     <asp:ListItem Value="Tutor">Become A Tutor</asp:ListItem>
                                 </asp:DropDownList>
