@@ -3523,6 +3523,8 @@
     </Compile>
     <Compile Include="Tutor\CreateNewCourse.aspx.cs">
       <DependentUpon>CreateNewCourse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Student\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3537,8 +3539,6 @@
     <Compile Include="Tutor\CreateNewCourse.aspx.designer.cs">
       <DependentUpon>CreateNewCourse.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Student\Course.aspx.designer.cs">
-      <DependentUpon>Course.aspx</DependentUpon>
     <Compile Include="Entry\Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
