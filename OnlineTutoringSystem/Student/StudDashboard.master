@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <!-- Left Side: Round Picture -->
-                        <img src="../imgs/T1.png" class="img-fluid rounded-circle" alt="Profile Picture" style="width: auto; height: 20vh;">
+<asp:Image ID="imgUserProfile" runat="server" CssClass="img-fluid rounded-circle" AlternateText="Profile Picture" Style="width: auto; height: 20vh; object-fit: cover;" />
                         <asp:Label ID="Label12" runat="server" Text="Name" CssClass="h3 fw-bold p-2"></asp:Label>
                     </div>
                     <div class="col-md-4 d-flex justify-content-end align-self-center">

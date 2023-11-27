@@ -6,8 +6,13 @@
 <head runat="server">
     <title></title>
     <link href="Content/css/signUpMaster.css" rel="stylesheet" />
-    <!-- Boostrap -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- FontAwesome CSS -->
     <link href="Content/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet">
 
@@ -73,6 +78,11 @@
                 background-color: #ff8000; /* Orange background on hover */
                 padding: 15%
             }
+
+        .rounded-circle:hover {
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 
 
@@ -88,21 +98,22 @@
                         <ul class="navbar-nav mx-auto">
                             <!-- Use mx-auto to center the ul -->
                             <li class="nav-item active">
-                                <a class="nav-link" href="Student/HomePage.aspx">Home</a>
-                            </li>
-                            <li class="nav-item active ">
-                                <a class="nav-link" href="Student/Course.aspx">Courses</a>
-                            </li>
-                            <li class="nav-item active ">
-                                <a class="nav-link" href="#">About</a>
+                                <asp:LinkButton ID="btnHome" runat="server" CssClass="nav-link" PostBackUrl="~/Student/HomePage.aspx">Home</asp:LinkButton>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Contact</a>
+                                <asp:LinkButton ID="btnCourses" runat="server" CssClass="nav-link" PostBackUrl="~/Student/Course.aspx">Courses</asp:LinkButton>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="Entry/Registration.aspx">Become an Instructor</a>
+                                <asp:LinkButton ID="btnAbout" runat="server" CssClass="nav-link" PostBackUrl="#">About</asp:LinkButton>
+                            </li>
+                            <li class="nav-item active">
+                                <asp:LinkButton ID="btnContact" runat="server" CssClass="nav-link" PostBackUrl="#">Contact</asp:LinkButton>
+                            </li>
+                            <li class="nav-item active">
+                                <asp:LinkButton ID="btnBecomeInstructor" runat="server" CssClass="nav-link" PostBackUrl="~/Entry/Registration.aspx">Become an Instructor</asp:LinkButton>
                             </li>
                         </ul>
+
                     </div>
                 </nav>
             </div>
@@ -130,11 +141,10 @@
 
                     <!-- Icon and Buttons on the right -->
                     <div class="col-12 col-md-6 text-md-right">
-                        <!-- Love Icon (replace "fa-heart" with the appropriate class for your icon) -->
-                        <asp:LinkButton ID="lnkHeart" runat="server" CssClass="mr-3 heart-link">
-                        <i class="fas fa-heart"></i>
-                        </asp:LinkButton>
 
+
+                        <% if (Session["userID"] == null)
+                            { %>
 
                         <!-- Create Account Button -->
                         <asp:Button ID="btnCreateAccount" runat="server" Text="Create Account" CssClass="btn btn-outline-secondary mx-2"
@@ -143,6 +153,28 @@
                         <!-- Sign In Button -->
                         <asp:Button ID="btnSignIn" runat="server" Text="Sign In" CssClass="btn btn-outline-secondary"
                             Style="background-color: #FF6636; color: white; border: none; border-radius: 0; font-weight: bold;" OnClick="btnSignIn_Click" />
+                        <% } %>
+
+                        <% if (Session["userID"] != null)
+                            {
+                                if (Session["userType"].ToString() == "student")
+                                { %>
+                        <!-- User Profile Dropdown -->
+                        <div>
+                            <!-- Love Icon (replace "fa-heart" with the appropriate class for your icon) -->
+                            <asp:LinkButton ID="lnkHeart" runat="server" CssClass="mr-3 heart-link" OnClick="lnkHeart_Click">
+                        <i class="fas fa-heart"></i>
+                            </asp:LinkButton>
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <asp:Image ID="imgUserProfile" runat="server" CssClass="rounded-circle" Style="width: 3vw; height: 6vh; border-style: none;" ImageUrl="~/Images/default-profile-image.jpg" />
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <asp:LinkButton ID="lnkSettings" runat="server" CssClass="dropdown-item" OnClick="lnkSettings_Click">Profile</asp:LinkButton>
+                                <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item" OnClick="lnkLogout_Click">Logout</asp:LinkButton>
+                            </div>
+                        </div>
+                        <% }
+                            } %>
                     </div>
                 </nav>
             </div>
@@ -166,7 +198,7 @@
                         <div class="col-5 mb-4 mb-md-0 ">
 
                             <div class="logo-container d-flex flex-row justify-content-center">
-                                <asp:Image ID="Image11" runat="server" ImageUrl="~/imgs/logo.png" style="height:auto; height:45%;" AlternateText="Logo" />
+                                <asp:Image ID="Image11" runat="server" ImageUrl="~/imgs/logo.png" Style="height: auto; height: 45%;" AlternateText="Logo" />
                                 <asp:Label ID="Label11" runat="server" Text="E Tutor" CssClass="company-name h2 fw-bold mt-1"></asp:Label>
                             </div>
 
@@ -196,9 +228,9 @@
                             </ul>
 
                         </div>
-                        <!--Grid column--> 
+                        <!--Grid column-->
                         <div class="col-3 mb-4 mb-md-0">
-                            </div>
+                        </div>
                         <!--Grid column-->
 
                         <!--Grid column-->

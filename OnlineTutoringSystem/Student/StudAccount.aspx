@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Student/StudDashboard.master" AutoEventWireup="true" CodeBehind="StudAccount.aspx.cs" Inherits="OnlineTutoringSystem.Student.WebForm1" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,6 +26,21 @@
         .inputField {
             padding-top: 3%;
         }
+        .auto-style1 {
+            position: relative;
+            width: 100%;
+            -ms-flex-preferred-size: 0;
+            flex-basis: 0;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            max-width: 100%;
+            flex: 1 0 0%;
+            left: 0px;
+            top: 0px;
+            height: 30px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
     </style>
     <div class="container-fluid p-4 text-center d-flex justify-content-center">
         <div class="col-md-8 bg-white p-4">
@@ -37,13 +53,14 @@
                 </div>
             </div>
             <%--Picture and Password Col--%>
-            <div class="row p-5">
-                <div class="col-4">
+            <div class="row p-5 d-flex justify-content-center text-center">
+                <div class="col-4 ">
                     <%--change profile pic--%>
                     <div id="profilePictureContainer" class="position-relative mx-auto">
-                        <img src="../imgs/T1.png" alt="Profile Picture" id="profilePicture" class="img-fluid" style="width: 35vh; height: 35vh; cursor: pointer;" />
-                        <input type="file" id="fileInput" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;" />
+                        <asp:Image ID="imgUserProfile" runat="server" CssClass="img-fluid" AlternateText="Profile Picture" Style="width: 35vh; height: 35vh; cursor: pointer;" />
+                        <asp:FileUpload ID="btnFileUpload" runat="server" CssClass="p-2" />
                     </div>
+
                 </div>
                 <div class="col-8 p-5 pt-0">
                     <div class="row inputField">
@@ -78,18 +95,24 @@
                         <div class="col-md-12">
                             <asp:TextBox ID="tbEmail" runat="server" Placeholder="Email address" CssClass="form-control" ReadOnly="True" />
                         </div>
-                    </div>
+                    </div> 
                     <div class="row inputField">
-                        <div class="col-md-12 text-left">
-                            <asp:Label ID="Label11" runat="server" BorderStyle="None" Text="Gender"></asp:Label>
+                        <div class="col-md-6 text-left">
+                            <asp:Label ID="Label6" runat="server" BorderStyle="None" Text="Gender"></asp:Label>
+                        </div>
+                        <div class="col-md-6 text-left">
+                            <asp:Label ID="Label12" runat="server" BorderStyle="None" Text="Date of Birth"></asp:Label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-select">
                                 <asp:ListItem Value="Male">Male</asp:ListItem>
                                 <asp:ListItem Value="Female">Female</asp:ListItem>
                             </asp:DropDownList>
+                        </div>
+                        <div class="col-md-6">
+                            <asp:TextBox ID="tbDateOfBirth" runat="server" Placeholder="Date of Birth" CssClass="form-control" TextMode="Date" />
                         </div>
                     </div>
                     <div class="row inputField">
@@ -111,34 +134,12 @@
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-8 m-0 d-flex justify-content-end">
-                        <asp:Button ID="btnCreate" runat="server" CssClass="btn-orange" Style="margin: 0;" Text="Save Changes" />
+                        <asp:Button ID="btnCreate" runat="server" CssClass="btn-orange" Style="margin: 0;" Text="Save Changes"  OnClick="btnCreate_Click1"/>
                     </div>
                 </div>
             </div>
         </div>
-    </div> 
-
-
-    <script>
-        // JavaScript to handle file input change
-        document.getElementById('fileInput').addEventListener('change', function (event) {
-            var input = event.target;
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    document.getElementById('profilePicture').src = e.target.result;
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        });
-
-        // JavaScript to trigger file input when the image is clicked
-        document.getElementById('profilePicture').addEventListener('click', function () {
-            document.getElementById('fileInput').click();
-        });
-    </script>
+    </div>
 
 
     <%--Password setting section--%>
@@ -147,12 +148,12 @@
             <!-- Password Setting Section -->
             <div class="row">
                 <div class="row top-category">
-                    <div class="col">
+                    <div class="auto-style1">
                         <asp:Label ID="Label2" runat="server" Text="Change Password" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
                     </div>
                 </div>
             </div>
-            <%--Picture and Password Col--%>
+            <%--Password Col--%>
             <div class="row p-5">
                 <div class="row inputField">
                     <div class="col-md-12 text-left">
@@ -189,9 +190,10 @@
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-8 m-0 d-flex justify-content-end">
-                        <asp:Button ID="Button66" runat="server" CssClass="btn-orange" Style="margin: 0;" Text="Save Changes" />
+                        <asp:Button ID="Button66" runat="server" CssClass="btn-orange" Style="margin: 0;" Text="Save Changes" OnClick="Button66_Click" />
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </asp:Content>

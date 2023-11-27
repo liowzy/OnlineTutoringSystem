@@ -1,5 +1,4 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Header.Master" AutoEventWireup="true" CodeBehind="HomePage.aspx.cs" Inherits="OnlineTutoringSystem.WebForm3" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Header.Master" AutoEventWireup="true" CodeBehind="HomePage.aspx.cs" Inherits="OnlineTutoringSystem.WebForm3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,8 +12,6 @@
 
     <link rel="stylesheet"  href="../Content/css/studentMaster.css"/>
     <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css">
-
-
     <style>
         body {
             margin: 0;
@@ -41,7 +38,6 @@
 }
     </style>
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid p-2">
         <div class="row bigger-row" style="background-color: #F0F2F5;">
