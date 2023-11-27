@@ -85,7 +85,7 @@
                         </div>
                         <div class="row leftSide">
                             <div class="col-md-9">
-                                <asp:TextBox ID="tbFirstN" runat="server" Placeholder="Username or email address" CssClass="form-control" />
+                                <asp:TextBox ID="tbFirstN" runat="server" Placeholder="Email address" CssClass="form-control" />
                             </div> 
                         </div>
                         <div class="row inputField">
@@ -95,11 +95,11 @@
                         </div>
                         <div class="row leftSide">
                             <div class="col-md-9">
-                                <asp:TextBox ID="tbUserN" runat="server" Placeholder="Password" CssClass="form-control" />
+                                <asp:TextBox ID="tbUserN" runat="server" Placeholder="Password" CssClass="form-control" TextMode="Password" />
                             </div>
                         </div>
                             <div class="col-md-12 d-flex justify-content-end">
-                                <asp:Button ID="btnCreate" runat="server" CssClass="btn-orange" Text="Sign In" />
+                                <asp:Button ID="btnCreate" runat="server" CssClass="btn-orange" Text="Sign In" OnClick="btnCreate_Click" />
                             </div>
                         </div> 
 

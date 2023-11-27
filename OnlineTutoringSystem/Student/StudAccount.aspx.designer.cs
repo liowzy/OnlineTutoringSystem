@@ -24,6 +24,24 @@ namespace OnlineTutoringSystem.Student
         protected global::System.Web.UI.WebControls.Label Label18;
 
         /// <summary>
+        /// imgUserProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgUserProfile;
+
+        /// <summary>
+        /// btnFileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload btnFileUpload;
+
+        /// <summary>
         /// Label5 control.
         /// </summary>
         /// <remarks>
@@ -87,13 +105,22 @@ namespace OnlineTutoringSystem.Student
         protected global::System.Web.UI.WebControls.TextBox tbEmail;
 
         /// <summary>
-        /// Label11 control.
+        /// Label6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label11;
+        protected global::System.Web.UI.WebControls.Label Label6;
+
+        /// <summary>
+        /// Label12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label12;
 
         /// <summary>
         /// DropDownList1 control.
@@ -103,6 +130,15 @@ namespace OnlineTutoringSystem.Student
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+
+        /// <summary>
+        /// tbDateOfBirth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbDateOfBirth;
 
         /// <summary>
         /// Label1 control.

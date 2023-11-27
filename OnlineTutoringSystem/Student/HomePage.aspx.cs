@@ -14,12 +14,14 @@ namespace OnlineTutoringSystem
 
         }
 
+
         //change color for card
         protected string GetCardColor(int index)
         {
             string[] colors = { "#EBEBFF", "#E1F7E3", "#FFF2E5", "#FFF0F0", "#F5F7FA" };
             return colors[index % colors.Length];
         }
+
 
         protected void btnCreateAccount_Click(object sender, EventArgs e)
         {
@@ -34,6 +36,6 @@ namespace OnlineTutoringSystem
         protected void LinkButton19_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Entry/Registration.aspx");
-        }
+        } 
     }
 }
