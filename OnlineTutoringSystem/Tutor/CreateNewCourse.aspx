@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Tutor/TutorSideBar.Master" AutoEventWireup="true" CodeBehind="CreateCourse.aspx.cs" Inherits="OnlineTutoringSystem.Tutor.WebForm3" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Tutor/TutorSideBar.Master" AutoEventWireup="true" CodeBehind="CreateNewCourse.aspx.cs" Inherits="OnlineTutoringSystem.Tutor.WebForm3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -274,44 +274,169 @@
                     </div>
 
                     <div class="tab-pane fade pt-3" id="review-publish">
-                        <!-- Review and Publish Form -->
+                       <!-- Review and Publish Form -->
                         <h5 class="card-title">Course Resource</h5>
-                        <!-- Add your form fields for review and publish here -->
 
-                        <!-- Resource 01 -->
-                        <div class="resource-box">
-                            <div class="resource-details">
-                                <input type="text" class="form-control" value="Resource Name" readonly>
-                                <select class="form-select">
-                                    <option value="video">Video</option>
-                                    <option value="file">Attach File</option>
-                                </select>
-                            </div>
-                            <div class="resource-actions">
-                                <button type="button" class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#editResourceModal">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                <button type="button" class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#deleteResourceModal">
-                                    <i class="bi bi-trash"></i>
-                                </button>
+                        <!-- List of Resources -->
+                        <div class="resource-list">
+                            <!-- Resource 01 -->
+                            <div class="resource-box">
+                                <!-- First Row -->
+                                <div class="row resource-header mb-3">
+                                    <div class="col-md-6">
+                                        <h5>Resource List</h5>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <!-- Content dropdown -->
+                                        <div class="input-group ms-auto"> <!-- Added ms-auto class here -->
+                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: lightgrey; border-color: lightgrey; font-size:15px; height:50%;">
+                                                Add Resource
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#videoModal">Video</a>
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#fileModal">Attach File</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Second Row (Table) -->
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Resource Type</th>
+                                                <th>Resource Attached</th>
+                                                <th>Edit</th>
+                                                <th>Trash</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Resource Name 1</td>
+                                                <td>Video</td>
+                                                <td>Video File</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#editResourceModal">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#deleteResourceModal">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <!-- Add more rows as needed -->
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="text-center">
-                            <button type="button" class="btn btn-primary prev-tab" style="background-color: #FF6636; border-color: #FF6636;" data-bs-target="#course-settings">Previous</button>
-                            <button type="button" class="btn btn-primary save-btn" style="background-color: #FF6636; border-color: #FF6636;">Save</button>
-                        </div>
-
-                        <!-- Modals for Edit and Delete -->
+                        <!-- Modals  -->
                         <!-- Edit Resource Modal -->
                         <div class="modal fade" id="editResourceModal" tabindex="-1" aria-labelledby="editResourceModalLabel" aria-hidden="true">
-                            <!-- Add your modal content for editing resource name here -->
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editResourceModalLabel">Edit Resource Name</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label for="editResourceName">Name:</label>
+                                        <input type="text" class="form-control" id="editResourceName" placeholder="Write your section name here....">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Delete Resource Modal -->
                         <div class="modal fade" id="deleteResourceModal" tabindex="-1" aria-labelledby="deleteResourceModalLabel" aria-hidden="true">
-                            <!-- Add your modal content for deleting resource here -->
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteResourceModalLabel">Deleting Alert</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Do you sure you want to remove current resources?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                        <button type="button" class="btn btn-danger">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                       <!-- Video Modal -->
+                        <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="videoModalLabel">Lecture Video</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Resource Name Input -->
+                                        <label for="resourceNameInputVideo">Resource Name:</label>
+                                        <input type="text" class="form-control" id="resourceNameInputVideo" placeholder="Enter Resource Name">
+
+                                        <div class="row mt-3">
+                                            <div class="col">
+                                                <label for="uploadVideoFile">Upload Video (File Type):</label>
+                                                <input type="file" class="form-control" id="uploadVideoFile">
+                                                <small class="form-text text-muted">Note: All files should be at least 720p and less than 4.0GB.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- File Modal -->
+                        <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="fileModalLabel">Attach File</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Resource Name Input -->
+                                        <label for="resourceNameInputFile">Resource Name:</label>
+                                        <input type="text" class="form-control" id="resourceNameInputFile" placeholder="Enter Resource Name">
+
+                                        <div class="row mt-3">
+                                            <div class="col">
+                                                <label for="attachFile">Attach File:</label>
+                                                <input type="file" class="form-control" id="attachFile" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
+                                                <small class="form-text text-muted">Note: Add your notes about the attached file.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary" onclick="saveFile()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="text-center">
+                             <button  type="button" class="btn btn-primary prev-tab" style="background-color: #FF6636; border-color: #FF6636;"data-bs-target="#course-info">Previous</button>
+                            <button type="button" class="btn btn-primary save-btn" style="background-color: #FF6636; border-color: #FF6636;"data-bs-target="#course-content">Save</button>
+                         </div>
                 </div>
             </div>
          <script>
@@ -355,6 +480,57 @@
                      // Implement the save functionality here
                      alert('Course saved!');
                  });
+             });
+
+             // Initialize the modals when the document is ready
+             document.addEventListener('DOMContentLoaded', function () {
+                 // Video Modal
+                 var videoModal = new bootstrap.Modal(document.getElementById('videoModal'), {
+                     keyboard: false
+                 });
+
+                 // File Modal
+                 var fileModal = new bootstrap.Modal(document.getElementById('fileModal'), {
+                     keyboard: false
+                 });
+
+                 // Event listener for changing the resource type dropdown
+                 document.getElementById('resourceTypeSelect').addEventListener('change', function () {
+                     if (this.value === 'video') {
+                         // Show the video modal when 'Video' is selected
+                         videoModal.show();
+                     } else if (this.value === 'file') {
+                         // Show the file modal when 'File' is selected
+                         fileModal.show();
+                     }
+                     // Add similar logic for other resource types
+                 });
+
+                 //drag and drop 
+                 function handleDrop(event) {
+                     event.preventDefault();
+
+                     var files = event.dataTransfer.files;
+                     // Process the dropped files
+                     handleFiles(files);
+                 }
+
+                 function handleDragOver(event) {
+                     event.preventDefault();
+                 }
+
+                 function handleFiles(files) {
+                     // Handle the files here (e.g., display file names)
+                     var fileNames = Array.from(files).map(file => file.name);
+                     alert("Dropped files: " + fileNames.join(", "));
+                 }
+
+                 function saveFile() {
+                     // Add your logic to save the file
+                     alert("File saved!");
+                     // Close the modal
+                     fileModal.hide();
+                 }
              });
          </script>
         </div>

@@ -3436,7 +3436,7 @@
     <Content Include="Tutor\assets\img\slides-3.jpg" />
     <Content Include="Tutor\Profile.aspx" />
     <Content Include="Tutor\Schedule.aspx" />
-    <Content Include="Tutor\CreateCourse.aspx" />
+    <Content Include="Tutor\CreateNewCourse.aspx" />
     <Content Include="Web.config" />
     <Content Include="Entry\Registration.aspx" />
     <Content Include="Entry\Login.aspx" />
@@ -3522,9 +3522,12 @@
     <Compile Include="Tutor\Schedule.aspx.designer.cs">
       <DependentUpon>Schedule.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebForm3.aspx.cs">
-      <DependentUpon>WebForm3.aspx</DependentUpon>
+    <Compile Include="Tutor\CreateNewCourse.aspx.cs">
+      <DependentUpon>CreateNewCourse.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\CreateNewCourse.aspx.designer.cs">
+      <DependentUpon>CreateNewCourse.aspx</DependentUpon>
     </Compile>
     <Compile Include="Student\Course.aspx.designer.cs">
       <DependentUpon>Course.aspx</DependentUpon>
