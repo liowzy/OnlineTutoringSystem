@@ -27,38 +27,62 @@ namespace OnlineTutoringSystem
                 // Check if the input is a valid email address
                 bool isEmail = IsValidEmail(emailOrUsername);
 
-                // Query based on email or username
-                string query;
+                // Query based on email or username for Student
+                string studentQuery;
                 if (isEmail)
                 {
-                    query = "SELECT stud_id, stud_name FROM Student WHERE stud_email = @Email AND stud_password = @Password";
+                    studentQuery = "SELECT stud_id, stud_name FROM Student WHERE stud_email = @Email AND stud_password = @Password";
                 }
                 else
                 {
-                    query = "SELECT stud_id, stud_name FROM Student WHERE stud_name = @Username AND stud_password = @Password";
+                    studentQuery = "SELECT stud_id, stud_name FROM Student WHERE stud_name = @Username AND stud_password = @Password";
                 }
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                // Query based on email or username for Tutor
+                string tutorQuery;
+                if (isEmail)
+                {
+                    tutorQuery = "SELECT tutor_id, tutor_name FROM Tutor WHERE tutor_email = @Email AND tutor_password = @Password";
+                }
+                else
+                {
+                    tutorQuery = "SELECT tutor_id, tutor_name FROM Tutor WHERE tutor_name = @Username AND tutor_password = @Password";
+                }
+
+                using (SqlCommand studentCommand = new SqlCommand(studentQuery, connection))
+                using (SqlCommand tutorCommand = new SqlCommand(tutorQuery, connection))
                 {
                     if (isEmail)
                     {
-                        command.Parameters.AddWithValue("@Email", emailOrUsername);
+                        studentCommand.Parameters.AddWithValue("@Email", emailOrUsername);
+                        tutorCommand.Parameters.AddWithValue("@Email", emailOrUsername);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@Username", emailOrUsername);
+                        studentCommand.Parameters.AddWithValue("@Username", emailOrUsername);
+                        tutorCommand.Parameters.AddWithValue("@Username", emailOrUsername);
                     }
 
-                    command.Parameters.AddWithValue("@Password", password);
+                    studentCommand.Parameters.AddWithValue("@Password", password);
+                    tutorCommand.Parameters.AddWithValue("@Password", password);
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader studentReader = studentCommand.ExecuteReader())
+                    using (SqlDataReader tutorReader = tutorCommand.ExecuteReader())
                     {
-                        if (reader.HasRows)
+                        if (studentReader.HasRows)
                         {
-                            reader.Read();
-                            // Store user information in session variables
-                            Session["userID"] = reader["stud_id"]; 
+                            studentReader.Read();
+                            // Store user information in session variables for Student
+                            Session["userID"] = studentReader["stud_id"];
                             Session["userType"] = "student";
+                            return true; // User is valid
+                        }
+                        else if (tutorReader.HasRows)
+                        {
+                            tutorReader.Read();
+                            // Store user information in session variables for Tutor
+                            Session["userID"] = tutorReader["tutor_id"];
+                            Session["userType"] = "tutor";
                             return true; // User is valid
                         }
                         else
@@ -69,6 +93,7 @@ namespace OnlineTutoringSystem
                 }
             }
         }
+
 
 
         // Helper method to check if the input is a valid email address

@@ -7,17 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace OnlineTutoringSystem
 {
-    public partial class Testing : System.Web.UI.MasterPage
+    public partial class WebForm5 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
-
-        protected void LinkButton4_Click(object sender, EventArgs e)
-        {
-
-            Response.Redirect("~/Entry/Registration.aspx");
         }
     }
 }

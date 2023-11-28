@@ -172,8 +172,13 @@
                                 <asp:LinkButton ID="lnkSettings" runat="server" CssClass="dropdown-item" OnClick="lnkSettings_Click">Profile</asp:LinkButton>
                                 <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item" OnClick="lnkLogout_Click">Logout</asp:LinkButton>
                             </div>
-                        </div>
-                        <% }
+                        </div>  
+                        <% }else if (Session["userType"].ToString() == "tutor") { %>
+            <!-- Tutor Dashboard Button -->
+            <asp:Button ID="btnDashboard" runat="server" Text="Dashboard" CssClass="btn btn-outline-secondary mx-2"
+                Style="background-color: #FFEEE8; color: #FF6636; border: none; border-radius: 0; font-weight: bold;" OnClick="btnDashboard_Click" />
+        <% } %>
+    <%  
                             } %>
                     </div>
                 </nav>
