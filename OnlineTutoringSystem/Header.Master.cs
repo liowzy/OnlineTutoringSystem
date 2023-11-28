@@ -58,7 +58,15 @@ namespace OnlineTutoringSystem
                     {
                         if (reader.Read())
                         {
-                            profilePicture = (byte[])reader["stud_picture"];
+                            // Use the correct column name based on the user type
+                            if (userType == "student")
+                            {
+                                profilePicture = (byte[])reader["stud_picture"];
+                            }
+                            else if (userType == "tutor")
+                            {
+                                profilePicture = (byte[])reader["tutor_picture"];
+                            }
                         }
                     }
                 }
@@ -66,6 +74,7 @@ namespace OnlineTutoringSystem
 
             return profilePicture;
         }
+
 
         protected void btnSignIn_Click(object sender, EventArgs e)
         {
@@ -92,6 +101,12 @@ namespace OnlineTutoringSystem
         protected void lnkHeart_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Student/StudWishlist.aspx");
+
+        }
+
+        protected void btnDashboard_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Tutor/Profile.aspx");
 
         }
     }
