@@ -109,5 +109,14 @@ namespace OnlineTutoringSystem
             Response.Redirect("~/Tutor/Profile.aspx");
 
         }
+
+        protected void ButtonSearch_Click(object sender, EventArgs e)
+        {
+
+            string searchTerm = txtSearch.Text.Trim();
+
+            // Redirect to Course.aspx with the search term as a query parameter
+            Response.Redirect($"~/Student/Course.aspx?searchTerm={Server.UrlEncode(searchTerm)}");
+        }
     }
 }

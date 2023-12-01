@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Header.Master" AutoEventWireup="true" CodeBehind="HomePage.aspx.cs" Inherits="OnlineTutoringSystem.WebForm3" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,7 +11,7 @@
     <!-- Lightbox2 CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 
-    <link rel="stylesheet"  href="../Content/css/studentMaster.css"/>
+    <link rel="stylesheet" href="../Content/css/studentMaster.css" />
     <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css">
     <style>
         body {
@@ -33,9 +34,24 @@
         .card {
             width: 200px; /* Set the desired width for the card */
         }
+
         .container {
-    margin: 0;
-}
+            margin: 0;
+        }
+
+        .prodDiv {
+            width: 198.400px;
+            height: 286.762px;
+        }
+
+        .prodDivBody { 
+            height: 56px;
+        }
+
+        .prodPic {
+            width: 198.400px;
+            height: 198.762px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -44,7 +60,7 @@
             <div class="col-md-5 p-5" style="display: flex; flex-direction: column; align-items: flex-start;">
                 <asp:Label ID="lblTitle" runat="server" Text="Learn with Expert Anytime Anywhere" CssClass="h2 mb-3 font-weight-bold"></asp:Label>
                 <asp:Label ID="lblSubtitle" runat="server" Text="Our mission is to help people find the best courses online and learn with experts anytime, anywhere." CssClass="text-muted mb-3"></asp:Label>
-                <asp:Button ID="btnCreateAccount" runat="server" Text="Create Account" CssClass="btn-orange" OnClick="btnCreateAccount_Click"/>
+                <asp:Button ID="btnCreateAccount" runat="server" Text="Create Account" CssClass="btn-orange" OnClick="btnCreateAccount_Click" />
             </div>
             <div class="col-md-7 bg-image" style="background-image: url('../imgs/img1.png');">
             </div>
@@ -62,7 +78,7 @@
         </div>
 
         <!-- Item Display Section using DataList -->
-        <div class="row justify-content-center" style="margin-left:8%;">
+        <div class="row justify-content-center" style="margin-left: 8%;">
             <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource1" RepeatColumns="4">
                 <ItemTemplate>
                     <div class="col p-2 mx-auto">
@@ -101,15 +117,17 @@ ORDER BY cat_sum DESC;
                 </div>
             </div>
 
-            <div class="row justify-content-center" style="margin-left:5%;">
+            <div class="row justify-content-center" style="margin-left: 5%;">
                 <asp:Repeater ID="RepeaterTutors" runat="server" DataSourceID="SqlDataSourceTutors">
                     <ItemTemplate>
                         <div class="col-md-3 mb-4 mx-auto">
-                            <div class="card border justify-content-center">
-                                <%--<img src='<%# Eval("tutor_picture") %>' alt='<%# Eval("tutor_name") %>' class="card-img-top tutor-image" />--%>
-                                <img src='../imgs/T1.png' alt='asd' class="card-img-top tutor-image" />
+                            <div class="card border justify-content-center prodDiv">
+                                <img src='data:image/jpeg;base64,<%# Convert.ToBase64String((byte[])Eval("tutor_picture")) %>'
+                                    class="card-img-top prodPic" />
 
-                                <div class="card-body">
+                                <%--<img src='../imgs/T1.png' alt='asd' class="card-img-top tutor-image" />--%>
+
+                                <div class="card-body prodDivBody">
                                     <h5 class="card-title"><%# Eval("tutor_name") %></h5>
                                     <p class="card-text text-muted"><%# Eval("tutor_expertice") %></p>
                                 </div>
