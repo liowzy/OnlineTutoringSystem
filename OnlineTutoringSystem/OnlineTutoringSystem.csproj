@@ -3556,6 +3556,7 @@
     <Content Include="imgs\T1.png" />
     <Content Include="Student\StudAccount.aspx" />
     <Content Include="Student\StudWishlist.aspx" />
+    <Content Include="Student\CourseOverview.aspx" />
     <Content Include="TempAddData.aspx" />
     <Content Include="Tutor\assets\css\calander.css" />
     <Content Include="Tutor\assets\css\style.css" />
@@ -3591,7 +3592,6 @@
     <Content Include="Student\HomePage.aspx" />
     <Content Include="Entry\Logout.aspx" />
     <Content Include="Student\Course.aspx" />
-    <Content Include="Student\CourseDetail.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -3626,6 +3626,13 @@
     <Compile Include="Entry\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Student\CourseDetailHeader.master.cs">
+      <DependentUpon>CourseDetailHeader.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\CourseDetailHeader.master.designer.cs">
+      <DependentUpon>CourseDetailHeader.master</DependentUpon>
+    </Compile>
     <Compile Include="Student\StudDashboard.master.cs">
       <DependentUpon>StudDashboard.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3645,6 +3652,13 @@
     </Compile>
     <Compile Include="Student\StudWishlist.aspx.designer.cs">
       <DependentUpon>StudWishlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\CourseOverview.aspx.cs">
+      <DependentUpon>CourseOverview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\CourseOverview.aspx.designer.cs">
+      <DependentUpon>CourseOverview.aspx</DependentUpon>
     </Compile>
     <Compile Include="TempAddData.aspx.cs">
       <DependentUpon>TempAddData.aspx</DependentUpon>
@@ -3700,13 +3714,6 @@
     </Compile>
     <Compile Include="Student\Course.aspx.designer.cs">
       <DependentUpon>Course.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Student\CourseDetail.aspx.cs">
-      <DependentUpon>CourseDetail.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Student\CourseDetail.aspx.designer.cs">
-      <DependentUpon>CourseDetail.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -3849,6 +3856,7 @@
     <Content Include="Content\bootstrap-icons\fonts\bootstrap-icons.woff" />
     <Content Include="Content\bootstrap-icons\fonts\bootstrap-icons.woff2" />
     <Content Include="Student\StudDashboard.master" />
+    <Content Include="Student\CourseDetailHeader.master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

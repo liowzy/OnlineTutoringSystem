@@ -24,21 +24,21 @@ namespace OnlineTutoringSystem.Student
         protected global::System.Web.UI.WebControls.Label Label18;
 
         /// <summary>
-        /// RepeaterTutors control.
+        /// DataListCourses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RepeaterTutors;
+        protected global::System.Web.UI.WebControls.DataList DataListCourses;
 
         /// <summary>
-        /// SqlDataSourceTutors control.
+        /// SqlDataSourceCourses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceTutors;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceCourses;
     }
 }

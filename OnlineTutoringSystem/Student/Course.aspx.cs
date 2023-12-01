@@ -48,7 +48,31 @@ namespace OnlineTutoringSystem
             DataListCourses.DataSourceID = "SqlDataSourceCourses";
             DataListCourses.DataBind();
         }
+         
 
+        protected void DataListCourses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string courseId = Session["courseId"] as string;
+            // Display a window alert with the session ID
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('Session ID: {Session["courseId"]}');", true);
+
+            // Use courseId as needed
+            Response.Redirect("CourseOverview.aspx");
+        }
+
+        protected void selectBtn_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Select")
+            {
+                string courseId = e.CommandArgument.ToString();
+
+                // Store the course_id in a session variable
+                Session["courseId"] = courseId; 
+
+                // Redirect or perform any other actions
+                Response.Redirect("CourseOverview.aspx");
+            }
+        }
 
     }
 }

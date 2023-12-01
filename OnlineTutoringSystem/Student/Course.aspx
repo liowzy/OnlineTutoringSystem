@@ -61,7 +61,7 @@
         }
 
             .btn-orange:hover {
-            text-decoration: none;
+                text-decoration: none;
                 background-color: #FF8C00;
                 color: #fff;
             }
@@ -81,13 +81,13 @@
             </div>
 
             <div class="row justify-content-center pt-2" style="margin-left: 1.5%;">
-<asp:DataList ID="DataListCourses" runat="server" DataSourceID="SqlDataSourceCourses" RepeatColumns="4" 
-    RepeatDirection="Horizontal" DataKeyField="course_id">
+                <asp:DataList ID="DataListCourses" runat="server" DataSourceID="SqlDataSourceCourses" RepeatColumns="4"
+                    RepeatDirection="Horizontal" DataKeyField="course_id" OnSelectedIndexChanged="DataListCourses_SelectedIndexChanged">
                     <ItemTemplate>
                         <div class="col mb-4 mx-auto">
-                            <div style="width: 280px;"> 
-                                    <img src='data:image/jpeg;base64,<%# Convert.ToBase64String((byte[])Eval("course_pic")) %>'
-                                        alt='<%# Eval("course_name") %>' class="img-fluid" style="width: 100%; height: 12rem; object-fit: cover;" /> 
+                            <div style="width: 280px;">
+                                <img src='data:image/jpeg;base64,<%# Convert.ToBase64String((byte[])Eval("course_pic")) %>'
+                                    alt='<%# Eval("course_name") %>' class="img-fluid" style="width: 100%; height: 12rem; object-fit: cover;" />
 
                                 <!-- Second Row: Category and Price -->
                                 <div class=" row card-body justify-content-between pb-0">
@@ -106,7 +106,7 @@
 
                                 <!-- Third Row: Name -->
                                 <div class="card-body text-left pb-0">
-                                    <p class="card-title fw-bold" style="font-size: 1.1rem;"><%# Eval("course_name") %></p>
+                                    <asp:Label ID="lblCourseName" runat="server" CssClass="card-title fw-bold" Text='<%# Eval("course_name") %>' Style="font-size: 1.1rem;"></asp:Label>
                                 </div>
 
                                 <!-- 4th Row: Star -->
@@ -118,7 +118,7 @@
 
                                         </div>
                                         <div class="col-6 text-right">
-                                            <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
+                                            <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
 
                                         </div>
                                     </div>
@@ -126,13 +126,13 @@
                                 </div>
                             </div>
                         </div>
-                    </ItemTemplate>  
-</asp:DataList> 
-                 
-     
+                    </ItemTemplate>
+                </asp:DataList>
+
+
 
                 <asp:SqlDataSource ID="SqlDataSourceCourses" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
-    SelectCommand="SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name
+                    SelectCommand="SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name
                    FROM Course c
                    JOIN Category cat ON c.cat_id = cat.cat_id
                    ORDER BY c.course_id ASC"></asp:SqlDataSource>
