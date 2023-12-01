@@ -13,5 +13,30 @@ namespace OnlineTutoringSystem
         {
 
         }
+
+        protected void btnMyCourses_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnSchedule_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Schedule.aspx");
+        }
+
+        protected void btnProfile_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Profile.aspx");
+        }
+
+        protected void btnSignOut_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCreateNewCourse_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CreateNewCourse.aspx");
+        }
     }
 }
