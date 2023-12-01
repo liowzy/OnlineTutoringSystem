@@ -4,10 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <title>Create Courses</title>
 
-        <link href="Content/css/signUpMaster.css" rel="stylesheet" />
-
-        <!-- Bootstrap 4 CSS -->
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="~/Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Bootstrap Icons CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
@@ -18,12 +15,14 @@
         <!-- Bootstrap 5 CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"/>
 
-        <!-- Bootstrap 5 JS (Popper.js is required for dropdowns, tooltips, and popovers) -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <!-- Bootstrap 4 CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <main id="main" class="main">
 
@@ -31,7 +30,7 @@
     <h1>Create New Course</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="Profile.aspx">Home</a></li>
+        <li class="breadcrumb-item"><a href="../Student/HomePage.aspx">Home</a></li>
         <li class="breadcrumb-item active">Create New Courses</li>
       </ol>
     </nav>
@@ -44,32 +43,26 @@
         <div class="card">
             <div class="card-body pt-3">
                 <!-- Bordered Tabs -->
-
                 <ul class="nav nav-tabs nav-tabs-bordered">
-
                     <li class="nav-item flex-fill">
                         <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#course-info">Course
                             Info</button>
                     </li>
-
                     <li class="nav-item flex-fill">
                         <button class="nav-link" data-bs-toggle="tab" data-bs-target="#course-content">Content</button>
                     </li>
-
                     <li class="nav-item flex-fill">
                         <button class="nav-link" data-bs-toggle="tab" data-bs-target="#review-publish">Review &
                             Publish</button>
                     </li>
-
                 </ul>
-                <div class="tab-content pt-2">
 
+                <div class="tab-content pt-2">
                   <div class="tab-pane fade show active course-info" id="course-info">
                     <!-- Course Info Form -->
                     <h5 class="card-title">Course Information</h5>
 
                     <!-- Form Fields -->
-                    <form>
                         <!-- First Row -->
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -184,7 +177,6 @@
 
                         <!-- Next Button -->
                         <button type="button" class="btn btn-primary next-tab" style="background-color: #FF6636; border-color: #FF6636;" data-bs-target="#course-content">Next</button>
-                    </form>
                 </div>
 
                     <div class="tab-pane fade course-content pt-3" id="course-content">
@@ -192,7 +184,6 @@
                     <h5 class="card-title">Advance Information</h5>
 
                     <!-- Form Fields -->
-                    <form>
                         <!-- First Row -->
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -439,22 +430,18 @@
                          </div>
                 </div>
             </div>
+
+                 <!-- jQuery -->
+                 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+                 <!-- Bootstrap 5 JS (Popper.js is required for dropdowns, tooltips, and popovers) -->
+                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
          <script>
              $(document).ready(function () {
                  // Initialize Bootstrap tabs
                  $('.nav-tabs').each(function () {
                      var tabs = new bootstrap.Tab(this.querySelector('.nav-link.active'));
                      tabs.show();
-                 });
-
-                 // Handle tab switch
-                 $('.nav-link').on('click', function (e) {
-                     e.preventDefault();
-                     var targetTab = $(this).attr('data-bs-target');
-                     $('.nav-link').removeClass('active');
-                     $(this).addClass('active');
-                     $('.tab-pane').removeClass('show active');
-                     $(targetTab).addClass('show active');
                  });
 
                  // Handle "Next" button click
