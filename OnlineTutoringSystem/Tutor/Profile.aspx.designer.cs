@@ -33,6 +33,24 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.Label lblUserName;
 
         /// <summary>
+        /// hyperlinkWhatsApp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hyperlinkWhatsApp;
+
+        /// <summary>
+        /// lblDes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDes;
+
+        /// <summary>
         /// lblFullName control.
         /// </summary>
         /// <remarks>
@@ -58,6 +76,15 @@ namespace OnlineTutoringSystem.Tutor
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGender;
+
+        /// <summary>
+        /// lblDob control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDob;
 
         /// <summary>
         /// lblTeachingExperience control.
@@ -87,22 +114,40 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.Label lblLocation;
 
         /// <summary>
-        /// lblTutorExpertise control.
+        /// lblTutorExpertice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTutorExpertise;
+        protected global::System.Web.UI.WebControls.Label lblTutorExpertice;
 
         /// <summary>
-        /// imgProfile control.
+        /// imgUserProfile_2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgProfile;
+        protected global::System.Web.UI.WebControls.Image imgUserProfile_2;
+
+        /// <summary>
+        /// btnFileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload btnFileUpload;
+
+        /// <summary>
+        /// txtName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtName;
 
         /// <summary>
         /// txtUsername control.
@@ -132,6 +177,15 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.DropDownList ddlGender;
 
         /// <summary>
+        /// txtDob control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDob;
+
+        /// <summary>
         /// txtTeachingExperience control.
         /// </summary>
         /// <remarks>
@@ -139,15 +193,6 @@ namespace OnlineTutoringSystem.Tutor
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTeachingExperience;
-
-        /// <summary>
-        /// txtCountry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCountry;
 
         /// <summary>
         /// txtLocation control.
@@ -159,22 +204,22 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.TextBox txtLocation;
 
         /// <summary>
-        /// txtAddress control.
+        /// txtTutorExpertice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddress;
+        protected global::System.Web.UI.WebControls.TextBox txtTutorExpertice;
 
         /// <summary>
-        /// txtTutorExpertise control.
+        /// txtLangPro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTutorExpertise;
+        protected global::System.Web.UI.WebControls.TextBox txtLangPro;
 
         /// <summary>
         /// txtBiography control.
@@ -186,12 +231,57 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.TextBox txtBiography;
 
         /// <summary>
-        /// btnSaveChanges control.
+        /// txtWhatsApp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveChanges;
+        protected global::System.Web.UI.WebControls.TextBox txtWhatsApp;
+
+        /// <summary>
+        /// btnUpdateTutorProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateTutorProfile;
+
+        /// <summary>
+        /// lblCurrentPass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox lblCurrentPass;
+
+        /// <summary>
+        /// lblNewPass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox lblNewPass;
+
+        /// <summary>
+        /// lblReNewPass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox lblReNewPass;
+
+        /// <summary>
+        /// btnChangePassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnChangePassword;
     }
 }
