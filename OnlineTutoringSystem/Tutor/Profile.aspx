@@ -337,7 +337,6 @@
 
                           // Handle tab switch
                           $('.nav-link').on('click', function (e) {
-                              e.preventDefault(); // Prevent the default link behavior
                               $(this).tab('show'); // Show the clicked tab
                           });
                       });

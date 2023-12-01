@@ -132,9 +132,12 @@
                     <!-- Search Bar on the left -->
                     <div class="col-4">
                         <div class="input-group">
-                            <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2"></asp:TextBox>
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button">Search</button>
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" 
+                                placeholder="Search" aria-label="Search" aria-describedby="basic-addon2"></asp:TextBox>
+                            <div class="input-group-append"> 
+                        <asp:Button ID="ButtonSearch" runat="server" Text="Search" class="btn btn-outline-secondary" 
+                            OnClick="ButtonSearch_Click" />
+
                             </div>
                         </div>
                     </div>
