@@ -119,10 +119,25 @@ namespace OnlineTutoringSystem
 
             // Check if the credentials are valid
             if (ValidateUser(usernameOrEmail, password))
-            {  
+            {
+                string userType = Session["userType"].ToString();
 
-                // Redirect the user to the homepage or another page
-                Response.Redirect("../Student/HomePage.aspx");
+                // Redirect based on the user type
+                if (userType=="student")
+                {
+                    // Redirect the student to the homepage
+                    Response.Redirect("../Student/HomePage.aspx");
+                }
+                else if (userType == "tutor")
+                {
+                    // Redirect the tutor to the dashboard
+                    Response.Redirect("../Tutor/Profile.aspx");
+                }
+                else
+                {
+                    // Handle unexpected user type
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Invalid user type.');", true);
+                } 
             }
             else
             {

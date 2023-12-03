@@ -93,7 +93,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <asp:TextBox ID="tbEmail" runat="server" Placeholder="Email address" CssClass="form-control" ReadOnly="True" />
+                            <asp:TextBox ID="tbEmail" runat="server" Placeholder="Email address" CssClass="form-control" />
                         </div>
                     </div> 
                     <div class="row inputField">

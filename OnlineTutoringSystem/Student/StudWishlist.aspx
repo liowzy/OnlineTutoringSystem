@@ -15,6 +15,26 @@
     <link rel="stylesheet" href="../Content/css/studentMaster.css" />
     <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css">
 
+    <style>
+        
+        .btn-orange {
+            text-decoration: none;
+            background-color: #FF6636; /* Orange background color */
+            color: #fff;
+            font-size: 1.1vw;
+            border: none;
+            margin-top: 9%;
+            margin-right: 20%;
+            padding: 1% 5% 1% 5%;
+        }
+
+            .btn-orange:hover {
+                text-decoration: none;
+                background-color: #FF8C00;
+                color: #fff;
+            }
+    </style>
+
     <div class="container-fluid p-4 text-center d-flex justify-content-center">
         <div class="col-md-8 bg-white p-4">
             <!-- Wishlist Section -->

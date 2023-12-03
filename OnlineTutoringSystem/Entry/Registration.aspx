@@ -117,7 +117,7 @@
                                 <asp:TextBox ID="tbDob" runat="server" CssClass="form-control" TextMode="Date" />
                             </div>
                             <div class="col-md-6">
-                                <asp:TextBox ID="tbPhone" runat="server" Placeholder="Phone Number" CssClass="form-control" />
+                                <asp:TextBox ID="tbPhone" runat="server" Placeholder="0123456789" CssClass="form-control" />
                             </div>
                         </div>
                         <div class="row inputField">

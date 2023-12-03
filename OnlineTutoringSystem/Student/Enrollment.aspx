@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Header.Master" AutoEventWireup="true" CodeBehind="Course.aspx.cs" Inherits="OnlineTutoringSystem.WebForm5" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Header.Master" AutoEventWireup="true" CodeBehind="Enrollment.aspx.cs" Inherits="OnlineTutoringSystem.WebForm7" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <!-- Bootstrap 5 CSS -->
+   <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap Icons CSS -->
@@ -75,7 +75,7 @@
         <div class="row">
             <div class="row top-category p-3">
                 <div class="col">
-                    <asp:Label ID="Label18" runat="server" Text="Courses" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
+                    <asp:Label ID="Label18" runat="server" Text="Classroom" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
                 </div>
             </div>
 
@@ -132,13 +132,15 @@
 
                 <asp:SqlDataSource ID="SqlDataSourceCourses" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
                     SelectCommand="SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name
-                   FROM Course c
-                   JOIN Category cat ON c.cat_id = cat.cat_id
-                   ORDER BY c.course_id ASC"></asp:SqlDataSource>
+FROM Course c
+JOIN Category cat ON c.cat_id = cat.cat_id
+JOIN PurchasedCourse pc ON c.course_id = pc.course_id
+WHERE pc.stud_id = @StudentID
+ORDER BY c.course_id ASC
+
+"></asp:SqlDataSource>
 
             </div>
         </div>
     </div> 
-    
-            <div class="chatbotBtn"><a href="chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
 </asp:Content>

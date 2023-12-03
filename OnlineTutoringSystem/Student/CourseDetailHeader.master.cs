@@ -18,7 +18,7 @@ namespace OnlineTutoringSystem.Student
 
             if (Session["courseId"] != null)
             {
-                string courseId = Session["courseId"].ToString();
+                string courseId = Session["courseId"].ToString(); 
                 FetchCourseDetails(courseId);
                 FetchWishlistData();
             }
@@ -38,7 +38,7 @@ namespace OnlineTutoringSystem.Student
                 connection.Open();
 
                 // Fetch course details
-                string courseQuery = "SELECT c.*, t.tutor_name, t.tutor_picture FROM Course c JOIN Tutor t ON c.tutor_id = t.tutor_id WHERE c.course_id = @CourseId";
+                string courseQuery = "SELECT c.*, t.tutor_name, t.tutor_picture, t.chat_link FROM Course c JOIN Tutor t ON c.tutor_id = t.tutor_id WHERE c.course_id = @CourseId";
                 using (SqlCommand command = new SqlCommand(courseQuery, connection))
                 {
                     command.Parameters.AddWithValue("@CourseId", courseId);
@@ -56,14 +56,13 @@ namespace OnlineTutoringSystem.Student
                             CourseFeeValueRight.Text = reader["course_fee"].ToString(); // Assuming you have a Label for course fee
                             decimal courseFee = Convert.ToDecimal(reader["course_fee"]);
                             CourseFeeValueRight.Text = $"RM {courseFee:N2}"; // This will display the course fee with 2 decimal places and the RM currency symbol
-
-
+                             
 
                             // Populate tutor details
                             TutorNameLabel.Text = reader["tutor_name"].ToString();
                             byte[] tutorPictureBytes = (byte[])reader["tutor_picture"];
                             string tutorPictureUrl = $"data:image/jpeg;base64,{Convert.ToBase64String(tutorPictureBytes)}";
-                            TutorImage.ImageUrl = tutorPictureUrl;
+                            TutorImage.ImageUrl = tutorPictureUrl; 
 
                             // Populate course picture
                             byte[] coursePictureBytes = (byte[])reader["course_pic"];
@@ -159,9 +158,20 @@ namespace OnlineTutoringSystem.Student
 
                 // Get the course ID from wherever it is stored (e.g., a session variable)
                 if (Session["courseId"] != null)
-                { 
+                {
+                    int courseId = Convert.ToInt32(Session["courseId"]);
 
-                    Response.Redirect("CoursePurchase.aspx");
+                    // Check if the course is already purchased
+                    if (IsCoursePurchased(studId, courseId))
+                    {
+                        // The course is already purchased, show an alert or take appropriate action
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Course already purchased.');", true);
+                    }
+                    else
+                    {
+                        // The course is not purchased, redirect to the payment page
+                        Response.Redirect("MakePayment.aspx");
+                    }
                 }
                 else
                 {
@@ -175,6 +185,29 @@ namespace OnlineTutoringSystem.Student
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Please login before purchase a course.');", true);
             }
 
+        }
+
+        private bool IsCoursePurchased(int userId, int courseId)
+        {
+            // Implement the logic to check if the course is purchased
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Check if the course is in the PurchasedCourse table for the given user
+                string checkQuery = "SELECT COUNT(*) FROM PurchasedCourse WHERE course_id = @CourseId AND stud_id = @UserId";
+                using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection))
+                {
+                    checkCommand.Parameters.AddWithValue("@CourseId", courseId);
+                    checkCommand.Parameters.AddWithValue("@UserId", userId);
+
+                    int existingCount = (int)checkCommand.ExecuteScalar();
+
+                    return existingCount > 0;
+                }
+            }
         }
         protected void btnAddToWishlist_Click(object sender, EventArgs e)
         {
@@ -248,7 +281,32 @@ namespace OnlineTutoringSystem.Student
             }
         }
 
+        protected void btnWhatsApp_Click(object sender, ImageClickEventArgs e)
+        {
+            string courseId = Session["courseId"].ToString();
 
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Fetch chat_link based on course_id
+                string chatLinkQuery = "SELECT t.chat_link FROM Course c JOIN Tutor t ON c.tutor_id = t.tutor_id WHERE c.course_id = @CourseId";
+                using (SqlCommand command = new SqlCommand(chatLinkQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@CourseId", courseId);
+
+                    string chatLink = command.ExecuteScalar()?.ToString();
+
+                    // Open a new window to navigate to the chat link
+                    if (!string.IsNullOrEmpty(chatLink))
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "openWindow", $"window.open('{chatLink}', '_blank');", true);
+                    }
+                }
+            }
+        }
     }
 
 }

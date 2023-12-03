@@ -131,5 +131,11 @@ namespace OnlineTutoringSystem
                 imgUserProfile.ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(profilePicture);
             }
         }
+
+        protected void lnkEnroll_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Student/Enrollment.aspx");
+
+        }
     }
 }

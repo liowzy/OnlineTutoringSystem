@@ -231,6 +231,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddResourceFile.aspx" />
     <Content Include="App_Data\dB.mdf" />
     <Content Include="App_Data\dB_log.ldf">
       <DependentUpon>dB.mdf</DependentUpon>
@@ -1907,6 +1908,7 @@
     <Content Include="Content\fontawesome-free-5.15.4-web\webfonts\fa-regular-400.svg" />
     <Content Include="Content\fontawesome-free-5.15.4-web\webfonts\fa-solid-900.svg" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Style.css" />
     <Content Include="fontawesome\attribution.js" />
     <Content Include="fontawesome\css\all.css" />
     <Content Include="fontawesome\css\all.min.css" />
@@ -3556,11 +3558,18 @@
     <Content Include="fontawesome\webfonts\fa-solid-900.svg" />
     <Content Include="imgs\bg1.png" />
     <Content Include="imgs\bg2.png" />
+    <Content Include="imgs\EmptyStar.png" />
+    <Content Include="imgs\FilledStar.jpg" />
     <Content Include="imgs\img1.png" />
     <Content Include="imgs\logo.png" />
     <Content Include="Content\bootstrap-icons\bootstrap-icons.css" />
     <Content Include="Content\bootstrap-icons\bootstrap-icons.min.css" />
     <Content Include="imgs\T1.png" />
+    <Content Include="imgs\wa.png" />
+    <Content Include="imgs\WaitingStar.png" />
+    <Content Include="Student\javascript\answer.js" />
+    <Content Include="Student\javascript\chatbotScript.js" />
+    <Content Include="Student\javascript\normal_script.js" />
     <Content Include="Student\StudAccount.aspx" />
     <Content Include="Student\StudWishlist.aspx" />
     <Content Include="Student\CourseOverview.aspx" />
@@ -3599,11 +3608,26 @@
     <Content Include="Student\HomePage.aspx" />
     <Content Include="Entry\Logout.aspx" />
     <Content Include="Student\Course.aspx" />
+    <Content Include="Student\MakePayment.aspx" />
+    <Content Include="Student\Enrollment.aspx" />
+    <Content Include="Student\EnrollmentDetail.aspx" />
+    <Content Include="Student\Chatbot.aspx" />
+    <Content Include="Student\Rating.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddResourceFile.aspx.cs">
+      <DependentUpon>AddResourceFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddResourceFile.aspx.designer.cs">
+      <DependentUpon>AddResourceFile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="FileHandler.ashx.cs">
+      <DependentUpon>FileHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Header.Master.cs">
       <DependentUpon>Header.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3721,6 +3745,41 @@
     </Compile>
     <Compile Include="Student\Course.aspx.designer.cs">
       <DependentUpon>Course.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\MakePayment.aspx.cs">
+      <DependentUpon>MakePayment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\MakePayment.aspx.designer.cs">
+      <DependentUpon>MakePayment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Enrollment.aspx.cs">
+      <DependentUpon>Enrollment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Enrollment.aspx.designer.cs">
+      <DependentUpon>Enrollment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\EnrollmentDetail.aspx.cs">
+      <DependentUpon>EnrollmentDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\EnrollmentDetail.aspx.designer.cs">
+      <DependentUpon>EnrollmentDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Chatbot.aspx.cs">
+      <DependentUpon>Chatbot.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Chatbot.aspx.designer.cs">
+      <DependentUpon>Chatbot.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Rating.aspx.cs">
+      <DependentUpon>Rating.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Rating.aspx.designer.cs">
+      <DependentUpon>Rating.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -3855,6 +3914,7 @@
     <Content Include="Content\fontawesome-free-5.15.4-web\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\fontawesome-free-5.15.4-web\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fontawesome-free-5.15.4-web\webfonts\fa-solid-900.woff2" />
+    <Content Include="FileHandler.ashx" />
     <None Include="packages.config" />
     <Content Include="SignUp.Master" />
     <Content Include="Tutor\TutorSideBar.Master" />
@@ -3875,6 +3935,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\" />
     <Folder Include="Data\" />
   </ItemGroup>
   <PropertyGroup>
