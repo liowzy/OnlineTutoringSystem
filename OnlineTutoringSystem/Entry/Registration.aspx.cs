@@ -69,8 +69,10 @@ namespace OnlineTutoringSystem
                 }
                 else if (userType == "Tutor")
                 {
-                    string tutorQuery = "INSERT INTO Tutor (tutor_name, tutor_username, tutor_email, tutor_password, tutor_gender, tutor_dob, tutor_picture, tutor_phoneNo) " +
-                                        "VALUES (@Name, @Username, @Email, @Password, @Gender, @Dob, @Picture, @PhoneNo)";
+                    string tutorQuery = "INSERT INTO Tutor (tutor_name, tutor_username, tutor_email, tutor_password, tutor_gender, tutor_dob, tutor_picture, tutor_phoneNo, chat_link) " +
+                                        "VALUES (@Name, @Username, @Email, @Password, @Gender, @Dob, @Picture, @PhoneNo, @ChatLink)";
+
+                    string chatLink = $"https://wa.me/6{phoneNo}";
 
                     using (SqlCommand command = new SqlCommand(tutorQuery, connection))
                     {
@@ -82,6 +84,7 @@ namespace OnlineTutoringSystem
                         command.Parameters.AddWithValue("@Dob", dob);
                         command.Parameters.AddWithValue("@PhoneNo", phoneNo);
                         command.Parameters.AddWithValue("@Picture", picture);
+                        command.Parameters.AddWithValue("@ChatLink", chatLink);
 
                         command.ExecuteNonQuery();
                     }

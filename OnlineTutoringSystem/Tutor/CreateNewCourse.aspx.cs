@@ -81,8 +81,8 @@ namespace OnlineTutoringSystem.Tutor
                         cmd.Parameters.AddWithValue("@CourseRequirement", txtCourseRequirements.Text);
                         cmd.Parameters.AddWithValue("@CourseLevel", ddlCourseLevel.SelectedValue);
                         cmd.Parameters.AddWithValue("@CourseContent", txtCourseContent.Text);
-                        cmd.Parameters.AddWithValue("@CatID", Convert.ToDouble(txtCatID.Value));
-                        cmd.Parameters.AddWithValue("@TutorID", Convert.ToDouble(txtTutorID.Value));
+                        //cmd.Parameters.AddWithValue("@CatID", Convert.ToDouble(txtCatID.Value));
+                        //cmd.Parameters.AddWithValue("@TutorID", Convert.ToDouble(txtTutorID.Value));
                         cmd.Parameters.AddWithValue("@CourseTargetAudience", txtCourseTargetAudience.Text);
                         cmd.Parameters.AddWithValue("@CourseFee", Convert.ToDouble(txtCoursePrice.Text));
                         cmd.Parameters.AddWithValue("@CourseDuration", txtCourseDuration.Text);
@@ -138,5 +138,4 @@ namespace OnlineTutoringSystem.Tutor
             }
         }
     }
-}
-}
+} 

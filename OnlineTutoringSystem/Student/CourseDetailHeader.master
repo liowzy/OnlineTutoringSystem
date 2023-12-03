@@ -171,6 +171,19 @@
                                 Style="background-color: #FFEEE8; color: #FF6636; border: none; border-radius: 0; font-weight: bold;"></asp:Button>
                         </div>
                     </div>
+
+                    <hr class="col-11 my-2" />
+                    <div class="row align-items-center pb-2 pt-3">
+                        <div class="col-6 d-flex align-items-center">
+                            <i class="bi bi-telephone h5 me-2 mb-0"></i>
+                            <asp:Label ID="WhatsAppTutor" runat="server" Text="Whatsapp Tutor" CssClass="fw-bold"></asp:Label>
+                        </div>
+                        <div class="col-6 text-right"> 
+                    <asp:ImageButton ID="btnWhatsApp" runat="server" ImageUrl="../imgs/wa.png" OnClick="btnWhatsApp_Click" Width="40px" Height="40px"/>
+
+                        </div>
+                    </div>
+
                 </div>
 
 
@@ -180,4 +193,5 @@
     </div>
 
     <%------------------------------course details--%>
+            <div class="chatbotBtn"><a href="chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
 </asp:Content>
