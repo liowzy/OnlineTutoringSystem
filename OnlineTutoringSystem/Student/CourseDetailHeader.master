@@ -1,0 +1,197 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Header.Master" AutoEventWireup="true" CodeBehind="CourseDetailHeader.master.cs" Inherits="OnlineTutoringSystem.Student.CourseDetailHeader" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Lightbox2 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+
+    <link rel="stylesheet" href="../Content/css/studentMaster.css" />
+    <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Lucida Sans'
+        }
+
+        .btn-or {
+            border-top: 2px solid transparent; /* Set transparent border by default */
+        }
+
+            .btn-or:hover {
+                border-bottom-color: orange; /* Set the color on hover */
+            }
+
+
+        .custom-shadow {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Adjust the color and opacity as needed */
+        }
+    </style>
+
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <%-------------------------------course name--%>
+    <div class="container-fluid">
+        <!-- First Row: Title -->
+        <div class="row justify-content-center" style="background-color: #F5F7FA;">
+
+            <div class="col-9 m-2">
+                <div class="row top-category p-3">
+                    <div class="row">
+                        <asp:Label ID="Label18" runat="server"
+                            CssClass="h3 mb-3 font-weight-bold"></asp:Label>
+                    </div>
+                </div>
+
+                <!-- Second Row: Subtitle -->
+                <div class="row p-3 pt-0">
+                    <div class="col">
+                        <asp:Label ID="SubtitleLabel" runat="server" CssClass="text-muted"></asp:Label>
+                    </div>
+                </div>
+
+                <!-- Third Row: Justify Content Between -->
+                <div class="row p-3 justify-content-between">
+                    <!-- Left Side: Tutor Image and Name -->
+
+                    <div class="col-7">
+                        <asp:Image ID="TutorImage" runat="server" CssClass="rounded-circle" AlternateText="Tutor Image" Width="50" Height="50" />
+                        <asp:Label ID="TutorNameLabel" runat="server" CssClass="fw-bold h5"></asp:Label>
+                    </div>
+
+                    <!-- Right Side: 5-Star Icons -->
+                    <div class="col-5">
+                        <asp:Label ID="LabelRating" runat="server" Text="5.0" CssClass="fw-bold"></asp:Label>
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <%------------------------------course image and details--%>
+    <div class="container-fluid">
+        <!-- First Row: Title -->
+        <div class="row justify-content-center pt-3">
+
+            <div class="col-8">
+                <div class="row top-category justify-content-center">
+                    <div class="col-8">
+                        <asp:Image ID="CourseBanner" runat="server" CssClass="img-fluid"
+                            AlternateText="Course Image" Width="100%" Height="320px" />
+
+                    </div>
+                </div>
+
+                <!-- Second Row: Button selection -->
+                <div class="row mt-3 d-flex justify-content-center pb-2">
+                    <div class="col-md-3">
+                        <!-- Left Side: Wishlist -->
+                        <asp:Button ID="btnOverview" Text="Overview" runat="server" OnClick="btnOverview_Click" CssClass="btn btn-or btn-block" />
+                    </div>
+                    <div class="col-md-3">
+                        <!-- Right Side: Settings -->
+                        <asp:Button ID="btnReview" runat="server" Text="Review" OnClick="btnReview_Click" CssClass="btn btn-or btn-block" />
+                    </div>
+                </div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+            <div class="col-4">
+                <div class="col-9 p-3 border shadow">
+                    <div class="row align-items-center pb-2 pt-3">
+                        <div class="col-6 d-flex align-items-center">
+                            <i class="bi bi-currency-dollar h5 me-2 mb-0"></i>
+                            <asp:Label ID="CourseFeeLabelRight" runat="server" Text="Course Fee" CssClass="fw-bold"></asp:Label>
+                        </div>
+                        <div class="col-6 text-right">
+                            <asp:Label ID="CourseFeeValueRight" runat="server"></asp:Label>
+                        </div>
+                    </div>
+                    <hr class="col-11 my-2" />
+
+                    <!-- Right Side: Course Level, Duration, Language -->
+                    <div class="row align-items-center pb-2 pt-3">
+                        <div class="col-6 d-flex align-items-center">
+                            <i class="bi bi-layers h5 me-2 mb-0"></i>
+                            <asp:Label ID="CourseLevelLabel" runat="server" Text="Course Level" CssClass="fw-bold"></asp:Label>
+                        </div>
+                        <div class="col-6 text-right">
+                            <asp:Label ID="CourseLevelValue" runat="server"></asp:Label>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center pb-2 pt-3">
+                        <div class="col-6 d-flex align-items-center">
+                            <i class="bi bi-clock h5 me-2 mb-0"></i>
+                            <asp:Label ID="DurationLabel" runat="server" Text="Duration" CssClass="fw-bold"></asp:Label>
+                        </div>
+                        <div class="col-6 text-right">
+                            <asp:Label ID="DurationValue" runat="server"></asp:Label>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center pb-2 pt-3">
+                        <div class="col-6 d-flex align-items-center">
+                            <i class="bi bi-translate h5 me-2 mb-0"></i>
+                            <asp:Label ID="LanguageLabel" runat="server" Text="Language" CssClass="fw-bold"></asp:Label>
+                        </div>
+                        <div class="col-6 text-right">
+                            <asp:Label ID="LanguageValue" runat="server"></asp:Label>
+                        </div>
+                    </div>
+
+
+
+                    <%-------------------button--%>
+
+                    <hr class="col-11 my-2" />
+                    <div class="row align-items-center pb-2 pt-3 justify-content-center">
+                        <div class="row pt-2">
+                            <asp:Button ID="btnPurchase" runat="server" Text="Purchase" CssClass="btn" OnClick="btnPurchase_Click"
+                                Style="background-color: #FF6636; color: white; border: none; border-radius: 0; font-weight: bold;"></asp:Button>
+                        </div>
+                        <div class="row pt-2">
+                            <asp:Button ID="btnAddToWishlist" runat="server" Text="Add to Wishlist" CssClass="btn" OnClick="btnAddToWishlist_Click"
+                                Style="background-color: #FFEEE8; color: #FF6636; border: none; border-radius: 0; font-weight: bold;"></asp:Button>
+                        </div>
+                    </div>
+
+                    <hr class="col-11 my-2" />
+                    <div class="row align-items-center pb-2 pt-3">
+                        <div class="col-6 d-flex align-items-center">
+                            <i class="bi bi-telephone h5 me-2 mb-0"></i>
+                            <asp:Label ID="WhatsAppTutor" runat="server" Text="Whatsapp Tutor" CssClass="fw-bold"></asp:Label>
+                        </div>
+                        <div class="col-6 text-right"> 
+                    <asp:ImageButton ID="btnWhatsApp" runat="server" ImageUrl="../imgs/wa.png" OnClick="btnWhatsApp_Click" Width="40px" Height="40px"/>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <%------------------------------course details--%>
+            <div class="chatbotBtn"><a href="chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
+</asp:Content>

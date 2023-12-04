@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 
     <link rel="stylesheet" href="../Content/css/studentMaster.css" />
-    <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css">
+    <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css"> 
+
     <style>
         body {
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            font-family: 'Lucida Sans'
+            overflow-x: hidden; 
         }
 
         .bg-image {
@@ -149,4 +149,7 @@ ORDER BY cat_sum DESC;
             </div>
         </div>
     </div>
+
+    
+            <div class="chatbotBtn"><a href="chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
 </asp:Content>

@@ -75,6 +75,22 @@ namespace OnlineTutoringSystem
 
             return new Tuple<string, byte[]>(userName, profilePicture);
         }
+        public void UpdateUserInfo(int userID, string userType)
+        {
+            var userData = GetUserNameAndProfilePicture(userID, userType);
+
+            // If a profile picture is found, set the ImageUrl
+            if (userData.Item2 != null)
+            {
+                imgUserProfile.ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(userData.Item2);
+            }
+
+            // If a user name is found, set the label
+            if (!string.IsNullOrEmpty(userData.Item1))
+            {
+                Label12.Text = userData.Item1;
+            }
+        }
 
 
         protected void btnSettings_Click(object sender, EventArgs e)

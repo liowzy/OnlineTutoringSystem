@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace OnlineTutoringSystem.Student
+namespace OnlineTutoringSystem
 {
-    public partial class WebForm2 : System.Web.UI.Page
+    public partial class WebForm7 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            int studentID = Convert.ToInt32(Session["userId"]);
 
+            // Set the parameter for the SQL query
+            SqlDataSourceCourses.SelectParameters.Add("StudentID", DbType.Int32, studentID.ToString());
         }
+
 
         protected string GetCardColor(int index)
         {
@@ -27,7 +32,7 @@ namespace OnlineTutoringSystem.Student
             ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('Session ID: {Session["courseId"]}');", true);
 
             // Use courseId as needed
-            Response.Redirect("CourseOverview.aspx");
+            Response.Redirect("EnrollmentDetail.aspx");
         }
 
         protected void selectBtn_Command(object sender, CommandEventArgs e)
@@ -40,9 +45,8 @@ namespace OnlineTutoringSystem.Student
                 Session["courseId"] = courseId;
 
                 // Redirect or perform any other actions
-                Response.Redirect("CourseOverview.aspx");
+                Response.Redirect("EnrollmentDetail.aspx");
             }
         }
-
     }
 }

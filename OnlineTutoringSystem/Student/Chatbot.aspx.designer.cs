@@ -11,7 +11,7 @@ namespace OnlineTutoringSystem
 {
 
 
-    public partial class WebForm6
+    public partial class WebForm9
     {
     }
 }

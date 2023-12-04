@@ -15,6 +15,26 @@
     <link rel="stylesheet" href="../Content/css/studentMaster.css" />
     <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css">
 
+    <style>
+        
+        .btn-orange {
+            text-decoration: none;
+            background-color: #FF6636; /* Orange background color */
+            color: #fff;
+            font-size: 1.1vw;
+            border: none;
+            margin-top: 9%;
+            margin-right: 20%;
+            padding: 1% 5% 1% 5%;
+        }
+
+            .btn-orange:hover {
+                text-decoration: none;
+                background-color: #FF8C00;
+                color: #fff;
+            }
+    </style>
+
     <div class="container-fluid p-4 text-center d-flex justify-content-center">
         <div class="col-md-8 bg-white p-4">
             <!-- Wishlist Section -->
@@ -26,24 +46,66 @@
                 </div>
             </div>  
             <div class="row justify-content-center"">
-                <asp:Repeater ID="RepeaterTutors" runat="server" DataSourceID="SqlDataSourceTutors">
+                <asp:DataList ID="DataListCourses" runat="server" DataSourceID="SqlDataSourceCourses" RepeatColumns="4"
+                    RepeatDirection="Horizontal" DataKeyField="course_id" OnSelectedIndexChanged="DataListCourses_SelectedIndexChanged">
                     <ItemTemplate>
-                        <div class="col-md-3 mb-4 mx-auto">
-                            <div class="card border justify-content-center">
-                                <%--<img src='<%# Eval("tutor_picture") %>' alt='<%# Eval("tutor_name") %>' class="card-img-top tutor-image" />--%>
-                                <img src='../imgs/T1.png' alt='asd' class="card-img-top tutor-image" />
+                        <div class="col mb-4 mx-auto">
+                            <div style="width: 280px;">
+                                <img src='data:image/jpeg;base64,<%# Convert.ToBase64String((byte[])Eval("course_pic")) %>'
+                                    alt='<%# Eval("course_name") %>' class="img-fluid" style="width: 100%; height: 12rem; object-fit: cover;" />
 
-                                <div class="card-body">
-                                    <h5 class="card-title"><%# Eval("tutor_name") %></h5>
-                                    <p class="card-text text-muted"><%# Eval("tutor_expertice") %></p>
+                                <!-- Second Row: Category and Price -->
+                                <div class=" row card-body justify-content-between pb-0">
+                                    <div class="col text-left" style="font-size: 0.85rem;">
+                                        <div class="col">
+                                            <asp:Label ID="lblCategory" runat="server" Text='<%# Eval("cat_name") %>' CssClass="mb-2 fw-bold text-uppercase ml-1 p-2" Style='<%# "background-color: " + GetCardColor(Container.ItemIndex) %>' />
+                                        </div>
+
+                                    </div>
+                                    <div class="col orangetxt" style="font-size: 1rem;">
+                                        <asp:Label ID="lblFee" runat="server" Text='<%# "RM " + Eval("course_fee") %>' CssClass="card-text mb-2 fw-bold" />
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Third Row: Name -->
+                                <div class="card-body text-left pb-0">
+                                    <asp:Label ID="lblCourseName" runat="server" CssClass="card-title fw-bold" Text='<%# Eval("course_name") %>' Style="font-size: 1.1rem;"></asp:Label>
+                                </div>
+
+                                <!-- 4th Row: Star -->
+                                <div class="card-footer">
+                                    <div class="row justify-content-between">
+
+                                        <div class="col-6 text-left">
+                                            <asp:LinkButton CssClass="star" ID="star1" runat="server" Enabled="False"><i class="fa fa-star" style="color: orange;">&nbsp;5.0</i></asp:LinkButton>
+
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
+
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </ItemTemplate>
-                </asp:Repeater>
+                </asp:DataList>
 
-                <asp:SqlDataSource ID="SqlDataSourceTutors" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
-                    SelectCommand="SELECT TOP 4 tutor_id, tutor_picture, tutor_name, tutor_expertice FROM Tutor ORDER BY tutor_dob DESC"></asp:SqlDataSource>
+                 <asp:SqlDataSource ID="SqlDataSourceCourses" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+    SelectCommand="SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name
+                   FROM Course c
+                   JOIN Category cat ON c.cat_id = cat.cat_id
+                   JOIN Wishlist w ON c.course_id = w.course_id
+                   WHERE w.stud_id = @StudId
+                   ORDER BY c.course_id ASC">
+    <SelectParameters>
+        <asp:SessionParameter Name="StudId" SessionField="userID" Type="Int32" />
+    </SelectParameters>
+</asp:SqlDataSource>
+
             </div>
         </div>
     </div>

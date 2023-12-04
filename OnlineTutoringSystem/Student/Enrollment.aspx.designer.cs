@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OnlineTutoringSystem.Student
+namespace OnlineTutoringSystem
 {
 
 
-    public partial class WebForm2
+    public partial class WebForm7
     {
 
         /// <summary>

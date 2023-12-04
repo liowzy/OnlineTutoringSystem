@@ -118,5 +118,24 @@ namespace OnlineTutoringSystem
             // Redirect to Course.aspx with the search term as a query parameter
             Response.Redirect($"~/Student/Course.aspx?searchTerm={Server.UrlEncode(searchTerm)}");
         }
+
+        // to change the profile pic after edit in account setting
+        public void UpdateUserInfo(int userID, string userType)
+        {
+            // Assuming you have a method to get the profile picture based on the session user
+            byte[] profilePicture = GetUserProfilePicture(userID, userType);
+
+            // If a profile picture is found, set the ImageUrl
+            if (profilePicture != null)
+            {
+                imgUserProfile.ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(profilePicture);
+            }
+        }
+
+        protected void lnkEnroll_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Student/Enrollment.aspx");
+
+        }
     }
 }

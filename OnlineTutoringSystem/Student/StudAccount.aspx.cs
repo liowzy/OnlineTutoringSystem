@@ -22,22 +22,23 @@ namespace OnlineTutoringSystem.Student
         public string Gender { get; set; }
         public string PhoneNumber { get; set; }
         public byte[] ProfilePicture { get; set; }
-        public DateTime DateOfBirth { get; set; } // Add this line for Date of Birth
+        public DateTime DateOfBirth { get; set; } // Add this line for Date of Birth 
     }
+
+
     public partial class WebForm1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            { 
+              
                     LoadUserData(); 
-            }
+             
 
         }
 
         private void LoadUserData()
         { 
-            UserInfo user = GetUserInformation(Session["userID"].ToString());
+            UserInfo user = GetUserInformation(Session["userID"].ToString()); 
 
             if (user != null)
             {
@@ -103,9 +104,20 @@ namespace OnlineTutoringSystem.Student
 
             if (success)
             {
+                // Update the profile picture after successfully updating user data
+                UserInfo user = GetUserInformation(Session["userID"].ToString());
+                imgUserProfile.ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(user.ProfilePicture);
+
                 // Show success alert
                 string script = "alert('Changes saved successfully.');";
                 ClientScript.RegisterStartupScript(this.GetType(), "SuccessAlert", script, true);
+
+                var dashboardMasterPage = this.Master as StudDashboard;
+                var headerMasterPage = this.Master.Master as Header;
+
+                // Update user information on the master pages
+                UpdateMasterPageUserInfo(dashboardMasterPage);
+                UpdateMasterPageUserInfo(headerMasterPage);
             }
             else
             {
@@ -114,6 +126,16 @@ namespace OnlineTutoringSystem.Student
                 ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", script, true);
             }
         }
+
+        private void UpdateMasterPageUserInfo(dynamic masterPage)
+        {
+            if (masterPage != null)
+            {
+                // Call the method to update user information
+                masterPage.UpdateUserInfo(Convert.ToInt32(Session["userID"]), Session["userType"].ToString());
+            }
+        }
+
         private bool UpdateUserData()
         { 
                 // Get the user ID from the session
@@ -126,7 +148,7 @@ namespace OnlineTutoringSystem.Student
                 string email = tbEmail.Text;
                 string gender = DropDownList1.SelectedValue;
                 string phoneNumber = TextBox19.Text;
-            string dob = tbDateOfBirth.Text;
+                string dob = tbDateOfBirth.Text;
 
                 string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
@@ -135,8 +157,8 @@ namespace OnlineTutoringSystem.Student
                     connection.Open();
 
                     using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
+                { 
+                    command.Connection = connection;
 
                         if (btnFileUpload.HasFile)
                         {
@@ -149,7 +171,9 @@ namespace OnlineTutoringSystem.Student
                             // Update the query with the profile picture
                             command.CommandText = "UPDATE Student SET stud_name = @fullName, stud_username = @username, stud_email = @email, stud_gender = @gender, stud_dob = @dob, stud_phoneNo = @phoneNumber, stud_picture = @profilePicture WHERE stud_id = @userId";
                             command.Parameters.AddWithValue("@profilePicture", profilePicture);
-                        }
+                            UserInfo user = GetUserInformation(userId.ToString()); 
+                            user.ProfilePicture = profilePicture;
+                    }
                         else
                         {
                             // If no file is uploaded, update without changing the profile picture
@@ -161,8 +185,8 @@ namespace OnlineTutoringSystem.Student
                         command.Parameters.AddWithValue("@username", username);
                         command.Parameters.AddWithValue("@email", email);
                         command.Parameters.AddWithValue("@gender", gender);
-                    command.Parameters.AddWithValue("@dob", dob);
-                    command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                        command.Parameters.AddWithValue("@dob", dob);
+                        command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
                         command.Parameters.AddWithValue("@userId", userId);
 
                         int rowsAffected = command.ExecuteNonQuery();
@@ -176,6 +200,7 @@ namespace OnlineTutoringSystem.Student
         {
             int userId = Convert.ToInt32(Session["userID"]);
 
+            UserInfo user = new UserInfo();
             // Get the current, new, and confirmed passwords from the textboxes
             string currentPassword = TextBox32.Text;
             string newPassword = TextBox14.Text;
@@ -201,7 +226,8 @@ namespace OnlineTutoringSystem.Student
 
             if (success)
             {
-                // Display a success message
+                // Update the profile picture after successfully updating user data
+                imgUserProfile.ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(user.ProfilePicture);
                 ClientScript.RegisterStartupScript(this.GetType(), "SuccessAlert", "alert('Password changed successfully.');", true);
             }
             else

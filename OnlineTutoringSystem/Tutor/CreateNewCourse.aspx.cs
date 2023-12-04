@@ -168,24 +168,23 @@ namespace OnlineTutoringSystem.Tutor
                         string query = "INSERT INTO Course (course_name, course_category, course_desc, course_level, course_fee, course_duration, course_language, course_topic, course_pic, course_video, course_content, course_targetAudience, course_requirement, cat_id, tutor_id) " +
                                        "VALUES (@CourseName, @CourseCategory, @CourseDesc, @CourseLevel, @CourseFee, @CourseDuration, @CourseLanguage, @CourseTopic, @CoursePic, @CourseVideo, @CourseContent, @CourseTargetAudience, @CourseRequirement, @CatID, @TutorID); SELECT SCOPE_IDENTITY();";
 
-                        using (SqlCommand cmd = new SqlCommand(query, connection))
-                        {
-                            // Set parameters
-                            cmd.Parameters.AddWithValue("@CourseName", txtCourseName.Text);
-                            cmd.Parameters.AddWithValue("@CourseCategory", ddlCourseCategory.SelectedItem.ToString());
-                            cmd.Parameters.AddWithValue("@CourseDesc", txtCourseDescription.Text);
-                            cmd.Parameters.AddWithValue("@CourseRequirement", txtCourseRequirements.Text);
-                            cmd.Parameters.AddWithValue("@CourseLevel", ddlCourseLevel.SelectedValue);
-                            cmd.Parameters.AddWithValue("@CourseContent", txtCourseContent.Text);
-                            cmd.Parameters.AddWithValue("@CourseTargetAudience", txtCourseTargetAudience.Text);
-                            cmd.Parameters.AddWithValue("@CourseFee", Convert.ToDouble(txtCoursePrice.Text));
-                            cmd.Parameters.AddWithValue("@CourseDuration", txtCourseDuration.Text);
-                            cmd.Parameters.AddWithValue("@CourseLanguage", ddlCourseLanguage.SelectedValue);
-                            cmd.Parameters.AddWithValue("@CourseTopic", txtCourseTopic.Text);
-
-                            // Set the tutor_id parameter
-                            cmd.Parameters.AddWithValue("@TutorID", tutorId);
-                            cmd.Parameters.AddWithValue("@CatID", ddlCourseCategory.SelectedValue);
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        // Set parameters
+                        cmd.Parameters.AddWithValue("@CourseName", txtCourseName.Text);
+                        cmd.Parameters.AddWithValue("@CourseCategory", ddlCourseCategory.SelectedValue);
+                        cmd.Parameters.AddWithValue("@CourseDesc", txtCourseDescription.Text);
+                        cmd.Parameters.AddWithValue("@CourseRequirement", txtCourseRequirements.Text);
+                        cmd.Parameters.AddWithValue("@CourseLevel", ddlCourseLevel.SelectedValue);
+                        cmd.Parameters.AddWithValue("@CourseContent", txtCourseContent.Text);
+                        cmd.Parameters.AddWithValue("@CatID", Convert.ToDouble(txtCatID.Value));
+                        cmd.Parameters.AddWithValue("@TutorID", Convert.ToDouble(txtTutorID.Value));
+                        cmd.Parameters.AddWithValue("@CourseTargetAudience", txtCourseTargetAudience.Text);
+                        cmd.Parameters.AddWithValue("@CourseFee", Convert.ToDouble(txtCoursePrice.Text));
+                        cmd.Parameters.AddWithValue("@CourseDuration", txtCourseDuration.Text);
+                        cmd.Parameters.AddWithValue("@CourseLanguage", ddlCourseLanguage.SelectedValue);
+                        cmd.Parameters.AddWithValue("@CourseTopic", txtCourseTopic.Text);
+                        // Add other parameters accordingly
 
                             // Handle file uploads (if needed)
                             if (fileUploadThumbnail.HasFile)
