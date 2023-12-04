@@ -170,24 +170,25 @@ namespace OnlineTutoringSystem.Tutor
 
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
-                        // Set parameters
-                        cmd.Parameters.AddWithValue("@CourseName", txtCourseName.Text);
-                        cmd.Parameters.AddWithValue("@CourseCategory", ddlCourseCategory.SelectedValue);
-                        cmd.Parameters.AddWithValue("@CourseDesc", txtCourseDescription.Text);
-                        cmd.Parameters.AddWithValue("@CourseRequirement", txtCourseRequirements.Text);
-                        cmd.Parameters.AddWithValue("@CourseLevel", ddlCourseLevel.SelectedValue);
-                        cmd.Parameters.AddWithValue("@CourseContent", txtCourseContent.Text);
-                        cmd.Parameters.AddWithValue("@CatID", Convert.ToDouble(txtCatID.Value));
-                        cmd.Parameters.AddWithValue("@TutorID", Convert.ToDouble(txtTutorID.Value));
-                        cmd.Parameters.AddWithValue("@CourseTargetAudience", txtCourseTargetAudience.Text);
-                        cmd.Parameters.AddWithValue("@CourseFee", Convert.ToDouble(txtCoursePrice.Text));
-                        cmd.Parameters.AddWithValue("@CourseDuration", txtCourseDuration.Text);
-                        cmd.Parameters.AddWithValue("@CourseLanguage", ddlCourseLanguage.SelectedValue);
-                        cmd.Parameters.AddWithValue("@CourseTopic", txtCourseTopic.Text);
-                        // Add other parameters accordingly
-
+                            // Set parameters
+                            cmd.Parameters.AddWithValue("@CourseName", txtCourseName.Text);
+                            cmd.Parameters.AddWithValue("@CourseCategory", ddlCourseCategory.SelectedItem.ToString());
+                            cmd.Parameters.AddWithValue("@CourseDesc", txtCourseDescription.Text);
+                            cmd.Parameters.AddWithValue("@CourseRequirement", txtCourseRequirements.Text);
+                            cmd.Parameters.AddWithValue("@CourseLevel", ddlCourseLevel.SelectedValue);
+                            cmd.Parameters.AddWithValue("@CourseContent", txtCourseContent.Text);
+                            cmd.Parameters.AddWithValue("@CourseTargetAudience", txtCourseTargetAudience.Text);
+                            cmd.Parameters.AddWithValue("@CourseFee", Convert.ToDouble(txtCoursePrice.Text));
+                            cmd.Parameters.AddWithValue("@CourseDuration", txtCourseDuration.Text);
+                            cmd.Parameters.AddWithValue("@CourseLanguage", ddlCourseLanguage.SelectedValue);
+                            cmd.Parameters.AddWithValue("@CourseTopic", txtCourseTopic.Text);
+                            // Set the tutor_id parameter
+                            cmd.Parameters.AddWithValue("@TutorID", tutorId);
+                            cmd.Parameters.AddWithValue("@CatID", ddlCourseCategory.SelectedValue);
                             // Handle file uploads (if needed)
-                            if (fileUploadThumbnail.HasFile)
+
+                        // Handle file uploads (if needed)
+                        if (fileUploadThumbnail.HasFile)
                             {
                                 cmd.Parameters.AddWithValue("@CoursePic", fileUploadThumbnail.FileBytes);
                             }
