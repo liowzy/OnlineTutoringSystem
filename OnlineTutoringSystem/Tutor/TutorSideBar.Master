@@ -6,13 +6,9 @@
 <head runat="server">
     <title>TutorMaster</title>
 
-    <link href="Content/css/signUpMaster.css" rel="stylesheet" />
-     <link href="~/Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-     <link href="~/Content/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
+    <link href="../Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Bootstrap Icons CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
      <!-- Include Lightbox2 CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
       <!-- jQuery -->
@@ -150,6 +146,23 @@
 
                    // Profile Tabs Initialization
                    var profileTabs = document.querySelector('.nav-tabs-profile');
+                   if (profileTabs) {
+                       var activeTab = profileTabs.querySelector('.nav-link.active');
+                       var tabs = new bootstrap.Tab(activeTab);
+                       tabs.show();
+
+                       // Handle tab switch
+                       profileTabs.addEventListener('click', function (e) {
+                           var targetTab = e.target.closest('.nav-link');
+                           if (targetTab) {
+                               e.preventDefault();
+                               $(targetTab).tab('show');
+                           }
+                       });
+                   }
+
+                   // Profile Tabs Initialization
+                   var profileTabs = document.querySelector('.nav-tabs-course');
                    if (profileTabs) {
                        var activeTab = profileTabs.querySelector('.nav-link.active');
                        var tabs = new bootstrap.Tab(activeTab);

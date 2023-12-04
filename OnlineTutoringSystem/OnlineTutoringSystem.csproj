@@ -3592,6 +3592,7 @@
     <Content Include="Tutor\Profile.aspx" />
     <Content Include="Tutor\Schedule.aspx" />
     <Content Include="Tutor\CreateNewCourse.aspx" />
+    <Content Include="Tutor\MyCourses.aspx" />
     <Content Include="Web.config" />
     <Content Include="Entry\Registration.aspx" />
     <Content Include="Entry\Login.aspx" />
@@ -3675,14 +3676,12 @@
     </Compile>
     <Compile Include="Tutor\Schedule.aspx.cs">
       <DependentUpon>Schedule.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Tutor\Schedule.aspx.designer.cs">
       <DependentUpon>Schedule.aspx</DependentUpon>
     </Compile>
     <Compile Include="Tutor\CreateNewCourse.aspx.cs">
       <DependentUpon>CreateNewCourse.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Student\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
@@ -3714,6 +3713,13 @@
     </Compile>
     <Compile Include="Student\CourseDetail.aspx.designer.cs">
       <DependentUpon>CourseDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tutor\MyCourses.aspx.cs">
+      <DependentUpon>MyCourses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\MyCourses.aspx.designer.cs">
+      <DependentUpon>MyCourses.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
