@@ -183,6 +183,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                 <asp:LinkButton ID="lnkSettings" runat="server" CssClass="dropdown-item" OnClick="lnkSettings_Click">Profile</asp:LinkButton>
                                 <asp:LinkButton ID="lnkEnroll" runat="server" CssClass="dropdown-item" OnClick="lnkEnroll_Click">Classroom</asp:LinkButton>
+                                <asp:LinkButton ID="lnkSchedule" runat="server" CssClass="dropdown-item" OnClick="lnkSchedule_Click">Schedule</asp:LinkButton>
                                 <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item" OnClick="lnkLogout_Click">Logout</asp:LinkButton>
                             </div>
                         </div>  

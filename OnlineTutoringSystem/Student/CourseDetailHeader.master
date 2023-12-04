@@ -63,19 +63,20 @@
                 <div class="row p-3 justify-content-between">
                     <!-- Left Side: Tutor Image and Name -->
 
-                    <div class="col-7">
-                        <asp:Image ID="TutorImage" runat="server" CssClass="rounded-circle" AlternateText="Tutor Image" Width="50" Height="50" />
-                        <asp:Label ID="TutorNameLabel" runat="server" CssClass="fw-bold h5"></asp:Label>
+                    <div class="col-7 my-2">
+                        <asp:ImageButton ID="TutorImage" runat="server" CssClass="rounded-circle" AlternateText="Tutor Image" Width="70" Height="70" OnClick="TutorImage_Click" />
+                        <asp:Label ID="TutorNameLabel" runat="server" CssClass="fw-bold h4 mx-2"></asp:Label>
                     </div>
 
                     <!-- Right Side: 5-Star Icons -->
                     <div class="col-5">
-                        <asp:Label ID="LabelRating" runat="server" Text="5.0" CssClass="fw-bold"></asp:Label>
+                        <asp:Label ID="LabelRating" runat="server" CssClass="fw-bold"></asp:Label>
+                        <div id="StarIconsContainer" runat="server"></div>
+                        <%--<i class="fa fa-star text-warning"></i>
                         <i class="fa fa-star text-warning"></i>
                         <i class="fa fa-star text-warning"></i>
                         <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>--%>
                     </div>
                 </div>
             </div>

@@ -137,5 +137,11 @@ namespace OnlineTutoringSystem
             Response.Redirect("~/Student/Enrollment.aspx");
 
         }
+
+        protected void lnkSchedule_Click(object sender, EventArgs e)
+        {
+
+            Response.Redirect("~/Student/Schedule.aspx");
+        }
     }
 }

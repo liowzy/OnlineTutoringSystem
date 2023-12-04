@@ -8,6 +8,8 @@ using System.Configuration;
 using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text;
+using System.Data.Common;
 
 namespace OnlineTutoringSystem.Student
 {
@@ -18,7 +20,8 @@ namespace OnlineTutoringSystem.Student
 
             if (Session["courseId"] != null)
             {
-                string courseId = Session["courseId"].ToString(); 
+                string courseId = Session["courseId"].ToString();
+                int courseId2 = Convert.ToInt32(Session["courseId"]);
                 FetchCourseDetails(courseId);
                 FetchWishlistData();
             }
@@ -31,14 +34,17 @@ namespace OnlineTutoringSystem.Student
 
         private void FetchCourseDetails(string courseId)
         {
+            int courseId2 = Convert.ToInt32(Session["courseId"]);
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-
+             
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
                 // Fetch course details
-                string courseQuery = "SELECT c.*, t.tutor_name, t.tutor_picture, t.chat_link FROM Course c JOIN Tutor t ON c.tutor_id = t.tutor_id WHERE c.course_id = @CourseId";
+                string courseQuery = "" +
+                    "SELECT c.*,t.tutor_name,t.tutor_picture, t.chat_link,r.review_rating FROM Course c JOIN Tutor t " +
+                    "ON c.tutor_id = t.tutor_id LEFT JOIN Review r ON c.course_id = r.course_id WHERE c.course_id = @CourseId";
                 using (SqlCommand command = new SqlCommand(courseQuery, connection))
                 {
                     command.Parameters.AddWithValue("@CourseId", courseId);
@@ -68,11 +74,65 @@ namespace OnlineTutoringSystem.Student
                             byte[] coursePictureBytes = (byte[])reader["course_pic"];
                             string coursePictureUrl = $"data:image/jpeg;base64,{Convert.ToBase64String(coursePictureBytes)}";
                             CourseBanner.ImageUrl = coursePictureUrl;
+
+                            if (reader["review_rating"] != DBNull.Value)
+                            {
+                                double averageRating = CalculateAverageRating(reader, courseId2);
+                                LabelRating.Text = $"Rating: {averageRating:F1} / 5";
+                                string starIcons = GenerateStarIcons((int)Math.Round(averageRating));
+                                StarIconsContainer.InnerHtml = starIcons;
+                            }
+                            else
+                            {
+                                // Handle the case where there is no review rating
+                                LabelRating.Text = "Rating : N/A";
+                                StarIconsContainer.InnerHtml = string.Empty;
+                            }
                         }
                     }
                 }
             }
         }
+
+        private double CalculateAverageRating(SqlDataReader reader, int courseId)
+        {
+            // Convert courseId to int before using it in the query
+            int courseIdInt = Convert.ToInt32(courseId);
+
+            if (reader["review_rating"] != DBNull.Value)
+            {
+                int sumOfRatings = Convert.ToInt32(reader["review_rating"]);
+                int reviewCount = GetReviewCountForTutor(courseId);
+
+                if (reviewCount > 0)
+                {
+                    return (double)sumOfRatings / reviewCount;
+                }
+            }
+
+            return 0.0;
+        }
+
+        private int GetReviewCountForTutor(int courseId)
+        {
+            // Perform a query to get the review count for the specified tutor
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string countQuery = "SELECT COUNT(*) FROM Review WHERE course_id = @CourseId";
+                using (SqlCommand command = new SqlCommand(countQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@CourseId", courseId);
+
+                    int reviewCount = (int)command.ExecuteScalar();
+                    return reviewCount;
+                }
+            }
+        }
+
         protected void FetchWishlistData()
         {
             if (Session["userID"] != null && Session["courseId"] != null)
@@ -307,6 +367,50 @@ namespace OnlineTutoringSystem.Student
                 }
             }
         }
+
+        protected void TutorImage_Click(object sender, ImageClickEventArgs e)
+        {
+            string courseId = Session["courseId"].ToString();
+            int tutorId;
+
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Fetch tutor_id based on course_id
+                string tutorIdQuery = "SELECT tutor_id FROM Course WHERE course_id = @CourseId";
+                using (SqlCommand command = new SqlCommand(tutorIdQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@CourseId", courseId);
+
+                    // ExecuteScalar returns the first column of the first row
+                    var result = command.ExecuteScalar();
+
+                    if (result != null && int.TryParse(result.ToString(), out tutorId))
+                    { 
+                        Session["tutorId"] = tutorId;
+                    }
+                }
+            }
+
+            Response.Redirect("ViewTutor/ViewTutorCourse.aspx");
+
+        }
+
+        private string GenerateStarIcons(int rating)
+        {
+            StringBuilder starIconsBuilder = new StringBuilder();
+
+            for (int i = 0; i < rating; i++)
+            {
+                starIconsBuilder.Append("<i class='fa fa-star text-warning'></i>");
+            }
+
+            return starIconsBuilder.ToString();
+        }
+
     }
 
 }

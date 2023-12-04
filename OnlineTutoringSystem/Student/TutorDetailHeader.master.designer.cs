@@ -7,192 +7,174 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OnlineTutoringSystem
+namespace OnlineTutoringSystem.Student
 {
 
 
-    public partial class Header
+    public partial class TutorDetailHeader
     {
 
         /// <summary>
-        /// head control.
+        /// Label991 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.Label Label991;
 
         /// <summary>
-        /// form1 control.
+        /// SubtitleLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Label SubtitleLabel;
 
         /// <summary>
-        /// btnHome control.
+        /// TutorImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnHome;
+        protected global::System.Web.UI.WebControls.Image TutorImage;
 
         /// <summary>
-        /// btnCourses control.
+        /// TutorNameLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnCourses;
+        protected global::System.Web.UI.WebControls.Label TutorNameLabel;
 
         /// <summary>
-        /// btnAbout control.
+        /// TutorExpertiseLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnAbout;
+        protected global::System.Web.UI.WebControls.Label TutorExpertiseLabel;
 
         /// <summary>
-        /// btnContact control.
+        /// LabelRating control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnContact;
+        protected global::System.Web.UI.WebControls.Label LabelRating;
 
         /// <summary>
-        /// btnBecomeInstructor control.
+        /// StarIconsContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnBecomeInstructor;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl StarIconsContainer;
 
         /// <summary>
-        /// imgLogo control.
+        /// ContactMeLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgLogo;
+        protected global::System.Web.UI.WebControls.Label ContactMeLabel;
 
         /// <summary>
-        /// lblCompanyName control.
+        /// btnWhatsApp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCompanyName;
+        protected global::System.Web.UI.WebControls.ImageButton btnWhatsApp;
 
         /// <summary>
-        /// txtSearch control.
+        /// DescriptionLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearch;
+        protected global::System.Web.UI.WebControls.Label DescriptionLabel;
 
         /// <summary>
-        /// ButtonSearch control.
+        /// DescriptionValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonSearch;
+        protected global::System.Web.UI.WebControls.Label DescriptionValue;
 
         /// <summary>
-        /// btnCreateAccount control.
+        /// LocationLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreateAccount;
+        protected global::System.Web.UI.WebControls.Label LocationLabel;
 
         /// <summary>
-        /// btnSignIn control.
+        /// LocationValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSignIn;
+        protected global::System.Web.UI.WebControls.Label LocationValue;
 
         /// <summary>
-        /// lnkHeart control.
+        /// TeachingExperienceLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkHeart;
+        protected global::System.Web.UI.WebControls.Label TeachingExperienceLabel;
 
         /// <summary>
-        /// imgUserProfile control.
+        /// TeachingExperienceValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgUserProfile;
+        protected global::System.Web.UI.WebControls.Label TeachingExperienceValue;
 
         /// <summary>
-        /// lnkSettings control.
+        /// btnCourse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkSettings;
+        protected global::System.Web.UI.WebControls.Button btnCourse;
 
         /// <summary>
-        /// lnkEnroll control.
+        /// btnReview control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkEnroll;
+        protected global::System.Web.UI.WebControls.Button btnReview;
 
         /// <summary>
-        /// lnkSchedule control.
+        /// btnSchedule control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkSchedule;
-
-        /// <summary>
-        /// lnkLogout control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkLogout;
-
-        /// <summary>
-        /// btnDashboard control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDashboard;
+        protected global::System.Web.UI.WebControls.Button btnSchedule;
 
         /// <summary>
         /// ContentPlaceHolder1 control.
@@ -202,23 +184,5 @@ namespace OnlineTutoringSystem
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
-
-        /// <summary>
-        /// Image11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image11;
-
-        /// <summary>
-        /// Label11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label11;
     }
 }

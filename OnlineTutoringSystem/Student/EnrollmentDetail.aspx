@@ -56,7 +56,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
-                            <asp:Label ID="lblCourseName" runat="server" Text="Course Name"></asp:Label></h4>
+                            <asp:Label ID="lblCourseName" runat="server" ></asp:Label></h4>
                     </div>
                     <div class="card-body">
                         <!-- Course Image, Name, Tutor, Purchased Date -->
@@ -66,9 +66,9 @@
                             </div>
                             <div class="col-md-8">
                                 <p>Tutor:
-                                    <asp:Label ID="lblTutorName" runat="server" Text=""></asp:Label></p>
+                                    <asp:Label ID="lblTutorName" runat="server"  ></asp:Label></p>
                                 <p>Purchased Date:
-                                    <asp:Label ID="lblPurchasedDate" runat="server" Text=""></asp:Label></p>
+                                    <asp:Label ID="lblPurchasedDate" runat="server"  ></asp:Label></p>
                                 <!-- Rate Tutor and Course Button (Aligned to the right) -->
                                 <div class="text-right">
 <asp:Button ID="btnRateTutorAndCourse" runat="server" CssClass="btn btn-primary" Text="Rate Tutor and Course" OnClick="btnRateTutorAndCourse_Click" />
@@ -85,7 +85,7 @@
 
         <div class="row mt-5 p-3">
             <div class="col-md-8 offset-md-2">
-                <asp:DataList CssClass="dataList" ID="ParentDataList" runat="server" OnItemDataBound="ParentDataList_ItemDataBound" CellSpacing="5">
+                <asp:DataList CssClass="dataList" ID="ParentDataList" runat="server" CellSpacing="5">
                     <ItemTemplate>
                         <div class="itemTemplate">
                             <!-- Display resource information here -->

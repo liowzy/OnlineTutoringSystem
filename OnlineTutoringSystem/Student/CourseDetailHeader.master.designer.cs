@@ -39,7 +39,7 @@ namespace OnlineTutoringSystem.Student
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image TutorImage;
+        protected global::System.Web.UI.WebControls.ImageButton TutorImage;
 
         /// <summary>
         /// TutorNameLabel control.
@@ -58,6 +58,15 @@ namespace OnlineTutoringSystem.Student
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelRating;
+
+        /// <summary>
+        /// StarIconsContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl StarIconsContainer;
 
         /// <summary>
         /// CourseBanner control.
