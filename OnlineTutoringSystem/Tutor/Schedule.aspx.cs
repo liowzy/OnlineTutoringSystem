@@ -8,6 +8,19 @@ using System.Web.UI.WebControls;
 
 namespace OnlineTutoringSystem.Tutor
 {
+    // Assuming you have a class representing an Event
+    public class Event
+    {
+        public int ScheduleId { get; set; }
+        public DateTime ScheduleDate { get; set; }
+        public DateTime ScheduleStartTime { get; set; }
+        public DateTime ScheduleEndTime { get; set; }
+        public string ScheduleSubject { get; set; }
+        public string ScheduleDescription { get; set; }
+        public string ScheduleStatus { get; set; }
+        public int TutorId { get; set; }
+    }
+
     public partial class WebForm2 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -16,55 +29,99 @@ namespace OnlineTutoringSystem.Tutor
             {
                 // Load events from the database
                 LoadEvents();
+
+                LoadTutorData();
             }
+        }
+
+        private void LoadTutorData()
+        {
+            // Get the tutor ID directly from the session
+            int tutorId = GetTutorId();
+
+            // If you need to use the tutorId elsewhere, you can store it in a variable or property
+            // Example: int currentTutorId = tutorId;
+
+            // Note: If you don't need to use the tutorId elsewhere, you can directly use it in btnSubmit_Click
+        }
+
+        private int GetTutorId()
+        {
+            if (Session["userId"] != null)
+            {
+                return Convert.ToInt32(Session["userId"]);
+            }
+
+            // Handle the case when the user is not logged in (return a default value or handle it accordingly)
+            return -1; // You can choose an appropriate default value
         }
 
         protected void LoadEvents()
         {
-            // Temporary tutor ID for testing
-            int tutorIdForTesting = 123; // Replace with your actual tutor ID or a default value for testing
-
-            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                string query = "SELECT * FROM Schedule WHERE tutor_id = @tutorId";
-                SqlCommand command = new SqlCommand(query, connection);
+                // Get the tutor_id from the session
+                int tutorId = GetTutorId();
 
-                // Use the hardcoded tutor ID for testing
-                command.Parameters.AddWithValue("@tutorId", tutorIdForTesting);
-
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-
-                List<Event> events = new List<Event>();
-
-                while (reader.Read())
+                // Check if the user is logged in
+                if (tutorId != -1)
                 {
-                    // Assuming Event is a class with properties matching the database columns
-                    Event newEvent = new Event
+                    string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
                     {
-                        ScheduleId = Convert.ToInt32(reader["schedule_id"]),
-                        ScheduleDate = Convert.ToDateTime(reader["schedule_date"]),
-                        ScheduleStartTime = Convert.ToDateTime(reader["schedule_startTime"]),
-                        ScheduleEndTime = Convert.ToDateTime(reader["schedule_endTime"]),
-                        ScheduleSubject = reader["schedule_subject"].ToString(),
-                        ScheduleDescription = reader["schedule_description"].ToString(),
-                        ScheduleStatus = reader["schedule_status"].ToString(),
-                        TutorId = Convert.ToInt32(reader["tutor_id"])
-                    };
+                        string query = "SELECT * FROM Schedule WHERE tutor_id = @tutorId";
+                        SqlCommand command = new SqlCommand(query, connection);
 
-                    events.Add(newEvent);
+                        // Use the hardcoded tutor ID for testing
+                        command.Parameters.AddWithValue("@tutorId", tutorId);
+
+                        connection.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        List<Event> events = new List<Event>();
+
+                        while (reader.Read())
+                        {
+                            // Assuming Event is a class with properties matching the database columns
+                            Event newEvent = new Event
+                            {
+                                ScheduleId = Convert.ToInt32(reader["schedule_id"]),
+                                ScheduleDate = Convert.ToDateTime(reader["schedule_date"]),
+                                ScheduleStartTime = Convert.ToDateTime(reader["schedule_startTime"]),
+                                ScheduleEndTime = Convert.ToDateTime(reader["schedule_endTime"]),
+                                ScheduleSubject = reader["schedule_subject"].ToString(),
+                                ScheduleDescription = reader["schedule_description"].ToString(),
+                                ScheduleStatus = reader["schedule_status"].ToString(),
+                                TutorId = Convert.ToInt32(reader["tutor_id"])
+                            };
+
+                            events.Add(newEvent);
+                        }
+
+                        // Bind events to your UI (you need to have the appropriate controls for display)
+                        // For example, you can use a GridView or a Repeater
+                        // gridView.DataSource = events;
+                        // gridView.DataBind();
+
+                        reader.Close();
+                    }
                 }
-
-                // Bind events to your UI (you need to have the appropriate controls for display)
-                // For example, you can use a GridView or a Repeater
-                // gridView.DataSource = events;
-                // gridView.DataBind();
-
-                reader.Close();
+                else
+                {
+                    // Redirect to the login page or handle the case when the user is not logged in
+                    Response.Redirect("Login.aspx");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (display error message, log, etc.)
+                lblMessage.Visible = true;
+                lblMessage.Text = "Error: " + ex.Message;
+                lblMessage.CssClass = "error-message";
             }
         }
+
 
         [WebMethod]
         public static string AddEvent(string scheduleDate, string startTime, string endTime, string subject, string description, string status, int tutorId)
@@ -151,19 +208,6 @@ namespace OnlineTutoringSystem.Tutor
                 connection.Open();
                 command.ExecuteNonQuery();
             }
-        }
-
-        // Assuming you have a class representing an Event
-        public class Event
-        {
-            public int ScheduleId { get; set; }
-            public DateTime ScheduleDate { get; set; }
-            public DateTime ScheduleStartTime { get; set; }
-            public DateTime ScheduleEndTime { get; set; }
-            public string ScheduleSubject { get; set; }
-            public string ScheduleDescription { get; set; }
-            public string ScheduleStatus { get; set; }
-            public int TutorId { get; set; }
         }
     }
 }

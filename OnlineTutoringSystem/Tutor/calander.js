@@ -37,37 +37,6 @@ const months = [
     "December",
 ];
 
-// const eventsArr = [
-//   {
-//     day: 13,
-//     month: 11,
-//     year: 2022,
-//     events: [
-//       {
-//         title: "Event 1 lorem ipsun dolar sit genfa tersd dsad ",
-//         time: "10:00 AM",
-//       },
-//       {
-//         title: "Event 2",
-//         time: "11:00 AM",
-//       },
-//     ],
-//   },
-// ];
-
-
-// Update the Event class to match your database fields
-class Event {
-    constructor(title, startTime, endTime, description, status) {
-        this.title = title;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.description = description;
-        this.status = status;
-    }
-}
-
-
 const eventsArr = [];
 getEvents();
 console.log(eventsArr);
@@ -301,25 +270,7 @@ addEventTitle.addEventListener("input", (e) => {
     addEventTitle.value = addEventTitle.value.slice(0, 60);
 });
 
-function defineProperty() {
-    var osccred = document.createElement("div");
-    osccred.innerHTML =
-        "A Project By <a href='https://www.youtube.com/channel/UCiUtBDVaSmMGKxg1HYeK-BQ' target=_blank>Open Source Coding</a>";
-    osccred.style.position = "absolute";
-    osccred.style.bottom = "0";
-    osccred.style.right = "0";
-    osccred.style.fontSize = "10px";
-    osccred.style.color = "#ccc";
-    osccred.style.fontFamily = "sans-serif";
-    osccred.style.padding = "5px";
-    osccred.style.background = "#fff";
-    osccred.style.borderTopLeftRadius = "5px";
-    osccred.style.borderBottomRightRadius = "5px";
-    osccred.style.boxShadow = "0 0 5px #ccc";
-    document.body.appendChild(osccred);
-}
-
-defineProperty();
+;
 
 //allow only time in eventtime from and to
 addEventFrom.addEventListener("input", (e) => {
@@ -465,16 +416,16 @@ eventsContainer.addEventListener("click", (e) => {
 
 //function to save events in local storage
 function saveEvents() {
-    localStorage.setItem("events", JSON.stringify(eventsArr));
+   /* localStorage.setItem("events", JSON.stringify(eventsArr));*/
 }
 
 //function to get events from local storage
 function getEvents() {
-    //check if events are already saved in local storage then return event else nothing
-    if (localStorage.getItem("events") === null) {
-        return;
-    }
-    eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+    ////check if events are already saved in local storage then return event else nothing
+    //if (localStorage.getItem("events") === null) {
+    //    return;
+    //}
+    //eventsArr.push(...JSON.parse(localStorage.getItem("events")));
 }
 
 function convertTime(time) {
@@ -487,3 +438,6 @@ function convertTime(time) {
     time = timeHour + ":" + timeMin + " " + timeFormat;
     return time;
 }
+
+
+

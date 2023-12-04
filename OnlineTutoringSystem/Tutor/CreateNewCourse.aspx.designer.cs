@@ -141,12 +141,21 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.TextBox txtCourseRequirements;
 
         /// <summary>
-        /// gvResources control.
+        /// btnAddResource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvResources;
+        protected global::System.Web.UI.WebControls.Button btnAddResource;
+
+        /// <summary>
+        /// editResourceName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox editResourceName;
     }
 }
