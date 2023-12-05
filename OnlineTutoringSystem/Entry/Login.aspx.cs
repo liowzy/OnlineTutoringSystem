@@ -131,7 +131,7 @@ namespace OnlineTutoringSystem
                 else if (userType == "tutor")
                 {
                     // Redirect the tutor to the dashboard
-                    Response.Redirect("../Tutor/Profile.aspx");
+                    Response.Redirect("../Student/HomePage.aspx");
                 }
                 else
                 {

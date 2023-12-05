@@ -31,7 +31,11 @@ namespace OnlineTutoringSystem
 
         protected void btnSignOut_Click(object sender, EventArgs e)
         {
+            // Perform logout actions here if needed
+            // ...
 
+            // Redirect to the logout page
+            Response.Redirect("../Entry/Logout.aspx");
         }
 
         protected void btnCreateNewCourse_Click(object sender, EventArgs e)
