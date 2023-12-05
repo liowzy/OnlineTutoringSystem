@@ -51,15 +51,15 @@ namespace OnlineTutoringSystem.Tutor
 
 
 
-        private List<ResourceData> GetResourceData()
-        {
-            // Implement a method to retrieve resource data from the database
-            // Return a list of objects containing resource information
-            // Example: List<ResourceData> resourceDataList = YourDataAccessLayer.GetResourceData();
-            // ResourceData is a custom class representing the structure of your resource data
-            // You need to replace it with the actual class and structure used in your application.
-            throw new NotImplementedException();
-        }
+        //private List<ResourceData> GetResourceData()
+        //{
+        //    // Implement a method to retrieve resource data from the database
+        //    // Return a list of objects containing resource information
+        //    // Example: List<ResourceData> resourceDataList = YourDataAccessLayer.GetResourceData();
+        //    // ResourceData is a custom class representing the structure of your resource data
+        //    // You need to replace it with the actual class and structure used in your application.
+        //    throw new NotImplementedException();
+        //}
 
         private void LoadTutorData()
         {
@@ -119,35 +119,35 @@ namespace OnlineTutoringSystem.Tutor
             }
         }
 
-        private int InsertResource(SqlConnection connection, int courseId)
-        {
-            string resourceQuery = "INSERT INTO Resource (res_name, course_id) VALUES (@ResourceName, @CourseID); SELECT SCOPE_IDENTITY();";
+        //private int InsertResource(SqlConnection connection, int courseId)
+        //{
+        //    string resourceQuery = "INSERT INTO Resource (res_name, course_id) VALUES (@ResourceName, @CourseID); SELECT SCOPE_IDENTITY();";
 
-            using (SqlCommand resourceCmd = new SqlCommand(resourceQuery, connection))
-            {
-                //// Set parameters for the Resource
-                //resourceCmd.Parameters.AddWithValue("@ResourceName", txtResourceName.Text);
-                //resourceCmd.Parameters.AddWithValue("@CourseID", courseId);
+        //    using (SqlCommand resourceCmd = new SqlCommand(resourceQuery, connection))
+        //    {
+        //        //// Set parameters for the Resource
+        //        //resourceCmd.Parameters.AddWithValue("@ResourceName", txtResourceName.Text);
+        //        //resourceCmd.Parameters.AddWithValue("@CourseID", courseId);
 
-                // Execute the query and get the inserted resource_id
-                return Convert.ToInt32(resourceCmd.ExecuteScalar());
-            }
-        }
+        //        // Execute the query and get the inserted resource_id
+        //        return Convert.ToInt32(resourceCmd.ExecuteScalar());
+        //    }
+        //}
 
-        private void InsertFileAttachment(SqlConnection connection, int resourceId)
-        {
-            string fileQuery = "INSERT INTO File_Attachment (file_name, file_path, res_id) VALUES (@FileName, @FilePath, @ResourceID);";
+        //private void InsertFileAttachment(SqlConnection connection, int resourceId)
+        //{
+        //    string fileQuery = "INSERT INTO File_Attachment (file_name, file_path, res_id) VALUES (@FileName, @FilePath, @ResourceID);";
 
-            using (SqlCommand fileCmd = new SqlCommand(fileQuery, connection))
-            {
-                //// Assuming you have the file information
-                //fileCmd.Parameters.AddWithValue("@FileName", fileUpload.HasFile);
-                //fileCmd.Parameters.AddWithValue("@FilePath", "path/to/uploaded/file");
-                //fileCmd.Parameters.AddWithValue("@ResourceID", resourceId);
+        //    using (SqlCommand fileCmd = new SqlCommand(fileQuery, connection))
+        //    {
+        //        //// Assuming you have the file information
+        //        //fileCmd.Parameters.AddWithValue("@FileName", fileUpload.HasFile);
+        //        //fileCmd.Parameters.AddWithValue("@FilePath", "path/to/uploaded/file");
+        //        //fileCmd.Parameters.AddWithValue("@ResourceID", resourceId);
 
-                fileCmd.ExecuteNonQuery();
-            }
-        }
+        //        fileCmd.ExecuteNonQuery();
+        //    }
+        //}
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -186,9 +186,7 @@ namespace OnlineTutoringSystem.Tutor
                             cmd.Parameters.AddWithValue("@TutorID", tutorId);
                             cmd.Parameters.AddWithValue("@CatID", ddlCourseCategory.SelectedValue);
                             // Handle file uploads (if needed)
-
-                        // Handle file uploads (if needed)
-                        if (fileUploadThumbnail.HasFile)
+                            if (fileUploadThumbnail.HasFile)
                             {
                                 cmd.Parameters.AddWithValue("@CoursePic", fileUploadThumbnail.FileBytes);
                             }
@@ -197,7 +195,6 @@ namespace OnlineTutoringSystem.Tutor
                                 // If no file is uploaded, you may want to set a default or handle it accordingly
                                 cmd.Parameters.AddWithValue("@CoursePic", DBNull.Value);
                             }
-
                             if (fileUploadTrailer.HasFile)
                             {
                                 cmd.Parameters.AddWithValue("@CourseVideo", fileUploadTrailer.FileBytes);
@@ -207,7 +204,6 @@ namespace OnlineTutoringSystem.Tutor
                                 // If no file is uploaded, you may want to set a default or handle it accordingly
                                 cmd.Parameters.AddWithValue("@CourseVideo", DBNull.Value);
                             }
-
                             // Open the connection
                             connection.Open();
 
@@ -219,8 +215,8 @@ namespace OnlineTutoringSystem.Tutor
 
                             //// Insert file attachment
                             //InsertFileAttachment(connection, resourceId);
-
                             // Close the connection
+
                             connection.Close();
 
                             // Display success message or perform other actions

@@ -16,7 +16,7 @@ namespace OnlineTutoringSystem
 
         protected void btnMyCourses_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("MyCourses.aspx");
         }
 
         protected void btnSchedule_Click(object sender, EventArgs e)
@@ -31,10 +31,6 @@ namespace OnlineTutoringSystem
 
         protected void btnSignOut_Click(object sender, EventArgs e)
         {
-            // Perform logout actions here if needed
-            // ...
-
-            // Redirect to the logout page
             Response.Redirect("../Entry/Logout.aspx");
         }
 
