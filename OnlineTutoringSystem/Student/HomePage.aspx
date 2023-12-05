@@ -52,6 +52,20 @@
             width: 198.400px;
             height: 198.762px;
         }
+        
+        .btn-orange {
+            text-decoration: none;
+            background-color: #FF6636; /* Orange background color */
+            color: #fff;
+            font-size: 1vw;
+            border: none;  
+        }
+
+            .btn-orange:hover {
+                text-decoration: none;
+                background-color: #FF8C00;
+                color: #fff;
+            }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -131,13 +145,37 @@ ORDER BY cat_sum DESC;
                                     <h5 class="card-title"><%# Eval("tutor_name") %></h5>
                                     <p class="card-text text-muted"><%# Eval("tutor_expertice") %></p>
                                 </div>
-                            </div>
+                <asp:Button ID="ViewReviewButton" runat="server" Text="View" CssClass="btn btn-orange w-100 p-2" OnClick="ViewReviewButton_Click" CommandArgument='<%# Eval("tutor_id") %>' /> 
+                            </div> 
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
-
                 <asp:SqlDataSource ID="SqlDataSourceTutors" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
-                    SelectCommand="SELECT TOP 4 tutor_id, tutor_picture, tutor_name, tutor_expertice FROM Tutor ORDER BY tutor_dob DESC"></asp:SqlDataSource>
+    SelectCommand="
+        SELECT TOP 4 
+            Tutor.tutor_id, 
+            Tutor.tutor_picture, 
+            Tutor.tutor_name, 
+            Tutor.tutor_expertice,
+            ISNULL(SUM(Review.review_rating), 0) AS total_rating,
+            ISNULL(COUNT(Review.review_rating), 0) AS review_count,
+            CASE 
+                WHEN COUNT(Review.review_rating) > 0 THEN SUM(Review.review_rating) / COUNT(Review.review_rating)
+                ELSE NULL 
+            END AS average_rating 
+        FROM 
+            Tutor 
+        LEFT JOIN 
+            Review ON Tutor.tutor_id = Review.tutor_id 
+        GROUP BY 
+            Tutor.tutor_id, 
+            Tutor.tutor_picture, 
+            Tutor.tutor_name, 
+            Tutor.tutor_expertice 
+        ORDER BY 
+            average_rating DESC">
+</asp:SqlDataSource>
+
             </div>
             <div class="row justify-content-center p-3">
                 <div class="col-auto">

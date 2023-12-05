@@ -232,6 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddResourceFile.aspx" />
+    <Content Include="addschedule.aspx" />
     <Content Include="App_Data\dB.mdf" />
     <Content Include="App_Data\dB_log.ldf">
       <DependentUpon>dB.mdf</DependentUpon>
@@ -3573,6 +3574,9 @@
     <Content Include="Student\StudAccount.aspx" />
     <Content Include="Student\StudWishlist.aspx" />
     <Content Include="Student\CourseOverview.aspx" />
+    <Content Include="Student\ViewTutor\ViewTutorReview.aspx" />
+    <Content Include="Student\ViewTutor\ViewTutorCourse.aspx" />
+    <Content Include="Student\ViewTutor\ViewTutorSchedule.aspx" />
     <Content Include="TempAddData.aspx" />
     <Content Include="Tutor\assets\css\calander.css" />
     <Content Include="Tutor\assets\css\style.css" />
@@ -3614,6 +3618,7 @@
     <Content Include="Student\EnrollmentDetail.aspx" />
     <Content Include="Student\Chatbot.aspx" />
     <Content Include="Student\Rating.aspx" />
+    <Content Include="Student\Schedule.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddResourceFile.aspx.cs">
@@ -3622,6 +3627,13 @@
     </Compile>
     <Compile Include="AddResourceFile.aspx.designer.cs">
       <DependentUpon>AddResourceFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="addschedule.aspx.cs">
+      <DependentUpon>addschedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="addschedule.aspx.designer.cs">
+      <DependentUpon>addschedule.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -3691,6 +3703,34 @@
     </Compile>
     <Compile Include="Student\CourseOverview.aspx.designer.cs">
       <DependentUpon>CourseOverview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\TutorDetailHeader.master.cs">
+      <DependentUpon>TutorDetailHeader.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\TutorDetailHeader.master.designer.cs">
+      <DependentUpon>TutorDetailHeader.master</DependentUpon>
+    </Compile>
+    <Compile Include="Student\ViewTutor\ViewTutorReview.aspx.cs">
+      <DependentUpon>ViewTutorReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\ViewTutor\ViewTutorReview.aspx.designer.cs">
+      <DependentUpon>ViewTutorReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\ViewTutor\ViewTutorCourse.aspx.cs">
+      <DependentUpon>ViewTutorCourse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\ViewTutor\ViewTutorCourse.aspx.designer.cs">
+      <DependentUpon>ViewTutorCourse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\ViewTutor\ViewTutorSchedule.aspx.cs">
+      <DependentUpon>ViewTutorSchedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\ViewTutor\ViewTutorSchedule.aspx.designer.cs">
+      <DependentUpon>ViewTutorSchedule.aspx</DependentUpon>
     </Compile>
     <Compile Include="TempAddData.aspx.cs">
       <DependentUpon>TempAddData.aspx</DependentUpon>
@@ -3786,6 +3826,13 @@
     </Compile>
     <Compile Include="Tutor\MyCourses.aspx.designer.cs">
       <DependentUpon>MyCourses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Schedule.aspx.cs">
+      <DependentUpon>Schedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Schedule.aspx.designer.cs">
+      <DependentUpon>Schedule.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -3930,6 +3977,7 @@
     <Content Include="Content\bootstrap-icons\fonts\bootstrap-icons.woff2" />
     <Content Include="Student\StudDashboard.master" />
     <Content Include="Student\CourseDetailHeader.master" />
+    <Content Include="Student\TutorDetailHeader.master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

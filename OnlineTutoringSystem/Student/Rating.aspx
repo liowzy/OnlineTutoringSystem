@@ -45,7 +45,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-5">
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-8 offset-md-2 border shadow mb-2">
             <!-- Title Row -->
             <div class="row p-3 text-center">
                 <div class="col-md-12 text-center">
@@ -96,12 +96,12 @@
                     <!-- Rating Input Row -->
                     <div class="mb-3">
                         <asp:Label ID="Label1" runat="server" Text="YOUR COMMENT: " />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Comment is required!" ControlToValidate="tbComment" ForeColor="Red" Display="Dynamic">*</asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="Rating" runat="server" ErrorMessage="Comment is required!" ControlToValidate="tbComment" ForeColor="Red" Display="Dynamic">*</asp:RequiredFieldValidator>
                         <br />
-                        <asp:TextBox ID="tbComment" CssClass="textBox" runat="server" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                        <asp:TextBox ID="tbComment" CssClass="textBox" runat="server" ValidationGroup="Rating" TextMode="MultiLine" Rows="3"></asp:TextBox>
                     </div>
                     <asp:Button ID="btnSubmit" runat="server" CssClass="btn-orange" Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="Rating" />
-                    <asp:ValidationSummary ID="ValidationSummary2" runat="server" ForeColor="Red" HeaderText="The following problems have been encountered" ShowMessageBox="True" ShowSummary="False" />
+                    <asp:ValidationSummary ID="ValidationSummary2" runat="server" ForeColor="Red" ValidationGroup="Rating" HeaderText="The following problems have been encountered" ShowMessageBox="True" ShowSummary="False" />
                 </div>
             </div>
         </div>

@@ -36,6 +36,14 @@ namespace OnlineTutoringSystem
         protected void LinkButton19_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Entry/Registration.aspx");
-        } 
+        }
+        protected void ViewReviewButton_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            string tutorId = btn.CommandArgument;
+            Session["tutorId"] = tutorId;
+            Response.Redirect("~/Student/ViewTutor/ViewTutorCourse.aspx");
+        }
+
     }
 }
