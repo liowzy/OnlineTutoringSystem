@@ -188,5 +188,5 @@
 
 
     <%------------------------------course details--%>
-    <div class="chatbotBtn"><a href="chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
+    <div class="chatbotBtn"><a href="../Chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
 </asp:Content>
