@@ -113,8 +113,8 @@
                                     <div class="row justify-content-between">
                                         <div class="col-6 text-left">
                                             <asp:LinkButton CssClass="star" ID="LinkButton1" runat="server" Enabled="False">
-    <i class="fa fa-star" style="color: orange;">&nbsp;<%# string.Format("{0:F1}", CalculateAverageRating(Eval("course_id").ToString())) %></i>
-</asp:LinkButton>
+                                            <i class="fa fa-star" style="color: orange;">&nbsp;<%# string.Format("{0:F1}", CalculateAverageRating(Eval("course_id").ToString())) %></i>
+                                        </asp:LinkButton>
 
 
                                         </div>

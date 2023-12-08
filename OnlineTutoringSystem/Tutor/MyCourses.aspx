@@ -80,9 +80,43 @@
                 </div>
             </div>
 
+                                <!-- Sorting Options -->
+            <div class="row justify-content-center" style="margin-bottom: 20px">
+                <div class="col-md-3 mb-2">
+                    <!-- Search Box -->
+                    <label for="ddlSearch" class="form-label" style="color: #FF6636; margin-left: -200px; font-weight: bold;">Search By:</label>
+                    <div class="input-group">
+                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search your course"></asp:TextBox>
+                            <button class="btn btn-outline-secondary" type="button" onclick="btnSearch_Click()" style="">Search</button>
+                        </div>
+                </div>
+                <div class="col-md-3 mb-2">
+                     <!-- Category Dropdown -->
+                    <label for="ddlCourseCategory" class="form-label" style="color: #FF6636; margin-left: -200px; font-weight: bold;">Category by:</label>
+                    <asp:DropDownList ID="ddlCourseCategory" runat="server" CssClass="form-control" DataTextField="cat_name" DataValueField="cat_id" AutoPostBack="true" style="background-color: white;">
+                        <asp:ListItem Text="All Categories" Value="" />
+                    </asp:DropDownList>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <!-- Rating Dropdown -->
+                    <label for="ddlRating" class="form-label" style="color: #FF6636; margin-left: -200px; font-weight: bold;">Rating by:</label>
+                    <select class="form-select" aria-label="Rating" style="background-color: white; font-weight: bold;">
+                        <option selected disabled hidden>Rating by...</option>
+                        <option value="1">1 star</option>
+                        <option value="2">2 stars</option>
+                        <option value="3">3 stars</option>
+                        <option value="4">4 stars</option>
+                        <!-- Add more rating options as needed -->
+                    </select>
+                </div>
+            </div>
+            <!-- End Sorting Options -->
+
             <div class="row justify-content-center pt-2" style="margin-left: 1.5%;">
                 <asp:DataList ID="DataListCourses" runat="server" DataSourceID="SqlDataSourceCourses" RepeatColumns="4"
-                    RepeatDirection="Horizontal" DataKeyField="course_id" OnSelectedIndexChanged="DataListCourses_SelectedIndexChanged">
+                    RepeatDirection="Horizontal" DataKeyField="course_id" OnSelectedIndexChanged="DataListCourses_SelectedIndexChanged"
+                     OnItemDataBound="DataListCourses_ItemDataBound">
+                 
                     <ItemTemplate>
                         <div class="col mb-4 mx-auto">
                             <div style="width: 280px;">
@@ -119,8 +153,7 @@
 
                                         </div>
                                         <div class="col-6 text-right">
-                                            <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
-
+                                         <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
                                         </div>
                                     </div>
 
@@ -139,7 +172,5 @@
             </div>
         </div>
     </div> 
-    
-            <div class="chatbotBtn"><a href="../Student/Chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
 </main>
 </asp:Content>

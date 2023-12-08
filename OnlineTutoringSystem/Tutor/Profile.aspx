@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-    <title>Profile</title>
    
     <!-- Boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
@@ -49,9 +47,7 @@
                     <asp:Label ID="lblUserName" runat="server" Text="[Loading...]" />
                 </h2>
                    <div class="social-links mt-2">
-                    <asp:HyperLink ID="hyperlinkWhatsApp" runat="server" CssClass="whatsapp" NavigateUrl="your WhatsApp link here" Text="">
-                        <i class="bi bi-whatsapp"></i>
-                    </asp:HyperLink>
+                    <asp:ImageButton ID="btnWhatsApp" runat="server" ImageUrl="../imgs/wa.png" OnClick="ContactMeButton_Click" Width="40px" Height="40px" />
                 </div>
             </div>
         </div>
@@ -140,6 +136,7 @@
                         </div>
                   </div>
                 </div>
+          
 
                  <%--//edit tutor profile--%>
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
@@ -225,64 +222,52 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="whatsapp" class="col-md-4 col-lg-3 col-form-label">WhatsApp</label>
-                            <div class="col-md-8 col-lg-9">
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-whatsapp"></i>
-                                    </span>
-                                    <asp:TextBox ID="txtWhatsApp" runat="server" CssClass="form-control" placeholder="Enter your WhatsApp link"></asp:TextBox>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="text-center">
                             <asp:Button ID="btnUpdateTutorProfile" runat="server" Text="Save Changes" OnClick="btnUpdateTutorProfile_Click" CssClass="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" />
                         </div>
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
-                   <!-- Change Password Form -->
-                   <div class="row mb-3">
-                     <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                     <div class="col-md-8 col-lg-9">
-                       <div class="input-group">
-                         <asp:TextBox ID="lblCurrentPass" runat="server" TextMode="Password" CssClass="form-control" placeholder="Enter your current password"></asp:TextBox>
-                        <button type="button" class="btn btn-outline-secondary" id="toggleCurrentPassword" onclick="togglePassword('<%= lblCurrentPass.ClientID %>')">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                       </div>
-                     </div>
-                   </div>
+                      <!-- Change Password Form -->
+                      <div class="row mb-3">
+                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                        <div class="col-md-8 col-lg-9">
+                          <div class="input-group">
+                            <asp:TextBox ID="lblCurrentPass" runat="server" TextMode="Password" CssClass="form-control" placeholder="Enter your current password"></asp:TextBox>
+                           <button type="button" class="btn btn-outline-secondary" id="toggleCurrentPassword" onclick="togglePassword('<%= lblCurrentPass.ClientID %>')">
+                               <i class="bi bi-eye"></i>
+                           </button>
+                          </div>
+                        </div>
+                      </div>
 
-                   <div class="row mb-3">
-                     <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                     <div class="col-md-8 col-lg-9">
-                       <div class="input-group">
-                         <asp:TextBox ID="lblNewPass" runat="server" TextMode="Password" CssClass="form-control" placeholder="Enter your new password"></asp:TextBox>
-                         <button type="button" class="btn btn-outline-secondary" id="toggleNewPassword" onclick="togglePassword('<%= lblNewPass.ClientID %>')">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                       </div>
-                     </div>
-                   </div>
+                      <div class="row mb-3">
+                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                        <div class="col-md-8 col-lg-9">
+                          <div class="input-group">
+                            <asp:TextBox ID="lblNewPass" runat="server" TextMode="Password" CssClass="form-control" placeholder="Enter your new password"></asp:TextBox>
+                            <button type="button" class="btn btn-outline-secondary" id="toggleNewPassword" onclick="togglePassword('<%= lblNewPass.ClientID %>')">
+                               <i class="bi bi-eye"></i>
+                           </button>
+                          </div>
+                        </div>
+                      </div>
 
-                   <div class="row mb-3">
-                     <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                     <div class="col-md-8 col-lg-9">
-                       <div class="input-group">
-                         <asp:TextBox ID="lblReNewPass" runat="server" TextMode="Password" CssClass="form-control" placeholder="Re-enter your new password"></asp:TextBox>
-                         <button type="button" class="btn btn-outline-secondary" id="toggleRenewPassword" onclick="togglePassword('<%= lblReNewPass.ClientID %>')">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                       </div>
-                     </div>
-                   </div>
+                      <div class="row mb-3">
+                        <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                        <div class="col-md-8 col-lg-9">
+                          <div class="input-group">
+                            <asp:TextBox ID="lblReNewPass" runat="server" TextMode="Password" CssClass="form-control" placeholder="Re-enter your new password"></asp:TextBox>
+                            <button type="button" class="btn btn-outline-secondary" id="toggleRenewPassword" onclick="togglePassword('<%= lblReNewPass.ClientID %>')">
+                               <i class="bi bi-eye"></i>
+                           </button>
+                          </div>
+                        </div>
+                      </div>
 
-                   <div class="text-center">
-                     <asp:Button ID="btnChangePassword" runat="server" Text="Change Password" OnClick="btnChangePassword_Click" CssClass="btn btn-primary" Style="background-color: #FF6636; border-color: #FF6636;" />
-                   </div><!-- End Change Password Form -->
+                        <div class="text-center">
+                            <asp:Button ID="btnChangePassword" runat="server" Text="Change Password" OnClick="btnChangePassword_Click" CssClass="btn btn-primary" Style="background-color: #FF6636; border-color: #FF6636;" />
+                        </div><!-- End Change Password Form -->
                 </div>
 
                   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -304,9 +289,8 @@
 
             </div>
           </div>
-
+            </div>
         </div>
-      </div>
     </section>
   </main><!-- End #main -->
 </asp:Content>

@@ -3607,6 +3607,7 @@
     <Content Include="Tutor\Schedule.aspx" />
     <Content Include="Tutor\CreateNewCourse.aspx" />
     <Content Include="Tutor\MyCourses.aspx" />
+    <Content Include="Tutor\CourseDetail.aspx" />
     <Content Include="Web.config" />
     <Content Include="Entry\Registration.aspx" />
     <Content Include="Entry\Login.aspx" />
@@ -3833,6 +3834,12 @@
     </Compile>
     <Compile Include="Student\Schedule.aspx.designer.cs">
       <DependentUpon>Schedule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tutor\CourseDetail.aspx.cs">
+      <DependentUpon>CourseDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tutor\CourseDetail.aspx.designer.cs">
+      <DependentUpon>CourseDetail.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
