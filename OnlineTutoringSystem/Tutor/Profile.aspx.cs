@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.Text.RegularExpressions;
 
 namespace OnlineTutoringSystem.Tutor
 {
@@ -62,7 +63,6 @@ namespace OnlineTutoringSystem.Tutor
                 lblTutorExpertice.Text = tutor.TutorExpertice;
                 lblDob.Text = tutor.TutorDob.ToString("yyyy-MM-dd");
                 lblDes.Text = tutor.TutorDescription.ToString();
-                hyperlinkWhatsApp.Text = tutor.ChatLink;
 
                 // Set the profile picture
                 imgUserProfile.ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(tutor.TutorPicture);
@@ -115,6 +115,34 @@ namespace OnlineTutoringSystem.Tutor
             return tutor;
         }
 
+        protected void ContactMeButton_Click(object sender, ImageClickEventArgs e)
+        {
+            string userID = Session["userID"].ToString();
+
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Fetch chat_link based on tutor_id
+                string chatLinkQuery = "SELECT chat_link FROM Tutor WHERE tutor_id = @TutorId";
+                using (SqlCommand command = new SqlCommand(chatLinkQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@userID", userID);
+
+                    string chatLink = command.ExecuteScalar()?.ToString();
+
+                    // Open a new window to navigate to the chat link
+                    if (!string.IsNullOrEmpty(chatLink))
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "openWindow", $"window.open('{chatLink}', '_blank');", true);
+                    }
+                }
+            }
+
+        }
+
 
         protected void btnUpdateTutorProfile_Click(object sender, EventArgs e)
         {
@@ -150,7 +178,6 @@ namespace OnlineTutoringSystem.Tutor
                 string tutorExpertice = txtTutorExpertice.Text;
                 string tutorDescription = txtBiography.Text;
                 string tutorDob = txtDob.Text;
-                string tutorChat = txtWhatsApp.Text;
 
                 string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
@@ -171,14 +198,14 @@ namespace OnlineTutoringSystem.Tutor
                             img.InputStream.Read(profilePicture, 0, imagefilelenth);
 
                             // Update the query with the profile picture
-                            command.CommandText = "UPDATE Tutor SET tutor_name = @TutorName, tutor_username = @TutorUsername, tutor_phoneNo = @TutorPhoneNo, tutor_gender = @TutorGender, tutor_teachingExperience = @TutorTeachingExperience, tutor_location = @TutorLocation, tutor_expertice = @TutorExpertice, tutor_description = @TutorDescription,tutor_languageProficiency = @TutorLanguagePro , tutor_dob = @TutorDob, chat_link = @TutorChat, tutor_picture = @ProfilePicture WHERE tutor_id = @UserId";
+                            command.CommandText = "UPDATE Tutor SET tutor_name = @TutorName, tutor_username = @TutorUsername, tutor_phoneNo = @TutorPhoneNo, tutor_gender = @TutorGender, tutor_teachingExperience = @TutorTeachingExperience, tutor_location = @TutorLocation, tutor_expertice = @TutorExpertice, tutor_description = @TutorDescription,tutor_languageProficiency = @TutorLanguagePro , tutor_dob = @TutorDob, tutor_picture = @ProfilePicture , chat_link = @ChatLink WHERE tutor_id = @UserId";
 
                             command.Parameters.AddWithValue("@ProfilePicture", profilePicture);
                         }
                         else
                         {
                             // If no file is uploaded, update without changing the profile picture
-                            command.CommandText = "UPDATE Tutor SET tutor_name = @TutorName, tutor_username = @TutorUsername, tutor_phoneNo = @TutorPhoneNo, tutor_gender = @TutorGender, tutor_teachingExperience = @TutorTeachingExperience, tutor_location = @TutorLocation, tutor_expertice = @TutorExpertice, tutor_languageProficiency = @TutorLanguagePro ,tutor_description = @TutorDescription, tutor_dob = @TutorDob, chat_link = @TutorChat WHERE tutor_id = @UserId";
+                            command.CommandText = "UPDATE Tutor SET tutor_name = @TutorName, tutor_username = @TutorUsername, tutor_phoneNo = @TutorPhoneNo, tutor_gender = @TutorGender, tutor_teachingExperience = @TutorTeachingExperience, tutor_location = @TutorLocation, tutor_expertice = @TutorExpertice, tutor_languageProficiency = @TutorLanguagePro ,tutor_description = @TutorDescription, tutor_dob = @TutorDob , chat_link = @ChatLink WHERE tutor_id = @UserId";
                         }
 
                         // Add parameters to the SQL command
@@ -192,8 +219,8 @@ namespace OnlineTutoringSystem.Tutor
                         command.Parameters.AddWithValue("@TutorExpertice", tutorExpertice);
                         command.Parameters.AddWithValue("@TutorDescription", tutorDescription);
                         command.Parameters.AddWithValue("@TutorDob", tutorDob);
-                        command.Parameters.AddWithValue("@TutorChat", tutorChat);
                         command.Parameters.AddWithValue("@TutorLanguagePro",tutorLanguage);
+                        command.Parameters.AddWithValue("@ChatLink", tutorPhoneNo);
 
                         // Execute the SQL command
                         int rowsAffected = command.ExecuteNonQuery();
@@ -234,6 +261,14 @@ namespace OnlineTutoringSystem.Tutor
                 return;
             }
 
+            // Validate the new password format
+            if (!ValidatePasswordFormat(newPassword))
+            {
+                // Display an error message indicating that the new password format is invalid
+                ClientScript.RegisterStartupScript(this.GetType(), "InvalidFormatAlert", "alert('New password must contain at least one alphabet, one digit, and one \"@\");", true);
+                return;
+            }
+
             // If validation is successful, update the password in the database
             bool success = UpdatePassword(userId, newPassword);
 
@@ -268,6 +303,13 @@ namespace OnlineTutoringSystem.Tutor
                     return count > 0;
                 }
             }
+        }
+        private bool ValidatePasswordFormat(string password)
+        {
+            // Password should contain at least one alphabet, one digit, and one '@'
+            var regex = new Regex("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@])[a-zA-Z\\d@]+$");
+            return regex.IsMatch(password);
+
         }
 
         private bool UpdatePassword(int userId, string newPassword)

@@ -19,6 +19,7 @@ namespace OnlineTutoringSystem.Tutor
 
             if (!IsPostBack)
             {
+
                 // Check if the search term is present in the query string
                 if (Request.QueryString["searchTerm"] != null)
                 {
@@ -29,6 +30,68 @@ namespace OnlineTutoringSystem.Tutor
                 }
             }
         }
+
+      
+        public class YourDataAccessLayer
+        {
+            // Your connection string
+            private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+            public DataTable GetCourseCategories()
+            {
+                DataTable dtCategories = new DataTable();
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT cat_id, cat_name FROM Category";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dtCategories);
+                        }
+                    }
+                }
+
+                return dtCategories;
+            }
+        }
+
+        protected void DataListCourses_ItemDataBound(object sender, DataListItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                // Find the ddlCourseCategory DropDownList within the current item
+                DropDownList ddlCourseCategory = e.Item.FindControl("ddlCourseCategory") as DropDownList;
+
+                // Check if the control is found
+                if (ddlCourseCategory != null)
+                {
+                    YourDataAccessLayer dataAccess = new YourDataAccessLayer();
+                    DataTable dtCategories = dataAccess.GetCourseCategories();
+
+                    // Bind the data to ddlCourseCategory
+                    ddlCourseCategory.DataSource = dtCategories;
+                    ddlCourseCategory.DataTextField = "cat_name";
+                    ddlCourseCategory.DataValueField = "cat_id";
+                    ddlCourseCategory.DataBind();
+                }
+
+                // Find the txtSearch TextBox within the current item
+                TextBox txtSearch = e.Item.FindControl("txtSearch") as TextBox;
+
+                // Check if the control is found
+                if (txtSearch != null)
+                {
+                    // Perform actions with txtSearch if needed
+                    // For example, you can set its properties or attach events
+                    txtSearch.Attributes["placeholder"] = "Search your course";
+                }
+            }
+        }
+
+
         protected string GetCardColor(int index)
         {
             string[] colors = { "#EBEBFF", "#E1F7E3", "#FFF2E5", "#FFF0F0", "#F5F7FA" };
@@ -51,7 +114,6 @@ namespace OnlineTutoringSystem.Tutor
             DataListCourses.DataBind();
         }
 
-
         protected void DataListCourses_SelectedIndexChanged(object sender, EventArgs e)
         {
             string courseId = Session["courseId"] as string;
@@ -59,22 +121,21 @@ namespace OnlineTutoringSystem.Tutor
             ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('Session ID: {Session["courseId"]}');", true);
 
             // Use courseId as needed
-            Response.Redirect("CourseOverview.aspx");
+            Response.Redirect("CourseDetail.aspx");
         }
 
         protected void selectBtn_Command(object sender, CommandEventArgs e)
         {
             if (e.CommandName == "Select")
             {
-                string courseId = e.CommandArgument.ToString();
+                // Retrieve the course_id from the CommandArgument
+                int courseId = Convert.ToInt32(e.CommandArgument);
 
-                // Store the course_id in a session variable
-                Session["courseId"] = courseId;
-
-                // Redirect or perform any other actions
-                Response.Redirect("CourseOverview.aspx");
+                // Redirect to the course details page, passing the courseId as a query parameter
+                Response.Redirect($"CourseDetail.aspx?courseId={courseId}");
             }
         }
+
 
 
         public double CalculateAverageRating(string courseId)
@@ -104,26 +165,6 @@ namespace OnlineTutoringSystem.Tutor
             }
 
             return 0.0;
-        }
-
-
-        private int GetReviewCountForTutor(int courseId)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-
-                string countQuery = "SELECT COUNT(*) FROM Review WHERE course_id = @CourseId";
-                using (SqlCommand command = new SqlCommand(countQuery, connection))
-                {
-                    command.Parameters.AddWithValue("@CourseId", courseId);
-
-                    int reviewCount = (int)command.ExecuteScalar();
-                    return reviewCount;
-                }
-            }
         }
 
     }

@@ -11,7 +11,7 @@ namespace OnlineTutoringSystem.Tutor
 {
 
 
-    public partial class WebForm3
+    public partial class WebForm5
     {
 
         /// <summary>
@@ -24,156 +24,156 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// txtCourseName control.
+        /// imgCourseThumbnail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseName;
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgCourseThumbnail;
 
         /// <summary>
-        /// ddlCourseCategory control.
+        /// iframeCourseTrailer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCourseCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlIframe iframeCourseTrailer;
 
         /// <summary>
-        /// ddlCourseLevel control.
+        /// lblCourseName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCourseLevel;
+        protected global::System.Web.UI.WebControls.Label lblCourseName;
 
         /// <summary>
-        /// txtCourseTopic control.
+        /// lblCourseCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseTopic;
+        protected global::System.Web.UI.WebControls.Label lblCourseCategory;
 
         /// <summary>
-        /// txtCoursePrice control.
+        /// lblCourseLevel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCoursePrice;
+        protected global::System.Web.UI.WebControls.Label lblCourseLevel;
 
         /// <summary>
-        /// ddlCourseLanguage control.
+        /// lblCourseTopic control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCourseLanguage;
+        protected global::System.Web.UI.WebControls.Label lblCourseTopic;
 
         /// <summary>
-        /// txtCourseDuration control.
+        /// lblCoursePrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseDuration;
+        protected global::System.Web.UI.WebControls.Label lblCoursePrice;
 
         /// <summary>
-        /// fileUploadThumbnail control.
+        /// lblCourseLanguage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fileUploadThumbnail;
+        protected global::System.Web.UI.WebControls.Label lblCourseLanguage;
 
         /// <summary>
-        /// fileUploadTrailer control.
+        /// lblCourseDuration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fileUploadTrailer;
+        protected global::System.Web.UI.WebControls.Label lblCourseDuration;
 
         /// <summary>
-        /// txtCourseDescription control.
+        /// lblCourseDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseDescription;
+        protected global::System.Web.UI.WebControls.Label lblCourseDescription;
 
         /// <summary>
-        /// txtCourseContent control.
+        /// lblCourseContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseContent;
+        protected global::System.Web.UI.WebControls.Label lblCourseContent;
 
         /// <summary>
-        /// txtCourseTargetAudience control.
+        /// lblCourseTargetAudience control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseTargetAudience;
+        protected global::System.Web.UI.WebControls.Label lblCourseTargetAudience;
 
         /// <summary>
-        /// txtCourseRequirements control.
+        /// lblCourseRequirements control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseRequirements;
+        protected global::System.Web.UI.WebControls.Label lblCourseRequirements;
 
         /// <summary>
-        /// txtresourceName control.
+        /// hdnCourseId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtresourceName;
+        protected global::System.Web.UI.WebControls.HiddenField hdnCourseId;
 
         /// <summary>
-        /// txtfileName control.
+        /// editBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtfileName;
+        protected global::System.Web.UI.WebControls.LinkButton editBtn;
 
         /// <summary>
-        /// fileUpload control.
+        /// btnDeleteModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fileUpload;
+        protected global::System.Web.UI.WebControls.Button btnDeleteModal;
 
         /// <summary>
-        /// btnSubmit control.
+        /// hdnCourseIdModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        protected global::System.Web.UI.WebControls.HiddenField hdnCourseIdModal;
     }
 }

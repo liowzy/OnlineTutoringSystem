@@ -24,6 +24,24 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.Label Label18;
 
         /// <summary>
+        /// txtSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSearch;
+
+        /// <summary>
+        /// ddlCourseCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCourseCategory;
+
+        /// <summary>
         /// DataListCourses control.
         /// </summary>
         /// <remarks>
