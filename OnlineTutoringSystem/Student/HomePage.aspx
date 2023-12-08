@@ -87,7 +87,7 @@
         <!-- Browse Top Categories Section -->
         <div class="row top-category p-3">
             <div class="col">
-                <asp:Label ID="Label2" runat="server" Text="Browse Top Categories" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
+                <asp:Label ID="Label2" runat="server" Text="What Courses Avaialble Here" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
             </div>
         </div>
 
@@ -108,7 +108,7 @@
         </div>
         <div class="row justify-content-center p-3">
             <div class="col-auto">
-                <asp:Label ID="Label13" runat="server" Text="We have more category & subcategory." CssClass="m-0"></asp:Label>
+                <asp:Label ID="Label13" runat="server" Text="We have more course." CssClass="m-0"></asp:Label>
             </div>
             <div class="col-auto">
                 <asp:LinkButton ID="LinkButton13" runat="server" Style="color: orangered; text-decoration: none;" OnClick="LinkButton13_Click">Browse All&nbsp;<i class="fas fa-arrow-right"></i></asp:LinkButton>
@@ -127,7 +127,7 @@ ORDER BY cat_sum DESC;
         <div class="row">
             <div class="row top-category p-3">
                 <div class="col">
-                    <asp:Label ID="Label18" runat="server" Text="Top instructor of the month" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
+                    <asp:Label ID="Label18" runat="server" Text="Top Instructor Of The Month" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
                 </div>
             </div>
 

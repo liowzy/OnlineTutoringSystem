@@ -56,7 +56,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
-                            <asp:Label ID="lblCourseName" runat="server" ></asp:Label></h4>
+                            <asp:Label ID="lblCourseName" runat="server"></asp:Label></h4>
                     </div>
                     <div class="card-body">
                         <!-- Course Image, Name, Tutor, Purchased Date -->
@@ -65,46 +65,46 @@
                                 <asp:Image ID="imgCourse" runat="server" CssClass="img-fluid" AlternateText="Course Image" />
                             </div>
                             <div class="col-md-8">
-                                <p>Tutor:
-                                    <asp:Label ID="lblTutorName" runat="server"  ></asp:Label></p>
-                                <p>Purchased Date:
-                                    <asp:Label ID="lblPurchasedDate" runat="server"  ></asp:Label></p>
+                                <p>
+                                    Tutor:
+                                    <asp:Label ID="lblTutorName" runat="server"></asp:Label>
+                                </p>
+                                <p>
+                                    Purchased Date:
+                                    <asp:Label ID="lblPurchasedDate" runat="server"></asp:Label>
+                                </p>
                                 <!-- Rate Tutor and Course Button (Aligned to the right) -->
                                 <div class="text-right">
-<asp:Button ID="btnRateTutorAndCourse" runat="server" CssClass="btn btn-primary" Text="Rate Tutor and Course" OnClick="btnRateTutorAndCourse_Click" />
+                                    <asp:Button ID="btnRateTutorAndCourse" runat="server" CssClass="btn btn-primary" Text="Rate Tutor and Course" OnClick="btnRateTutorAndCourse_Click" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <%--resource and file display--%>
+
+                <div class="row mt-5 p-3">
+                    <div class="col-md-8 offset-md-2">
+                        <asp:DataList ID="ParentDataList" runat="server" CssClass="dataList" OnItemDataBound="ParentDataList_ItemDataBound">
+                            <ItemTemplate>
+                                <div class="itemTemplate" style='<%# Container.ItemIndex % 2 == 0 ? "background-color: #fff;": "background-color: #f8f8f8;" %>'>
+                                    <!-- Display resource information here -->
+                                    <h4><%# Eval("res_name") %></h4>
+
+                                    <!-- Display file information here -->
+                                    <asp:DataList ID="ChildDataList" runat="server" CssClass="childDataList">
+                                        <ItemTemplate>
+                                            <div class="fileItem" style="display: flex; align-items: center;">
+                                                <p style="margin-right: 10px;">File Name: <%# Eval("file_name") %></p>
+                                                <asp:LinkButton ID="lnkDownload" runat="server" Text="Download" CommandName="DownloadFile" CommandArgument='<%# Eval("file_path") %>' CssClass="btn btn-primary btn-sm"></asp:LinkButton>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:DataList>
+                                </div>
+                            </ItemTemplate>
+                        </asp:DataList>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <%--resource and file display--%>
-
-        <div class="row mt-5 p-3">
-            <div class="col-md-8 offset-md-2">
-                <asp:DataList CssClass="dataList" ID="ParentDataList" runat="server" CellSpacing="5">
-                    <ItemTemplate>
-                        <div class="itemTemplate">
-                            <!-- Display resource information here -->
-                            <h4><%# Eval("res_name") %></h4>
-                            <asp:Button CssClass="expandBtn btn btn-link" ID="ExpandButton" runat="server" Text="More" data-bs-toggle="collapse" data-bs-target='<%# "#childCollapse_" + Container.ItemIndex %>'></asp:Button>
-
-                            <!-- Display file information here -->
-                            <div id='<%# "childCollapse_" + Container.ItemIndex %>' class="collapse">
-                                <asp:DataList ID="ChildDataList" runat="server">
-                                    <ItemTemplate>
-                                        <p>File Name: <%# Eval("file_name") %></p>
-                                        <p>File Path: <%# Eval("file_path") %></p>
-                                    </ItemTemplate>
-                                </asp:DataList>
-                            </div>
-                        </div>
-                    </ItemTemplate>
-                </asp:DataList>
-            </div>
-        </div>
-    </div> 
 </asp:Content>

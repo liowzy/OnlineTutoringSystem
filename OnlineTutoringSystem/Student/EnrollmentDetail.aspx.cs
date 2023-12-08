@@ -9,6 +9,8 @@ using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
+using System.IO;
+using EllipticCurve.Utils;
 
 namespace OnlineTutoringSystem
 {
@@ -18,10 +20,121 @@ namespace OnlineTutoringSystem
         {
             if (!IsPostBack)
             {
+                int courseId = int.Parse(Session["courseId"].ToString());
                 LoadPurchasedCourseData();
-                //LoadData();
+                //LoadData(); 
+                DataTable resourceData = GetResourceData(courseId);
+                DataTable fileData = GetFileData(courseId);
+
+                // Merge the resource and file data into a single DataTable
+                //DataTable combinedData = MergeDataTables(resourceData, fileData);
+                //CombinedDataList.DataSource = combinedData;
+                //CombinedDataList.DataBind();
+
+
             }
         }
+
+
+        private DataTable GetResourceData(int courseId)
+        { 
+            DataTable resourceData = new DataTable();
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("SELECT * FROM Resource WHERE course_id = @CourseID", connection))
+                {
+                    command.Parameters.AddWithValue("@CourseID", courseId);
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(resourceData);
+                    }
+                }
+            }
+
+            return resourceData;
+        }
+
+        private DataTable GetFileData(int courseId)
+        { 
+            DataTable fileData = new DataTable();
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("SELECT * FROM File_Attachment WHERE res_id IN (SELECT res_id FROM Resource WHERE course_id = @CourseID)", connection))
+                {
+                    command.Parameters.AddWithValue("@CourseID", courseId);
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(fileData);
+                    }
+                }
+            }
+
+            return fileData;
+        }
+
+        private DataTable MergeDataTables(DataTable resourceData, DataTable fileData)
+        {
+            DataTable mergedData = new DataTable();
+            mergedData.Columns.Add("res_name", typeof(string));
+            mergedData.Columns.Add("file_name", typeof(string));
+            mergedData.Columns.Add("file_path", typeof(string));
+
+            foreach (DataRow resourceRow in resourceData.Rows)
+            {
+                DataRow mergedRow = mergedData.NewRow();
+                mergedRow["res_name"] = resourceRow["res_name"];
+
+                // Find files associated with the current resource
+                DataRow[] fileRows = fileData.Select($"res_id = {resourceRow["res_id"]}");
+                foreach (DataRow fileRow in fileRows)
+                {
+                    mergedRow["file_name"] = fileRow["file_name"];
+                    mergedRow["file_path"] = fileRow["file_path"];
+                    mergedData.Rows.Add(mergedRow.ItemArray);
+                }
+            }
+
+            return mergedData;
+        }
+
+        //protected void CombinedDataList_ItemCommand(object source, DataListCommandEventArgs e)
+        //{
+        //    if (e.CommandName == "DownloadFile")
+        //    {
+        //        string filePath = e.CommandArgument.ToString();
+        //        DownloadFile(filePath);
+        //    }
+        //}
+
+        //private void DownloadFile(string filePath)
+        //{
+        //    // Replace this with the actual path to your file directory on the server
+        //    string fileDirectory = Server.MapPath("~/Files/");
+
+        //    // Combine the directory and file path
+        //    string fullFilePath = Path.Combine(fileDirectory, filePath);
+
+        //    // Check if the file exists
+        //    if (File.Exists(fullFilePath))
+        //    {
+        //        // Set the content type and headers for the response
+        //        Response.ContentType = "application/octet-stream";
+        //        Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(fullFilePath));
+        //        Response.TransmitFile(fullFilePath);
+        //        Response.End();
+        //    }
+        //    else
+        //    {
+        //        // File not found, handle the error (display a message or redirect, for example)
+        //        Response.Write("File not found!");
+        //    }
+        //}
+
+
 
         private void LoadPurchasedCourseData()
         {
@@ -74,6 +187,49 @@ namespace OnlineTutoringSystem
         { 
             Response.Redirect("Rating.aspx");
         }
+
+        //protected void lnkDownload_Click(object sender, EventArgs e)
+        //{
+        //    LinkButton lnkDownload = (LinkButton)sender;
+        //    int fileId = Convert.ToInt32(lnkDownload.CommandArgument);
+
+        //    byte[] fileData;
+        //    string fileName;
+
+        //    string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        connection.Open();
+
+        //        using (SqlCommand command = new SqlCommand("SELECT file_name, file_data FROM File_Attachment WHERE file_id = @FileId", connection))
+        //        {
+        //            command.Parameters.AddWithValue("@FileId", fileId);
+
+        //            using (SqlDataReader reader = command.ExecuteReader())
+        //            {
+        //                if (reader.Read())
+        //                {
+        //                    fileName = reader["file_name"].ToString();
+        //                    fileData = (byte[])reader["file_data"];
+        //                }
+        //                else
+        //                {
+        //                    // Handle the case where the file with the specified ID is not found
+        //                    Response.Write("File not found in the database!");
+        //                    return;
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    // Send the file to the client browser for download
+        //    Response.ContentType = "application/octet-stream";
+        //    Response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName);
+        //    Response.BinaryWrite(fileData);
+        //    Response.End();
+        //}
+
 
         //file retrive
         //private void LoadData()
