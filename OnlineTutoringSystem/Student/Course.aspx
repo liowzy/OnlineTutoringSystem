@@ -34,6 +34,13 @@
         /*.card {
             height: 17rem;   
         }*/
+        .cnameheight{
+            height: 4rem;
+        }
+
+        .tpicheight{
+            height: 12.3rem;
+        }
 
         .card .card-img-top {
             height: 17rem;
@@ -71,12 +78,24 @@
 
 
     <%-------------------------------------------course----------------------------------%>
-    <div class="container-fluid p-2 text-center pb-0"> 
+    <div class="container-fluid p-2 text-center pb-0">
         <div class="row">
             <div class="row top-category p-3">
                 <div class="col">
                     <asp:Label ID="Label18" runat="server" Text="Courses" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
                 </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-8"></div>
+                <div class="col-4 justify-content-end">
+                <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="border shadow btn dropdown-toggle" AutoPostBack="true" OnSelectedIndexChanged="ddlSortBy_SelectedIndexChanged">
+                    <asp:ListItem Text="Latest Added" Value="Latest"></asp:ListItem>
+                    <asp:ListItem Text="Oldest Added" Value="Oldest"></asp:ListItem>
+                    <asp:ListItem Text="Highest Price" Value="HighPrice"></asp:ListItem>
+                    <asp:ListItem Text="Lowest Price" Value="LowPrice"></asp:ListItem>
+                    <asp:ListItem Text="Highest Rating" Value="Rating"></asp:ListItem>
+                </asp:DropDownList>
+                    </div>
             </div>
 
             <div class="row justify-content-center pt-2" style="margin-left: 1.5%;">
@@ -104,7 +123,7 @@
                                 </div>
 
                                 <!-- Third Row: Name -->
-                                <div class="card-body text-left pb-0">
+                                <div class="card-body cnameheight text-left pb-0">
                                     <asp:Label ID="lblCourseName" runat="server" CssClass="card-title fw-bold" Text='<%# Eval("course_name") %>' Style="font-size: 1.1rem;"></asp:Label>
                                 </div>
 
@@ -114,7 +133,7 @@
                                         <div class="col-6 text-left">
                                             <asp:LinkButton CssClass="star" ID="LinkButton1" runat="server" Enabled="False">
                                             <i class="fa fa-star" style="color: orange;">&nbsp;<%# string.Format("{0:F1}", CalculateAverageRating(Eval("course_id").ToString())) %></i>
-                                        </asp:LinkButton>
+                                            </asp:LinkButton>
 
 
                                         </div>
@@ -140,7 +159,7 @@
 
             </div>
         </div>
-    </div> 
-    
-            <div class="chatbotBtn"><a href="chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
+    </div>
+
+    <div class="chatbotBtn"><a href="chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
 </asp:Content>

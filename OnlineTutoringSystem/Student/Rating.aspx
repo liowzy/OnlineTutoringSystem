@@ -68,42 +68,155 @@
             </div>
             <div class="row p-3">
                 <div class="col-md-12 text-left">
-                    <asp:Label ID="Label8" runat="server" Text="YOUR RATING: " />
+                    <asp:Label ID="Label8" runat="server" Text="Subject Knowledge: " />
                     <br />
                     <!-- Star Rating Row -->
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
-                            <asp:RadioButton CssClass="star" ID="star1" runat="server" GroupName="rating" value="1" />
+                            <asp:RadioButton CssClass="star" ID="RadioButton11" runat="server" GroupName="rating1" value="1" />
                             <label class="form-check-label" for="star1">1<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
                             &nbsp;&nbsp;
     
-    <asp:RadioButton CssClass="star" ID="star2" runat="server" GroupName="rating" value="2" />
+    <asp:RadioButton CssClass="star" ID="RadioButton12" runat="server" GroupName="rating1" value="2" />
                             <label class="form-check-label" for="star2">2<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
                             &nbsp;&nbsp;
     
-    <asp:RadioButton CssClass="star" ID="star3" runat="server" GroupName="rating" value="3" />
+    <asp:RadioButton CssClass="star" ID="RadioButton13" runat="server" GroupName="rating1" value="3" />
                             <label class="form-check-label" for="star3">3<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
                             &nbsp;&nbsp;
     
-    <asp:RadioButton CssClass="star" ID="star4" runat="server" GroupName="rating" value="4" />
+    <asp:RadioButton CssClass="star" ID="RadioButton14" runat="server" GroupName="rating1" value="4" />
                             <label class="form-check-label" for="star4">4<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
                             &nbsp;&nbsp;
     
-    <asp:RadioButton CssClass="star" ID="star5" runat="server" GroupName="rating" value="5" />
+    <asp:RadioButton CssClass="star" ID="RadioButton15" runat="server" GroupName="rating1" value="5" />
                             <label class="form-check-label" for="star5">5<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
                         </div>
                     </div>
-                    <!-- Rating Input Row -->
-                    <div class="mb-3">
-                        <asp:Label ID="Label1" runat="server" Text="YOUR COMMENT: " />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="Rating" runat="server" ErrorMessage="Comment is required!" ControlToValidate="tbComment" ForeColor="Red" Display="Dynamic">*</asp:RequiredFieldValidator>
-                        <br />
-                        <asp:TextBox ID="tbComment" CssClass="textBox" runat="server" ValidationGroup="Rating" TextMode="MultiLine" Rows="3"></asp:TextBox>
-                    </div>
-                    <asp:Button ID="btnSubmit" runat="server" CssClass="btn-orange" Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="Rating" />
-                    <asp:ValidationSummary ID="ValidationSummary2" runat="server" ForeColor="Red" ValidationGroup="Rating" HeaderText="The following problems have been encountered" ShowMessageBox="True" ShowSummary="False" />
                 </div>
+
+                <%----------------------------------------------------Teaching style--%>
+                <div class="col-md-12 text-left">
+                    <asp:Label ID="Label2" runat="server" Text="Teaching Style: " />
+                    <br />
+                    <!-- Star Rating Row -->
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <asp:RadioButton CssClass="star" ID="RadioButton21" runat="server" GroupName="rating2" value="1" />
+                            <label class="form-check-label" for="star1">1<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton22" runat="server" GroupName="rating2" value="2" />
+                            <label class="form-check-label" for="star2">2<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton23" runat="server" GroupName="rating2" value="3" />
+                            <label class="form-check-label" for="star3">3<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton24" runat="server" GroupName="rating2" value="4" />
+                            <label class="form-check-label" for="star4">4<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton25" runat="server" GroupName="rating2" value="5" />
+                            <label class="form-check-label" for="star5">5<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                        </div>
+                    </div>
+                </div>
+                <%----------------------------------------------------Availability--%>
+                <div class="col-md-12 text-left">
+                    <asp:Label ID="Label3" runat="server" Text="Availability: " />
+                    <br />
+                    <!-- Star Rating Row -->
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <asp:RadioButton CssClass="star" ID="RadioButton31" runat="server" GroupName="rating3" value="1" />
+                            <label class="form-check-label" for="star1">1<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton32" runat="server" GroupName="rating3" value="2" />
+                            <label class="form-check-label" for="star2">2<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton33" runat="server" GroupName="rating3" value="3" />
+                            <label class="form-check-label" for="star3">3<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton34" runat="server" GroupName="rating3" value="4" />
+                            <label class="form-check-label" for="star4">4<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton35" runat="server" GroupName="rating3" value="5" />
+                            <label class="form-check-label" for="star5">5<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                        </div>
+                    </div>
+                </div>
+                <%----------------------------------------------------Preparation and Organization--%>
+                <div class="col-md-12 text-left">
+                    <asp:Label ID="Label4" runat="server" Text="Preparation and Organization: " />
+                    <br />
+                    <!-- Star Rating Row -->
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <asp:RadioButton CssClass="star" ID="RadioButton41" runat="server" GroupName="rating4" value="1" />
+                            <label class="form-check-label" for="star1">1<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton42" runat="server" GroupName="rating4" value="2" />
+                            <label class="form-check-label" for="star2">2<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton43" runat="server" GroupName="rating4" value="3" />
+                            <label class="form-check-label" for="star3">3<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton44" runat="server" GroupName="rating4" value="4" />
+                            <label class="form-check-label" for="star4">4<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton45" runat="server" GroupName="rating4" value="5" />
+                            <label class="form-check-label" for="star5">5<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                        </div>
+                    </div>
+                </div>
+                 <%----------------------------------------------------Professionalism--%>
+                <div class="col-md-12 text-left">
+                    <asp:Label ID="Label5" runat="server" Text="Professionalism: " />
+                    <br />
+                    <!-- Star Rating Row -->
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <asp:RadioButton CssClass="star" ID="RadioButton51" runat="server" GroupName="rating5" value="1" />
+                            <label class="form-check-label" for="star1">1<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton52" runat="server" GroupName="rating5" value="2" />
+                            <label class="form-check-label" for="star2">2<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton53" runat="server" GroupName="rating5" value="3" />
+                            <label class="form-check-label" for="star3">3<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton54" runat="server" GroupName="rating5" value="4" />
+                            <label class="form-check-label" for="star4">4<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                            &nbsp;&nbsp;
+    
+    <asp:RadioButton CssClass="star" ID="RadioButton55" runat="server" GroupName="rating5" value="5" />
+                            <label class="form-check-label" for="star5">5<i class="bi bi-star" style="color: rgb(255, 210, 49); font-size: 1.5rem;"></i></label>
+                        </div>
+                    </div>
+                </div>
+                <!------------------------------------------------- Rating Input Row -->
+                <div class="mb-3">
+                    <asp:Label ID="Label1" runat="server" Text="YOUR COMMENT: " />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="rating4" runat="server" ErrorMessage="Comment is required!" ControlToValidate="tbComment" ForeColor="Red" Display="Dynamic">*</asp:RequiredFieldValidator>
+                    <br />
+                    <asp:TextBox ID="tbComment" CssClass="textBox" runat="server" ValidationGroup="rating1" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                </div>
+                <asp:Button ID="btnSubmit" runat="server" CssClass="btn-orange" Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="rating1,rating2,rating3,rating,4,rating5" />
+                <asp:ValidationSummary ID="ValidationSummary2" runat="server" ForeColor="Red" ValidationGroup="rating1,rating2,rating3,rating,4,rating5" HeaderText="The following problems have been encountered" ShowMessageBox="True" ShowSummary="False" />
             </div>
         </div>
-    </div>
+    </div> 
 </asp:Content>

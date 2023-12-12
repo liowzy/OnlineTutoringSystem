@@ -21,8 +21,13 @@ namespace OnlineTutoringSystem.Student
             if (Session["courseId"] != null)
             {
                 string courseId = Session["courseId"].ToString();
-                int courseId2 = Convert.ToInt32(Session["courseId"]);
+                int userId = Convert.ToInt32(Session["userId"]);
                 FetchCourseDetails(courseId);
+                if (IsCoursePurchased(userId,int.Parse(courseId)))
+                { 
+                    btnPurchase.Enabled = false;
+                    btnPurchase.Text = "Enrolled";
+                }
                 FetchWishlistData();
             }
             else

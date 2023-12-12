@@ -59,29 +59,33 @@ namespace OnlineTutoringSystem.Tutor
             Response.Redirect($"EditCourse.aspx?courseId={courseId}");
         }
 
-        protected void btnDeleteModal_Click(object sender, EventArgs e)
+        protected void deleteBtn_Click(object sender, EventArgs e)
         {
-            // This is the server-side click event of the Delete button
-            if (int.TryParse(hdnCourseIdModal.Value, out int courseId))
-            {
-                // Call a method to delete the course
-                DeleteCourse(courseId);
+            // Get the course ID from the button's data attribute
+            Button deleteButton = (Button)sender;
+            int courseId = Convert.ToInt32(deleteButton.Attributes["course_id"]);
 
-                // Register a script to perform the redirection using JavaScript
-                string redirectScript = "window.location.href = 'MyCourses.aspx';";
-                ClientScript.RegisterStartupScript(this.GetType(), "RedirectScript", redirectScript, true);
+            // You can perform the delete operation here using the courseId
+            // For example, you might call a method that deletes the course from the database
+            bool deletionSuccess = DeleteCourse(courseId);
+
+            if (deletionSuccess)
+            {
+                // Show a client-side alert if the deletion was successful
+                ScriptManager.RegisterStartupScript(this, GetType(), "deleteAlert", "alert('Course deleted successfully.');", true);
+
+                // Optionally, you can rebind your data after deletion
+                // RebindData();
             }
             else
             {
-                // Handle the case where the value is not a valid integer
-                // You can display an error message or take appropriate action
-                // For example:
-                lblMessage.Text = "Invalid course ID format.";
+                // Handle deletion failure if needed
+                ScriptManager.RegisterStartupScript(this, GetType(), "deleteAlert", "alert('Failed to delete the course.');", true);
             }
         }
 
 
-        private void DeleteCourse(int courseId)
+        private bool DeleteCourse(int courseId)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
@@ -91,38 +95,58 @@ namespace OnlineTutoringSystem.Tutor
                 {
                     connection.Open();
 
-                    // Assuming the column name for the primary key is 'course_id'
-                    string query = "DELETE FROM Course WHERE course_id = @courseId";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlTransaction transaction = connection.BeginTransaction())
                     {
-                        command.Parameters.AddWithValue("@courseId", courseId);
-
-                        // Execute the delete operation
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
+                        try
                         {
-                            // Course deleted successfully
-                            // Set a success message
-                            lblMessage.Text = "Course deleted successfully.";
+                            string query = "DELETE FROM Course WHERE course_id = @CourseId";
+
+                            using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@CourseId", courseId);
+
+                                int rowsAffected = command.ExecuteNonQuery();
+
+                                if (rowsAffected > 0)
+                                {
+                                    // Commit the transaction if the delete is successful
+                                    transaction.Commit();
+
+                                    // Return true to indicate success
+                                    return true;
+                                }
+                                else
+                                {
+                                    // Rollback the transaction if no rows were affected
+                                    transaction.Rollback();
+
+                                    // Return false to indicate failure
+                                    return false;
+                                }
+                            }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            // Handle the case where no rows were affected (course not found or delete failed)
-                            // Set an error message
-                            lblMessage.Text = "Course not found or delete failed.";
+                            // Log the exception to a log file or a logging framework
+                            string logFilePath = Server.MapPath("~/App_Data/ErrorLog.txt");
+                            System.IO.File.AppendAllText(logFilePath, $"{DateTime.Now}: {ex.Message}\n");
+
+                            // Rollback the transaction in case of an exception
+                            transaction.Rollback();
+
+                            // Rethrow the exception to let it propagate
+                            return false;
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log the exception to a log file
+                // Log the exception to a log file or a logging framework
                 string logFilePath = Server.MapPath("~/App_Data/ErrorLog.txt");
                 System.IO.File.AppendAllText(logFilePath, $"{DateTime.Now}: {ex.Message}\n");
 
-                // Rethrow the exception to let it propagate (optional)
+                // Rethrow the exception to let it propagate
                 throw;
             }
         }
@@ -195,7 +219,7 @@ namespace OnlineTutoringSystem.Tutor
             {
                 connection.Open();
 
-                string query = "SELECT course_id, course_name, course_category, course_level, course_topic, course_fee, course_language, course_duration, course_desc, course_content, course_targetAudience, course_requirement, course_pic, course_video FROM Course WHERE course_id = @courseId";
+                string query = "SELECT course_id, course_name, course_category, course_level, course_topic, course_fee, course_language, course_duration, course_desc, course_overview, course_targetAudience, course_requirement, course_pic, course_video FROM Course WHERE course_id = @courseId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -217,7 +241,7 @@ namespace OnlineTutoringSystem.Tutor
                             course.CourseLanguage = reader["course_language"].ToString();
                             course.CourseDuration = reader["course_duration"].ToString();
                             course.CourseDescription = reader["course_desc"].ToString();
-                            course.CourseContent = reader["course_content"].ToString();
+                            course.CourseContent = reader["course_overview"].ToString();
                             course.CourseTargetAudience = reader["course_targetAudience"].ToString();
                             course.CourseRequirements = reader["course_requirement"].ToString();
                             course.CourseThumbnail = (byte[])reader["course_pic"];
@@ -232,28 +256,28 @@ namespace OnlineTutoringSystem.Tutor
     }
 
     public class YourDataAccessLayer
+    {
+        // Your connection string
+        private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+        public DataTable GetCourseCategories()
         {
-            // Your connection string
-            private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            DataTable dtCategories = new DataTable();
 
-            public DataTable GetCourseCategories()
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                DataTable dtCategories = new DataTable();
-
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                string query = "SELECT cat_id, cat_name FROM Category";
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
-                    string query = "SELECT cat_id, cat_name FROM Category";
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    connection.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {
-                        connection.Open();
-                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                        {
-                            da.Fill(dtCategories);
-                        }
+                        da.Fill(dtCategories);
                     }
                 }
-
-                return dtCategories;
             }
+
+            return dtCategories;
         }
     }
+}

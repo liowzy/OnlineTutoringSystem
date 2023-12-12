@@ -19,7 +19,13 @@
             overflow-x: hidden;
             font-family: 'Lucida Sans'
         }
+        .cnameheight{
+            height: 4rem;
+        }
 
+        .tpicheight{
+            height: 12.3rem;
+        }
         .bg-image {
             background-size: cover;
             background-position: center center;
@@ -77,7 +83,17 @@
                     <asp:Label ID="Label18" runat="server" Text="Tutors" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
                 </div>
             </div>
-
+            
+            <div class="row justify-content-between">
+                <div class="col-8"></div>
+                <div class="col-4 justify-content-end">
+                <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="border shadow btn dropdown-toggle" AutoPostBack="true" OnSelectedIndexChanged="ddlSortBy_SelectedIndexChanged">
+                    <asp:ListItem Text="Latest Added" Value="Latest"></asp:ListItem>
+                    <asp:ListItem Text="Oldest Added" Value="Oldest"></asp:ListItem> 
+                    <asp:ListItem Text="Highest Rating" Value="Rating"></asp:ListItem>
+                </asp:DropDownList>
+                    </div>
+            </div>
             <div class="row justify-content-center pt-2" style="margin-left: 1.5%;">
                 <asp:DataList ID="DataListCourses" runat="server" DataSourceID="SqlDataSourceTutors" RepeatColumns="4"
                     RepeatDirection="Horizontal" DataKeyField="tutor_id" OnSelectedIndexChanged="DataListCourses_SelectedIndexChanged">

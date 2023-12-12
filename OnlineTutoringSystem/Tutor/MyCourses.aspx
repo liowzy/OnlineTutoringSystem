@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-                                <!-- Sorting Options -->
+                    <!-- Sorting Options -->
             <div class="row justify-content-center" style="margin-bottom: 20px">
                 <div class="col-md-3 mb-2">
                     <!-- Search Box -->

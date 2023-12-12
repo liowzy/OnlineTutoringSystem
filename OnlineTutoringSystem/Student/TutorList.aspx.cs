@@ -9,6 +9,9 @@ using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace OnlineTutoringSystem
 {
@@ -69,7 +72,33 @@ namespace OnlineTutoringSystem
                 Response.Redirect("ViewTutor/ViewTutorCourse.aspx");
             }
         }
+        protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string sortBy = ddlSortBy.SelectedValue;
 
+            switch (sortBy)
+            {
+                case "Latest":
+                    // Sort by latest added
+                    SqlDataSourceTutors.SelectCommand = "SELECT tutor_id, tutor_picture, tutor_name, tutor_expertice FROM Tutor ORDER BY tutor_id DESC";
+                    break;
+                case "Oldest":
+                    // Sort by oldest added
+                    SqlDataSourceTutors.SelectCommand = "SELECT tutor_id, tutor_picture, tutor_name, tutor_expertice FROM Tutor ORDER BY tutor_id ASC";
+                    break;
+                case "Rating":
+                    // Sort by highest rating
+                    SqlDataSourceTutors.SelectCommand = "SELECT t.tutor_id, t.tutor_picture, t.tutor_name, t.tutor_expertice, " +
+                        "COALESCE(AVG(r.review_rating), 0) AS average_rating FROM Tutor t LEFT JOIN Review r ON t.tutor_id = r.tutor_id " +
+                        "GROUP BY t.tutor_id, t.tutor_picture, t.tutor_name, t.tutor_expertice ORDER BY average_rating DESC";
+                    break;
+                default: 
+                    SqlDataSourceTutors.SelectCommand = "SELECT tutor_id, tutor_picture, tutor_name, tutor_expertice FROM Tutor ORDER BY tutor_id ASC";
+                    break;
+            }
+
+            DataListCourses.DataBind();
+        }
 
         public double CalculateAverageRating(string tutorId)
         {

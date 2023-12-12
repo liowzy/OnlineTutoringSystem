@@ -201,57 +201,14 @@
                     <div class="col-6 text-right">
                         <!-- Edit and Delete Buttons -->
                         <asp:LinkButton CssClass="editBtn btn-warning" ID="editBtn" runat="server" CommandName="Edit" CommandArgument='<%# Eval("course_id") %>' OnCommand="editBtn_Command">Edit</asp:LinkButton>
-                        <button type="button" class="deleteBtn btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal" data-courseid='<%# Eval("course_id") %>'>Delete</button>
+                       <asp:Button ID="deleteBtn" runat="server" CssClass="deleteBtn btn btn-danger"
+                        OnClientClick="if (!confirm('Are you sure you want to delete this course?')) return false;"
+                        OnClick="deleteBtn_Click"
+                        CommandArgument='<%# Eval("course_id") %>'
+                        UseSubmitBehavior="false"
+                        Text="Delete" CausesValidation="false" />
                     </div>
 
-                    <!-- Bootstrap Modal for Confirmation -->
-                    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    Are you sure you want to delete this course?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <asp:Button ID="btnDeleteModal" runat="server" Text="Delete" CssClass="btn btn-danger" OnClick="btnDeleteModal_Click" />
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Hidden field to store course ID in the modal -->
-                        <asp:HiddenField ID="hdnCourseIdModal" runat="server" />
-                    </div>
-
-                        <script>
-                            $(document).ready(function () {
-                                // Show the modal when it is displayed
-                                $('#confirmDeleteModal').on('shown.bs.modal', function () {
-                                    // Get the course ID from the data attribute
-                                    var courseId = $("#confirmDeleteModal").data("courseid");
-
-                                    // Set the value of the hidden field
-                                    $("#<%= hdnCourseId.ClientID %>").val(courseId);
-                                    $("#<%= hdnCourseIdModal.ClientID %>").val(courseId);
-
-                                    // Perform the delete action after a delay
-                                    setTimeout(function () {
-                                        __doPostBack('<%= btnDeleteModal.UniqueID %>', '');
-                                    }, 1000); // Adjust the delay time (in milliseconds) as needed
-                                });
-
-                                // Hide the modal when it is closed
-                                $('#confirmDeleteModal').on('hidden.bs.modal', function () {
-                                    // Clear the course ID data attribute when the modal is closed
-                                    $(this).removeData('courseid');
-                                });
-                            });
-
-                        </script>
                 </div>
             </div>
         </div>

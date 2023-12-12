@@ -3670,6 +3670,7 @@
     <Content Include="Student\ViewTutor\ViewTutorCourse.aspx" />
     <Content Include="Student\ViewTutor\ViewTutorSchedule.aspx" />
     <Content Include="Student\CourseReview.aspx" />
+    <Content Include="Student\WebForm51.aspx" />
     <Content Include="TempAddData.aspx" />
     <Content Include="Tutor\assets\css\calander.css" />
     <Content Include="Tutor\assets\css\style.css" />
@@ -3713,8 +3714,9 @@
     <Content Include="Student\Chatbot.aspx" />
     <Content Include="Student\Rating.aspx" />
     <Content Include="Student\Schedule.aspx" />
-    <Content Include="WebForm12.aspx" />
     <Content Include="Student\TutorList.aspx" />
+    <Content Include="Entry\ForgetPassword.aspx" />
+    <Content Include="Entry\VerifyEmail.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddResourceFile.aspx.cs">
@@ -3835,6 +3837,13 @@
     <Compile Include="Student\CourseReview.aspx.designer.cs">
       <DependentUpon>CourseReview.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Student\WebForm51.aspx.cs">
+      <DependentUpon>WebForm51.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\WebForm51.aspx.designer.cs">
+      <DependentUpon>WebForm51.aspx</DependentUpon>
+    </Compile>
     <Compile Include="TempAddData.aspx.cs">
       <DependentUpon>TempAddData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3943,19 +3952,26 @@
     <Compile Include="Tutor\CourseDetail.aspx.designer.cs">
       <DependentUpon>CourseDetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebForm12.aspx.cs">
-      <DependentUpon>WebForm12.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm12.aspx.designer.cs">
-      <DependentUpon>WebForm12.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Student\TutorList.aspx.cs">
       <DependentUpon>TutorList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Student\TutorList.aspx.designer.cs">
       <DependentUpon>TutorList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Entry\ForgetPassword.aspx.cs">
+      <DependentUpon>ForgetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Entry\ForgetPassword.aspx.designer.cs">
+      <DependentUpon>ForgetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Entry\VerifyEmail.aspx.cs">
+      <DependentUpon>VerifyEmail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Entry\VerifyEmail.aspx.designer.cs">
+      <DependentUpon>VerifyEmail.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

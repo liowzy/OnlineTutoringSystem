@@ -51,13 +51,22 @@ namespace OnlineTutoringSystem
         protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
-        /// DataList1 control.
+        /// DataListCourses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList DataList1;
+        protected global::System.Web.UI.WebControls.DataList DataListCourses;
+
+        /// <summary>
+        /// SqlDataSourceCourses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceCourses;
 
         /// <summary>
         /// Label13 control.
@@ -78,15 +87,6 @@ namespace OnlineTutoringSystem
         protected global::System.Web.UI.WebControls.LinkButton LinkButton13;
 
         /// <summary>
-        /// SqlDataSource1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
-
-        /// <summary>
         /// Label18 control.
         /// </summary>
         /// <remarks>
@@ -96,13 +96,13 @@ namespace OnlineTutoringSystem
         protected global::System.Web.UI.WebControls.Label Label18;
 
         /// <summary>
-        /// RepeaterTutors control.
+        /// DataList1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RepeaterTutors;
+        protected global::System.Web.UI.WebControls.DataList DataList1;
 
         /// <summary>
         /// SqlDataSourceTutors control.
