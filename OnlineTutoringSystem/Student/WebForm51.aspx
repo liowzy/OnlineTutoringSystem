@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm51.aspx.cs" Inherits="OnlineTutoringSystem.Student.WebForm51" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm51.aspx.cs" Inherits="OnlineTutoringSystem.Student.WebForm51" %>
 
 <!DOCTYPE html>
 
@@ -6,29 +6,35 @@
 <head runat="server">
     <title>PDF Viewer</title>
      <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!-- Bootstrap Icons CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="../Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="../Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
 
     <!-- Lightbox2 CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css"/>
 
     <link rel="stylesheet" href="../Content/css/studentMaster.css" />
-    <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css">
-    
+    <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css"/>
+    <style>
+        
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; 
+        }
+    </style>
 </head>
-<body>
-    <form id="form1" runat="server">
-        <div class="justify-content-center">
+<body> 
+        <div class="row justify-content-center">
+        <div class="col-8">
             <asp:Repeater ID="rptFiles" runat="server">
                 <ItemTemplate>
-                    <iframe runat="server" width="1000" height="800" src='<%# "data:application/pdf;base64," + Container.DataItem %>'></iframe>
+                    <iframe runat="server" width="900" height="680" src='<%# "data:application/pdf;base64," + Container.DataItem %>'></iframe>
                 </ItemTemplate>
             </asp:Repeater>
-
-        </div>
-    </form>
+            </div>
+        </div> 
 </body>
 </html>
