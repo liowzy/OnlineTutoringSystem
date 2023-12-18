@@ -3702,6 +3702,8 @@
     <Content Include="Tutor\CreateNewCourse.aspx" />
     <Content Include="Tutor\MyCourses.aspx" />
     <Content Include="Tutor\CourseDetail.aspx" />
+    <Content Include="Tutor\ResourceManagement.aspx" />
+    <Content Include="Tutor\UploadFile.aspx" />
     <Content Include="Web.config" />
     <Content Include="Entry\Registration.aspx" />
     <Content Include="Entry\Login.aspx" />
@@ -3717,6 +3719,7 @@
     <Content Include="Student\TutorList.aspx" />
     <Content Include="Entry\ForgetPassword.aspx" />
     <Content Include="Entry\VerifyEmail.aspx" />
+    <Content Include="WebForm1211.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddResourceFile.aspx.cs">
@@ -3972,6 +3975,27 @@
     </Compile>
     <Compile Include="Entry\VerifyEmail.aspx.designer.cs">
       <DependentUpon>VerifyEmail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tutor\ResourceManagement.aspx.cs">
+      <DependentUpon>ResourceManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\ResourceManagement.aspx.designer.cs">
+      <DependentUpon>ResourceManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tutor\UploadFile.aspx.cs">
+      <DependentUpon>UploadFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\UploadFile.aspx.designer.cs">
+      <DependentUpon>UploadFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1211.aspx.cs">
+      <DependentUpon>WebForm1211.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1211.aspx.designer.cs">
+      <DependentUpon>WebForm1211.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

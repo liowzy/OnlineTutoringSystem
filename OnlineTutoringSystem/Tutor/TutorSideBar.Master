@@ -109,6 +109,12 @@
                         </asp:LinkButton>
                     </li>
                     <li class="nav-item">
+                        <asp:LinkButton ID="btnCreateFile" runat="server" CssClass="nav-link" OnClick="btnCreateFile_Click"> 
+                            <i class="bi bi-clipboard"></i>
+                           <span>File Resource Management</span>
+                        </asp:LinkButton>
+                    </li>
+                    <li class="nav-item">
                         <asp:LinkButton ID="btnMyCourses" runat="server" CssClass="nav-link" OnClick="btnMyCourses_Click">
                             <i class="bi bi-journal-text"></i>
                             <span>My Courses</span>

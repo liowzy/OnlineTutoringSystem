@@ -256,34 +256,39 @@
 
                     <div class="tab-pane fade pt-3" id="review-publish">
 
-                       <!-- Review and Publish Form -->
-                           <h5 class="card-title">Course Resource</h5>
-
-                           <!-- List of Resources -->
-                           <div class="container mt-4">
-                                <div class="mb-3">
-                                    <label for="resourceName" class="form-label">Resource Name:</label>
-                                    <asp:TextBox runat="server" ID="txtresourceName" CssClass="form-control" placeholder="Enter Resource Name" required="true"></asp:TextBox>
+                        <!-- Review and Publish Form -->
+                      <div class="d-flex justify-content-between align-items-center">
+                         <h5 class="card-title">Course Resource</h5>
+                         <button type="button" class="btn btn-primary" onclick="addResource()">Add Resource</button>
+                     </div>
+                           
+                        <!-- List of Resources -->
+                        <div class="container mt-4" id="resourcesContainer">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span id="resourceNumberLabel" style="font-style: italic; font-weight: bold; color: #007BFF;">Resource No: 1</span>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="fileName" class="form-label">File Name:</label>
-                                    <asp:TextBox runat="server" ID="txtfileName" CssClass="form-control" placeholder="Enter File Name" required="true"></asp:TextBox>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="fileUpload" class="form-label">Upload File:</label>
-                                    <asp:FileUpload runat="server" ID="fileUpload" CssClass="form-control" Required="true" />
-                                </div>     
                             </div>
+                            <div class="mb-3">
+                                <label for="resourceName" class="form-label">Resource Name:</label>
+                                <asp:TextBox runat="server" ID="txtresourceName" CssClass="form-control" placeholder="Enter Resource Name" required="true"></asp:TextBox>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fileName" class="form-label">File Name:</label>
+                                <asp:TextBox runat="server" ID="txtfileName" CssClass="form-control" placeholder="Enter File Name" required="true"></asp:TextBox>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fileUpload" class="form-label">Upload File:</label>
+                                <asp:FileUpload runat="server" ID="fileUpload" CssClass="form-control" Required="true" />
+                            </div>
+                        </div>
 
-
-                         <div class="text-center">
-                             <button  type="button" class="btn btn-primary prev-tab" style="background-color: #FF6636; border-color: #FF6636;"data-bs-target="#course-info">Previous</button>
-                             <asp:Button ID="btnSubmit" runat="server" Text="Save" CssClass="btn btn-primary save-btn"
-                                  Style="background-color: #FF6636; border-color: #FF6636;" OnClientClick="return confirm('Are you sure you want to save?');" OnClick="btnSubmit_Click" />
-                              </div>
-                          </div>
-                      </div>
-        
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary prev-tab" style="background-color: #FF6636; border-color: #FF6636;" data-bs-target="#course-info">Previous</button>
+                            <asp:Button ID="btnSubmit" runat="server" Text="Save" CssClass="btn btn-primary save-btn"
+                                Style="background-color: #FF6636; border-color: #FF6636;" OnClientClick="return confirm('Are you sure you want to save?');" OnClick="btnSubmit_Click" />
+                        </div>
+                    </div>   
 
                  <!-- jQuery -->
                  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -295,26 +300,58 @@
                <%-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>--%>
       
                 <script>
-                     $(document).ready(function () {
-                         // Handle "Next" button click
-                         $('.next-tab').on('click', function () {
-                             var currentTab = $('.nav-link.active');
-                             var nextTab = currentTab.parent().next().find('.nav-link');
-                             if (nextTab.length > 0) {
-                                 nextTab.tab('show');
-                             }
-                         });
+                    var resourceCounter = 1; // Initialize the counter
 
-                         // Handle "Previous" button click
-                         $('.prev-tab').on('click', function () {
-                             var currentTab = $('.nav-link.active');
-                             var prevTab = currentTab.parent().prev().find('.nav-link');
-                             if (prevTab.length > 0) {
-                                 prevTab.tab('show');
-                             }
-                         });
-                     });
-                 </script>
+                    $(document).ready(function () {
+                        // Handle "Next" button click
+                        $('.next-tab').on('click', function () {
+                            var currentTab = $('.nav-link.active');
+                            var nextTab = currentTab.parent().next().find('.nav-link');
+                            if (nextTab.length > 0) {
+                                nextTab.tab('show');
+                            }
+                        });
+
+                        // Handle "Previous" button click
+                        $('.prev-tab').on('click', function () {
+                            var currentTab = $('.nav-link.active');
+                            var prevTab = currentTab.parent().prev().find('.nav-link');
+                            if (prevTab.length > 0) {
+                                prevTab.tab('show');
+                            }
+                        });
+                    });
+
+                    function addResource() {
+                        var resourceContainer = document.getElementById('resourcesContainer');
+
+                        // Clone the resource entry
+                        var clone = resourceContainer.cloneNode(true);
+
+                        // Clear the input values in the cloned resource entry
+                        clearInputValues(clone);
+
+                        // Update the resource number label
+                        updateResourceNumberLabel(clone);
+
+                        // Append the clone to the container
+                        resourceContainer.parentNode.appendChild(clone);
+                    }
+
+                    function clearInputValues(container) {
+                        // Clear input values in the cloned resource entry
+                        var inputs = container.querySelectorAll('input[type="text"], input[type="file"]');
+                        for (var i = 0; i < inputs.length; i++) {
+                            inputs[i].value = '';
+                        }
+                    }
+                    function updateResourceNumberLabel(container) {
+                        // Update the resource number label in the cloned resource entry
+                        var label = container.querySelector('#resourceNumberLabel');
+                        resourceCounter++;
+                        label.textContent = 'Resource No: ' + resourceCounter;
+                    }
+                </script>
                 </div>
             </div>
          </div>

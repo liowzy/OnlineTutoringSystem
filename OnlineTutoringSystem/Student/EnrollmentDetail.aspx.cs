@@ -72,14 +72,11 @@ namespace OnlineTutoringSystem
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "SELECT pc.purchase_id, pc.purchase_date, c.course_name, t.tutor_name, c.course_pic, " +
-                                   "r.res_id, r.res_name, f.file_id, f.file_name, f.file_path " +
-                                   "FROM PurchasedCourse pc " +
-                                   "INNER JOIN Course c ON pc.course_id = c.course_id " +
-                                   "INNER JOIN Tutor t ON c.tutor_id = t.tutor_id " +
-                                   "LEFT JOIN Resource r ON c.course_id = r.course_id " +
-                                   "LEFT JOIN File_Attachment f ON r.res_id = f.res_id " +
-                                   "WHERE c.course_id = @courseId";
+                    string query = "SELECT pc.purchase_id, pc.purchase_date, c.course_name," +
+                        " t.tutor_name, c.course_pic, r.res_id, r.res_name, f.file_id, f.file_name, f.file_path " +
+                        "FROM PurchasedCourse pc INNER JOIN Course c ON pc.course_id = c.course_id INNER JOIN Tutor t" +
+                        " ON c.tutor_id = t.tutor_id LEFT JOIN Resource r ON c.course_id = r.course_id LEFT JOIN File_Attachment f " +
+                        "ON r.res_id = f.res_id WHERE c.course_id = @courseId";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {

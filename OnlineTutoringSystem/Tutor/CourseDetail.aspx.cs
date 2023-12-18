@@ -36,6 +36,7 @@ namespace OnlineTutoringSystem.Tutor
         {
             if (!IsPostBack)
             {
+                string tempcourseId = Session["courseId"]?.ToString();
                 LoadTutorData();
 
                 // Check if the course ID is provided in the query string
@@ -63,11 +64,11 @@ namespace OnlineTutoringSystem.Tutor
         {
             // Get the course ID from the button's data attribute
             Button deleteButton = (Button)sender;
-            int courseId = Convert.ToInt32(deleteButton.Attributes["course_id"]);
+            int courseId = Convert.ToInt32(Request.QueryString["courseId"]);
+            int tempcourseId = int.Parse(Session["courseId"].ToString());
 
-            // You can perform the delete operation here using the courseId
-            // For example, you might call a method that deletes the course from the database
-            bool deletionSuccess = DeleteCourse(courseId);
+            // You can perform the delete operation here using the courseId 
+            bool deletionSuccess = DeleteCourse(tempcourseId);
 
             if (deletionSuccess)
             {
@@ -76,6 +77,7 @@ namespace OnlineTutoringSystem.Tutor
 
                 // Optionally, you can rebind your data after deletion
                 // RebindData();
+                Response.Redirect("MyCourses.aspx");
             }
             else
             {

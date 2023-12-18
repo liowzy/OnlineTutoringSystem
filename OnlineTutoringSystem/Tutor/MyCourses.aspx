@@ -19,7 +19,10 @@
             overflow-x: hidden;
             font-family: 'Lucida Sans'
         }
-
+        
+        .cnameheight{
+            height: 4rem;
+        }
         .bg-image {
             background-size: cover;
             background-position: center center;
@@ -139,7 +142,7 @@
                                 </div>
 
                                 <!-- Third Row: Name -->
-                                <div class="card-body text-left pb-0">
+                                <div class="card-body cnameheight text-left pb-0">
                                     <asp:Label ID="lblCourseName" runat="server" CssClass="card-title fw-bold" Text='<%# Eval("course_name") %>' Style="font-size: 1.1rem;"></asp:Label>
                                 </div>
 
@@ -163,11 +166,17 @@
                     </ItemTemplate>
                 </asp:DataList>
 
-                <asp:SqlDataSource ID="SqlDataSourceCourses" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
-                    SelectCommand="SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name
+               <asp:SqlDataSource ID="SqlDataSourceCourses" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+    SelectCommand="SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name
                    FROM Course c
                    JOIN Category cat ON c.cat_id = cat.cat_id
-                   ORDER BY c.course_id ASC"></asp:SqlDataSource>
+                   WHERE c.tutor_id = @TutorId
+                   ORDER BY c.course_id ASC">
+    <SelectParameters>
+        <asp:SessionParameter Name="TutorId" SessionField="userId" Type="Int32" />
+    </SelectParameters>
+</asp:SqlDataSource>
+
 
             </div>
         </div>

@@ -38,5 +38,11 @@ namespace OnlineTutoringSystem
         {
             Response.Redirect("CreateNewCourse.aspx");
         }
+
+        protected void btnCreateFile_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ResourceManagement.aspx");
+
+        }
     }
 }

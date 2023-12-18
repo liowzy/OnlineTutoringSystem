@@ -42,6 +42,15 @@ namespace OnlineTutoringSystem
         protected global::System.Web.UI.WebControls.LinkButton btnCreateNewCourse;
 
         /// <summary>
+        /// btnCreateFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCreateFile;
+
+        /// <summary>
         /// btnMyCourses control.
         /// </summary>
         /// <remarks>

@@ -131,6 +131,7 @@ namespace OnlineTutoringSystem.Tutor
                 // Retrieve the course_id from the CommandArgument
                 int courseId = Convert.ToInt32(e.CommandArgument);
 
+                Session["courseId"] = courseId;
                 // Redirect to the course details page, passing the courseId as a query parameter
                 Response.Redirect($"CourseDetail.aspx?courseId={courseId}");
             }
