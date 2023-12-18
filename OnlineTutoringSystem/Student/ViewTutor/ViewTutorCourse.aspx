@@ -19,7 +19,14 @@
             overflow-x: hidden;
             font-family: 'Lucida Sans'
         }
+        
+        .cnameheight{
+            height: 4rem;
+        }
 
+        .tpicheight{
+            height: 12.3rem;
+        }
         .bg-image {
             background-size: cover;
             background-position: center center;
@@ -94,7 +101,7 @@
                             </div>
 
                             <!-- Third Row: Name -->
-                            <div class="card-body text-left pb-0">
+                            <div class="card-body cnameheight text-left pb-0">
                                 <asp:Label ID="lblCourseName" runat="server" CssClass="card-title fw-bold" Text='<%# Eval("course_name") %>' Style="font-size: 1.1rem;"></asp:Label>
                             </div>
 

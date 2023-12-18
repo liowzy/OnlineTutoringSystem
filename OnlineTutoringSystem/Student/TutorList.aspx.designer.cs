@@ -11,7 +11,7 @@ namespace OnlineTutoringSystem
 {
 
 
-    public partial class WebForm5
+    public partial class WebForm13
     {
 
         /// <summary>
@@ -42,12 +42,12 @@ namespace OnlineTutoringSystem
         protected global::System.Web.UI.WebControls.DataList DataListCourses;
 
         /// <summary>
-        /// SqlDataSourceCourses control.
+        /// SqlDataSourceTutors control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceCourses;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceTutors;
     }
 }

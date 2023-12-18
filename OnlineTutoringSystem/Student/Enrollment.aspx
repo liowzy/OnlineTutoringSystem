@@ -34,7 +34,14 @@
         /*.card {
             height: 17rem;   
         }*/
+        
+        .cnameheight{
+            height: 4rem;
+        }
 
+        .tpicheight{
+            height: 12.3rem;
+        }
         .card .card-img-top {
             height: 17rem;
             width: 100%;
@@ -104,7 +111,7 @@
                                 </div>
 
                                 <!-- Third Row: Name -->
-                                <div class="card-body text-left pb-0">
+                                <div class="card-body cnameheight text-left pb-0">
                                     <asp:Label ID="lblCourseName" runat="server" CssClass="card-title fw-bold" Text='<%# Eval("course_name") %>' Style="font-size: 1.1rem;"></asp:Label>
                                 </div>
 
@@ -113,9 +120,7 @@
                                     <div class="row justify-content-between">
 
                                         <div class="col-6 text-left">
-                                            <asp:LinkButton CssClass="star" ID="star1" runat="server" Enabled="False"><i class="fa fa-star" style="color: orange;">&nbsp;5.0</i></asp:LinkButton>
-
-                                        </div>
+                                            <i class="fa fa-star" style="color: orange;">&nbsp;<%# string.Format("{0:F1}", CalculateAverageRating(Eval("course_id").ToString())) %></i></div>
                                         <div class="col-6 text-right">
                                             <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
 

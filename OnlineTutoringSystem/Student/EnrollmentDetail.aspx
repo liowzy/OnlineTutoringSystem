@@ -17,11 +17,7 @@
 
     <link rel="stylesheet" href="../Content/css/studentMaster.css" />
     <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css">
-    <script>
-        function toggleCollapse(childDataListId) {
-            $('#' + childDataListId).collapse('toggle');
-        }
-    </script>
+
     <style>
         body {
             margin: 0;
@@ -46,6 +42,20 @@
             color: #fff;
             background-color: #007bff;
         }
+
+        .newResourceRow {
+            border-top: 2px solid #007bff; /* Add a border to separate new resource names */
+            padding-top: 10px; /* Adjust padding for better spacing */
+        }
+
+        .sameResourceRow {
+            /* Apply styles for rows with the same resource name if needed */
+        }
+
+        .separator {
+            margin-top: 10px; /* Adjust margin for better spacing */
+            margin-bottom: 10px; /* Adjust margin for better spacing */
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -56,7 +66,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
-                            <asp:Label ID="lblCourseName" runat="server" ></asp:Label></h4>
+                            <asp:Label ID="lblCourseName" runat="server"></asp:Label></h4>
                     </div>
                     <div class="card-body">
                         <!-- Course Image, Name, Tutor, Purchased Date -->
@@ -65,46 +75,78 @@
                                 <asp:Image ID="imgCourse" runat="server" CssClass="img-fluid" AlternateText="Course Image" />
                             </div>
                             <div class="col-md-8">
-                                <p>Tutor:
-                                    <asp:Label ID="lblTutorName" runat="server"  ></asp:Label></p>
-                                <p>Purchased Date:
-                                    <asp:Label ID="lblPurchasedDate" runat="server"  ></asp:Label></p>
+                                <p>
+                                    Tutor:
+                                    <asp:Label ID="lblTutorName" runat="server"></asp:Label>
+                                </p>
+                                <p>
+                                    Purchased Date:
+                                    <asp:Label ID="lblPurchasedDate" runat="server"></asp:Label>
+                                </p>
                                 <!-- Rate Tutor and Course Button (Aligned to the right) -->
                                 <div class="text-right">
-<asp:Button ID="btnRateTutorAndCourse" runat="server" CssClass="btn btn-primary" Text="Rate Tutor and Course" OnClick="btnRateTutorAndCourse_Click" />
+                                    <asp:Button ID="btnRateTutorAndCourse" runat="server" CssClass="btn btn-primary" Text="Rate Tutor and Course" OnClick="btnRateTutorAndCourse_Click" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
 
+        </div>
+        
+            
         <%--resource and file display--%>
+<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+    SelectCommand="SELECT R.res_id, R.res_name, F.file_id, F.file_name
+                   FROM Resource R
+                   INNER JOIN File_Attachment F ON R.res_id = F.res_id
+                   WHERE R.course_id = @CourseID
+                   ORDER BY R.res_id, F.file_id">
+    <SelectParameters>
+        <asp:SessionParameter Name="CourseID" SessionField="courseId" Type="Int32" />
+    </SelectParameters>
+</asp:SqlDataSource>
 
-        <div class="row mt-5 p-3">
+        
+        <div class="row p-3 pt-1">
+            <div class="row top-category p-3">
+                <div class="col text-center">
+                    <asp:Label ID="Label18" runat="server" Text="Class Material" CssClass="h3 mt-3 font-weight-bold"></asp:Label>
+                </div>
+            </div>
             <div class="col-md-8 offset-md-2">
-                <asp:DataList CssClass="dataList" ID="ParentDataList" runat="server" CellSpacing="5">
-                    <ItemTemplate>
-                        <div class="itemTemplate">
-                            <!-- Display resource information here -->
-                            <h4><%# Eval("res_name") %></h4>
-                            <asp:Button CssClass="expandBtn btn btn-link" ID="ExpandButton" runat="server" Text="More" data-bs-toggle="collapse" data-bs-target='<%# "#childCollapse_" + Container.ItemIndex %>'></asp:Button>
+                <div class="card mt-1">
+                    <div class="card-body">
 
-                            <!-- Display file information here -->
-                            <div id='<%# "childCollapse_" + Container.ItemIndex %>' class="collapse">
-                                <asp:DataList ID="ChildDataList" runat="server">
+                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CssClass="dataList" BorderStyle="None" Width="100%"
+                            DataSourceID="SqlDataSource1">
+                            <Columns>
+                                <asp:TemplateField>
                                     <ItemTemplate>
-                                        <p>File Name: <%# Eval("file_name") %></p>
-                                        <p>File Path: <%# Eval("file_path") %></p>
+                                        <!-- Display resource and file information -->
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h4 class="resourceName pl-4"><%# Eval("res_name") %></h4>
+                                                <p class="m-0 pl-4">File Name: <%# Eval("file_name") %></p>
+                                            </div>
+                                            <!-- Button to jump to another page -->
+                                            <asp:Button ID="btnOpen" runat="server" Text="Open" OnClick="btnOpen_Click" CssClass="btn btn-primary btn-sm" CommandArgument='<%# Eval("file_id") %>' />
+                                        </div>
+                                        <hr class="separator" />
                                     </ItemTemplate>
-                                </asp:DataList>
-                            </div>
-                        </div>
-                    </ItemTemplate>
-                </asp:DataList>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+
+
+                    </div>
+                </div>
             </div>
         </div>
-    </div> 
+
+
+
+
+    </div>
 </asp:Content>

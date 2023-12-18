@@ -112,11 +112,12 @@
                             <li class="nav-item active">
                                 <asp:LinkButton ID="btnCourses" runat="server" CssClass="nav-link" PostBackUrl="~/Student/Course.aspx">Courses</asp:LinkButton>
                             </li>
+                            
                             <li class="nav-item active">
-                                <asp:LinkButton ID="btnAbout" runat="server" CssClass="nav-link" PostBackUrl="#">About</asp:LinkButton>
+                                <asp:LinkButton ID="btnContact" runat="server" CssClass="nav-link" PostBackUrl="~/Student/TutorList.aspx">Tutors</asp:LinkButton>
                             </li>
                             <li class="nav-item active">
-                                <asp:LinkButton ID="btnContact" runat="server" CssClass="nav-link" PostBackUrl="#">Contact</asp:LinkButton>
+                                <asp:LinkButton ID="btnAbout" runat="server" CssClass="nav-link" PostBackUrl="#">About</asp:LinkButton>
                             </li>
                             <li class="nav-item active">
                                 <asp:LinkButton ID="btnBecomeInstructor" runat="server" CssClass="nav-link" PostBackUrl="~/Entry/Registration.aspx">Become an Instructor</asp:LinkButton>

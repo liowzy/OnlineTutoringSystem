@@ -56,7 +56,7 @@ namespace OnlineTutoringSystem
         {
             string courseId = Session["courseId"] as string;
             // Display a window alert with the session ID
-            ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('Session ID: {Session["courseId"]}');", true);
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('Session end.Please login again.');", true);
 
             // Use courseId as needed
             Response.Redirect("CourseOverview.aspx");
@@ -75,6 +75,45 @@ namespace OnlineTutoringSystem
                 Response.Redirect("CourseOverview.aspx");
             }
         }
+
+        protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string sortBy = ddlSortBy.SelectedValue;
+
+            switch (sortBy)
+            {
+                case "Latest":
+                    // Sort by latest added
+                    SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name FROM Course c JOIN Category cat ON c.cat_id = cat.cat_id ORDER BY c.course_id DESC";
+                    break;
+                case "Oldest":
+                    // Sort by oldest added
+                    SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name FROM Course c JOIN Category cat ON c.cat_id = cat.cat_id ORDER BY c.course_id ASC";
+                    break;
+                case "HighPrice":
+                    // Sort by highest price
+                    SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name FROM Course c JOIN Category cat ON c.cat_id = cat.cat_id ORDER BY c.course_fee DESC";
+                    break;
+                case "LowPrice":
+                    // Sort by lowest price
+                    SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name FROM Course c JOIN Category cat ON c.cat_id = cat.cat_id ORDER BY c.course_fee ASC";
+                    break;
+                case "Rating":
+                    // Sort by highest rating
+                    SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name," +
+                        " c.course_fee, cat.cat_name, COALESCE((SELECT AVG(review_rating) FROM Review WHERE course_id = c.course_id), 0) AS " +
+                        "AvgRating FROM Course c JOIN Category cat ON c.cat_id = cat.cat_id ORDER BY AvgRating DESC";
+
+                    break;
+                default:
+                    // Default sorting (you can modify this as needed)
+                    SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name FROM Course c JOIN Category cat ON c.cat_id = cat.cat_id ORDER BY c.course_id ASC";
+                    break;
+            }
+
+            DataListCourses.DataBind();
+        }
+
 
 
         public double CalculateAverageRating(string courseId)

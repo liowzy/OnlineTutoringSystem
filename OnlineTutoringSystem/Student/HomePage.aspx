@@ -20,7 +20,14 @@
             padding: 0;
             overflow-x: hidden; 
         }
+        
+        .cnameheight{
+            height: 4rem;
+        }
 
+        .tpicheight{
+            height: 12.3rem;
+        }
         .bg-image {
             background-size: cover;
             background-position: center center;
@@ -50,7 +57,7 @@
 
         .prodPic {
             width: 198.400px;
-            height: 198.762px;
+            height: 176.762px;
         }
         
         .btn-orange {
@@ -87,39 +94,80 @@
         <!-- Browse Top Categories Section -->
         <div class="row top-category p-3">
             <div class="col">
-                <asp:Label ID="Label2" runat="server" Text="Browse Top Categories" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
+                <asp:Label ID="Label2" runat="server" Text="What Courses Avaialble Here" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
             </div>
         </div>
 
         <!-- Item Display Section using DataList -->
-        <div class="row justify-content-center" style="margin-left: 8%;">
-            <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource1" RepeatColumns="4">
-                <ItemTemplate>
-                    <div class="col p-2 mx-auto">
-                        <div class="card justify-content-center text-left" style="background-color: <%# GetCardColor(Container.ItemIndex) %>;">
-                            <div class="card-body">
-                                <p class="card-title h5"><%# Eval("cat_name") %></p>
-                                <p class="card-text h6 text-muted"><%# Eval("cat_sum") %> Courses</p>
+         
+        <div class="row justify-content-center pt-2" style="margin-left: 1.5%;">
+                <asp:DataList ID="DataListCourses" runat="server" DataSourceID="SqlDataSourceCourses" RepeatColumns="4"
+                    RepeatDirection="Horizontal" DataKeyField="course_id" OnSelectedIndexChanged="DataListCourses_SelectedIndexChanged">
+                    <ItemTemplate>
+                        <div class="col mb-4 mx-auto">
+                            <div style="width: 280px;">
+                                <img src='data:image/jpeg;base64,<%# Convert.ToBase64String((byte[])Eval("course_pic")) %>'
+                                    alt='<%# Eval("course_name") %>' class="img-fluid" style="width: 100%; height: 12rem; object-fit: cover;" />
+
+                                <!-- Second Row: Category and Price -->
+                                <div class=" row card-body justify-content-between pb-0">
+                                    <div class="col text-left" style="font-size: 0.85rem;">
+                                        <div class="col">
+                                            <asp:Label ID="lblCategory" runat="server" Text='<%# Eval("cat_name") %>' CssClass="mb-2 fw-bold text-uppercase ml-1 p-2" Style='<%# "background-color: " + GetCardColor(Container.ItemIndex) %>' />
+                                        </div>
+
+                                    </div>
+                                    <div class="col orangetxt" style="font-size: 1rem;">
+                                        <asp:Label ID="lblFee" runat="server" Text='<%# "RM " + Eval("course_fee") %>' CssClass="card-text mb-2 fw-bold" />
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Third Row: Name -->
+                                <div class="card-body cnameheight text-left pb-0">
+                                    <asp:Label ID="lblCourseName" runat="server" CssClass="card-title fw-bold" Text='<%# Eval("course_name") %>' Style="font-size: 1.1rem;"></asp:Label>
+                                </div>
+
+                                <!-- 4th Row: Star -->
+                                <div class="card-footer">
+                                    <div class="row justify-content-between">
+                                        <div class="col-6 text-left">
+                                            <asp:LinkButton CssClass="star" ID="LinkButton1" runat="server" Enabled="False">
+                                            <i class="fa fa-star" style="color: orange;">&nbsp;<%# string.Format("{0:F1}", CalculateAverageRating(Eval("course_id").ToString())) %></i>
+                                            </asp:LinkButton>
+
+
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
+
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </ItemTemplate>
-            </asp:DataList>
-        </div>
+                    </ItemTemplate>
+                </asp:DataList>
+
+
+
+                <asp:SqlDataSource ID="SqlDataSourceCourses" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+                    SelectCommand="SELECT TOP 4 c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name, (SELECT AVG(review_rating) FROM Review WHERE course_id = c.course_id) AS AvgRating FROM Course c JOIN Category cat ON c.cat_id = cat.cat_id ORDER BY AvgRating DESC"></asp:SqlDataSource>
+
+            </div>
+
         <div class="row justify-content-center p-3">
             <div class="col-auto">
-                <asp:Label ID="Label13" runat="server" Text="We have more category & subcategory." CssClass="m-0"></asp:Label>
+                <asp:Label ID="Label13" runat="server" Text="We have more course." CssClass="m-0"></asp:Label>
             </div>
             <div class="col-auto">
                 <asp:LinkButton ID="LinkButton13" runat="server" Style="color: orangered; text-decoration: none;" OnClick="LinkButton13_Click">Browse All&nbsp;<i class="fas fa-arrow-right"></i></asp:LinkButton>
             </div>
         </div>
 
-    </div>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT TOP 12 *
-FROM [Category]
-ORDER BY cat_sum DESC;
-"></asp:SqlDataSource>
+    </div> 
 
     <%--------------------------------------------section 3 start----------------------------------%>
     <div class="container-fluid p-2 text-center" style="background-color: #F5F7FA;">
@@ -127,19 +175,73 @@ ORDER BY cat_sum DESC;
         <div class="row">
             <div class="row top-category p-3">
                 <div class="col">
-                    <asp:Label ID="Label18" runat="server" Text="Top instructor of the month" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
+                    <asp:Label ID="Label18" runat="server" Text="Top Instructor Of The Month" CssClass="h3 mb-3 font-weight-bold"></asp:Label>
                 </div>
             </div>
+   <div class="row justify-content-center pt-2" style="margin-left: 1.5%;">
+                <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSourceTutors" RepeatColumns="4"
+                    RepeatDirection="Horizontal" DataKeyField="tutor_id" OnSelectedIndexChanged="DataListCourses2_SelectedIndexChanged">
+                    <ItemTemplate>
+                        <div class="col mb-4 mx-auto">
+                            <div style="width: 280px;">
+                                <img src='data:image/jpeg;base64,<%# Convert.ToBase64String((byte[])Eval("tutor_picture")) %>'
+                                    alt='<%# Eval("tutor_name") %>' class="img-fluid" style="width: 100%; height: 12rem; object-fit: cover;" />
 
-            <div class="row justify-content-center" style="margin-left: 5%;">
+                                <!-- Second Row: Category and Price -->
+                                <div class=" row card-body justify-content-center pb-0"> 
+                                    <div class="col orangetxt" style="font-size: 1rem;">
+                                        <asp:Label ID="lblFee" runat="server" Text='<%# Eval("tutor_expertice") %>' CssClass="card-text mb-2 fw-bold" />
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Third Row: Name -->
+                                <div class="card-body text-center pb-0">
+                                    <asp:Label ID="lblCourseName" runat="server" CssClass="card-title fw-bold" Text='<%# Eval("tutor_name") %>' Style="font-size: 1.1rem;"></asp:Label>
+                                </div>
+
+                                <!-- 4th Row: Star -->
+                                <div class="card-footer">
+                                    <div class="row justify-content-between">
+                                        <div class="col-6 text-left">
+                                            <asp:LinkButton CssClass="star" ID="LinkButton1" runat="server" Enabled="False">
+    <i class="fa fa-star" style="color: orange;">&nbsp;<%# string.Format("{0:F1}", CalculateAverageRating2(Eval("tutor_id").ToString())) %></i>
+</asp:LinkButton>
+
+
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("tutor_id") %>' OnCommand="selectBtn2_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:DataList>
+
+
+
+                
+                <asp:SqlDataSource ID="SqlDataSourceTutors" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+                    SelectCommand="SELECT TOP 4 Tutor.tutor_id, Tutor.tutor_picture, Tutor.tutor_name, Tutor.tutor_expertice,ISNULL(SUM(Review.review_rating), 0) AS total_rating, ISNULL(COUNT(Review.review_rating), 0) AS review_count, CASE WHEN COUNT(Review.review_rating) > 0 THEN SUM(Review.review_rating) / COUNT(Review.review_rating) ELSE NULL END AS average_rating FROM Tutor LEFT JOIN Review ON Tutor.tutor_id = Review.tutor_id GROUP BY Tutor.tutor_id, Tutor.tutor_picture, Tutor.tutor_name, Tutor.tutor_expertice  ORDER BY average_rating DESC"></asp:SqlDataSource>
+       
+            </div>
+
+            <%--<div class="row justify-content-center" style="margin-left: 5%;">
                 <asp:Repeater ID="RepeaterTutors" runat="server" DataSourceID="SqlDataSourceTutors">
                     <ItemTemplate>
                         <div class="col-md-3 mb-4 mx-auto">
                             <div class="card border justify-content-center prodDiv">
-                                <img src='data:image/jpeg;base64,<%# Convert.ToBase64String((byte[])Eval("tutor_picture")) %>'
-                                    class="card-img-top prodPic" />
-
-                                <%--<img src='../imgs/T1.png' alt='asd' class="card-img-top tutor-image" />--%>
+                                <div class="prodPic">
+                                    <img src='data:image/jpeg;base64,<%# Convert.ToBase64String((byte[])Eval("tutor_picture")) %>'
+                                    class="card-img-top" style="width: 100%; height:100%; object-fit:cover;"/>
+                                </div>
+                                
+                                 
 
                                 <div class="card-body prodDivBody">
                                     <h5 class="card-title"><%# Eval("tutor_name") %></h5>
@@ -176,7 +278,7 @@ ORDER BY cat_sum DESC;
             average_rating DESC">
 </asp:SqlDataSource>
 
-            </div>
+            </div>--%>
             <div class="row justify-content-center p-3">
                 <div class="col-auto">
                     <asp:Label ID="Label19" runat="server" Text="Thousands of students waiting for a instructor. Start teaching & earning now!" CssClass="m-0"></asp:Label>

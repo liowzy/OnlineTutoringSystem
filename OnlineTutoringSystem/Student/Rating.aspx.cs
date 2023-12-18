@@ -29,21 +29,19 @@ namespace OnlineTutoringSystem
                 // Check if the student has already reviewed this course
                 if (HasStudentReviewedCourse(studentId, courseId))
                 {
+                    // Disable the controls to make them not editable
+                    DisableReviewControls();
+                    btnSubmit.Text = "Back";
                     // Load existing review data
                     LoadExistingReviewData(studentId, courseId);
 
-                    // Disable the controls to make them not editable
-                    DisableReviewControls();
                 }
             }
         }
         private void LoadExistingReviewData(int studentId, int courseId)
         {
-            // Assuming you have a connection string in your web.config
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-
-            // Your SQL query to retrieve existing review data
-            string query = "SELECT review_rating, review_comment FROM Review WHERE student_id = @StudentId AND course_id = @CourseId";
+            string query = "SELECT review_rating, subject_rating, teaching_rating, availability_rating, preparation_rating, profess_rating, review_comment FROM Review WHERE student_id = @StudentId AND course_id = @CourseId";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -58,55 +56,134 @@ namespace OnlineTutoringSystem
                     {
                         if (reader.Read())
                         {
-                            // Populate the radio button based on existing rating
-                            int existingRating = Convert.ToInt32(reader["review_rating"]);
-                            SetRatingRadioButton(existingRating);
+                            // Load and set ratings for each group
+                            LoadAndSetRatingGroup("RadioButton", 11, reader["subject_rating"]);
+                            LoadAndSetRatingGroup("RadioButton", 21, reader["teaching_rating"]);
+                            LoadAndSetRatingGroup("RadioButton", 31, reader["availability_rating"]);
+                            LoadAndSetRatingGroup("RadioButton", 41, reader["preparation_rating"]);
+                            LoadAndSetRatingGroup("RadioButton", 51, reader["profess_rating"]);
 
                             // Populate the comment TextBox
                             tbComment.Text = reader["review_comment"].ToString();
                         }
+                        else
+                        {
+                            // Handle the case where there's no existing review data
+                        }
                     }
                 }
             }
+
+            // Disable review controls after loading existing data
+            DisableReviewControls();
         }
 
-        private void SetRatingRadioButton(int rating)
+        private void LoadAndSetRatingGroup(string radioButtonPrefix, int startNumber, object ratingValue)
         {
-            switch (rating)
+            if (ratingValue != DBNull.Value && ratingValue != null)
             {
-                case 1:
-                    star1.Checked = true;
-                    break;
-                case 2:
-                    star2.Checked = true;
-                    break;
-                case 3:
-                    star3.Checked = true;
-                    break;
-                case 4:
-                    star4.Checked = true;
-                    break;
-                case 5:
-                    star5.Checked = true;
-                    break;
-                default:
-                    // Handle default case if needed
-                    break;
+                int rating = Convert.ToInt32(ratingValue);
+
+                if (rating >= 1 && rating <= 5)
+                {
+                    // Calculate the corresponding radio button ID
+                    int radioButtonId = startNumber + rating - 1;
+
+                    // Find the RadioButton control using recursive search
+                    RadioButton radioButton = FindRadioButtonControl(Page, $"{radioButtonPrefix}{radioButtonId}");
+
+                    if (radioButton != null)
+                    {
+                        radioButton.Checked = true;
+                    }
+                }
+                else
+                {
+                    // Handle the case where the database value is outside the expected range
+                }
+            }
+            else
+            {
+                // Handle the case where the database value is NULL
             }
         }
 
+        // Recursive method to find a RadioButton control by ID
+        private RadioButton FindRadioButtonControl(Control root, string id)
+        {
+            if (root.ID == id && root is RadioButton)
+            {
+                return (RadioButton)root;
+            }
+
+            foreach (Control control in root.Controls)
+            {
+                RadioButton foundControl = FindRadioButtonControl(control, id) as RadioButton;
+                if (foundControl != null)
+                {
+                    return foundControl;
+                }
+            }
+
+            return null;
+        }
+
+
+
+
+
+
         private void DisableReviewControls()
         {
-            // Disable radio buttons
-            star1.Enabled = false;
-            star2.Enabled = false;
-            star3.Enabled = false;
-            star4.Enabled = false;
-            star5.Enabled = false;
+            DisableReviewControls(11, "rating1", "RadioButton");
+            DisableReviewControls(21, "rating2", "RadioButton");
+            DisableReviewControls(31, "rating3", "RadioButton");
+            DisableReviewControls(41, "rating4", "RadioButton");
+            DisableReviewControls(51, "rating5", "RadioButton");
 
             // Disable comment TextBox
-            tbComment.Enabled = false; 
+            tbComment.Enabled = false;
         }
+
+
+        private void DisableReviewControls(int startNumber, string groupName, string radioButtonPrefix)
+        {
+            for (int i = startNumber; i < startNumber + 5; i++)
+            {
+                string radioButtonId = $"{radioButtonPrefix}{i}";
+
+                // Find the RadioButton control using recursive search
+                Control radioButton = FindControlRecursive(Page, radioButtonId);
+
+                if (radioButton is RadioButton && ((RadioButton)radioButton).GroupName == groupName)
+                {
+                    ((RadioButton)radioButton).Enabled = false;
+                }
+            } 
+        }
+
+        // Recursive method to find a control by ID
+        private Control FindControlRecursive(Control root, string id)
+        {
+            if (root.ID == id)
+            {
+                return root;
+            }
+
+            foreach (Control control in root.Controls)
+            {
+                Control foundControl = FindControlRecursive(control, id);
+                if (foundControl != null)
+                {
+                    return foundControl;
+                }
+            }
+
+            return null;
+        }
+
+
+
         private void DisplayCourseAndTutorInfo(int courseId)
         {
             // Fetch course and tutor information from the database based on the course ID
@@ -133,68 +210,116 @@ namespace OnlineTutoringSystem
                     }
                 }
             }
-        } 
+        }
 
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             Page.Validate();
+
             if (Page.IsValid)
             {
-                // Check if any radio button is selected
-                if (!star1.Checked && !star2.Checked && !star3.Checked && !star4.Checked && !star5.Checked)
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alertStarRequired", "alert('Star rating is required!');", true);
-                    return;
-                }
-                // Get the selected rating
-                int rating = 0; // Default value if none is selected
-
-                if (star1.Checked)
-                {
-                    rating = 1;
-                }
-                else if (star2.Checked)
-                {
-                    rating = 2;
-                }
-                else if (star3.Checked)
-                {
-                    rating = 3;
-                }
-                else if (star4.Checked)
-                {
-                    rating = 4;
-                }
-                else if (star5.Checked)
-                {
-                    rating = 5;
-                }
-
-                // Get the comment from the TextBox
+                int ratingGroup1 = GetSelectedRating("rating1", "RadioButton", 11, 5);
+                int ratingGroup2 = GetSelectedRating("rating2", "RadioButton", 21, 5);
+                int ratingGroup3 = GetSelectedRating("rating3", "RadioButton", 31, 5);
+                int ratingGroup4 = GetSelectedRating("rating4", "RadioButton", 41, 5);
+                int ratingGroup5 = GetSelectedRating("rating5", "RadioButton", 51, 5);
+                 
+                // Example: Get the comment from the TextBox
                 string comment = tbComment.Text;
 
-                // Retrieve course ID from session
+                // Example: Retrieve course ID from session
                 int courseId = Convert.ToInt32(Session["courseId"]);
 
-                // Get tutor ID based on the course ID
+                // Example: Get tutor ID based on the course ID
                 int tutorId = GetTutorIdFromCourseId(courseId);
-                int userId = Convert.ToInt32(Session["userId"]);
-                if (!HasStudentReviewedCourse(userId,courseId))
-                { 
-                    addReview(rating, comment, tutorId, courseId);
 
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alertSucess", "alert('Your rating and review has been recorded successfully!');", true); 
+                // Example: Get user ID from session
+                int userId = Convert.ToInt32(Session["userId"]);
+
+                // Example: Check if the user has already reviewed the course
+                if (!HasStudentReviewedCourse(userId, courseId))
+                {
+                    addReview(ratingGroup1, ratingGroup2, ratingGroup3, ratingGroup4, ratingGroup5, comment, tutorId, courseId); 
+
+                    // Display a success message
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alertSucess", "alert('Your rating and review have been recorded successfully!');", true);
                     Response.Redirect("EnrollmentDetail.aspx");
                 }
                 else
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alertAlreadyRated", "alert('You can only rate 1 time!');", true); 
+                { 
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alertAlreadyRated", "alert('You can only rate 1 time!');", true);
                     Response.Redirect("EnrollmentDetail.aspx");
-                } 
-
+                }
             }
         }
+
+
+        private int GetSelectedRating(string groupName, string radioButtonPrefix, int startNumber, int count)
+        {
+            int selectedRating = 0;
+
+            FindRadioButtonRecursive(Page.Controls, groupName, radioButtonPrefix, startNumber, count, ref selectedRating);
+
+            return selectedRating;
+        }
+
+        private void FindRadioButtonRecursive(ControlCollection controls, string groupName, string radioButtonPrefix, int startNumber, int count, ref int selectedRating)
+        {
+            foreach (Control control in controls)
+            {
+                if (control is RadioButton radioButton)
+                {
+                    int numericPart;
+                    if (int.TryParse(radioButton.ID.Substring(radioButtonPrefix.Length), out numericPart))
+                    {
+                        if (numericPart >= startNumber && numericPart < startNumber + count && radioButton.GroupName == groupName && radioButton.Checked)
+                        {
+                            selectedRating = numericPart - startNumber + 1;
+                            return;
+                        }
+                    }
+                }
+
+                // If the control has child controls, recursively search them
+                if (control.Controls.Count > 0)
+                {
+                    FindRadioButtonRecursive(control.Controls, groupName, radioButtonPrefix, startNumber, count, ref selectedRating);
+                }
+            }
+        }
+
+
+
+        protected void addReview(int subjectRating, int teachingRating, int availabilityRating, int preparationRating, int professionalismRating, string comment, int tutorID, int courseID)
+        {
+            int studentID = (int)this.Session["userId"];
+            SqlConnection con;
+            string strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            con = new SqlConnection(strCon);
+            con.Open();
+            string strInsert = "INSERT INTO Review (tutor_id, course_id, student_id, review_date, review_comment, review_rating, subject_rating, teaching_rating, availability_rating, preparation_rating, profess_rating)" +
+                                "VALUES (@tutorID, @courseID, @studentID, @date, @comment, @rating, @subjectRating, @teachingRating, @availabilityRating, @preparationRating, @professionalismRating)";
+            SqlCommand cmdInsert = new SqlCommand(strInsert, con);
+
+            cmdInsert.Parameters.AddWithValue("@tutorID", tutorID);
+            cmdInsert.Parameters.AddWithValue("@courseID", courseID);
+            cmdInsert.Parameters.AddWithValue("@studentID", studentID);
+            cmdInsert.Parameters.AddWithValue("@date", DateTime.Now);
+            cmdInsert.Parameters.AddWithValue("@comment", comment);
+            // Overall rating (you can choose the average of individual ratings if needed)
+            int overallRating = (subjectRating + teachingRating + availabilityRating + preparationRating + professionalismRating) / 5;
+            cmdInsert.Parameters.AddWithValue("@rating", overallRating);
+            cmdInsert.Parameters.AddWithValue("@subjectRating", subjectRating);
+            cmdInsert.Parameters.AddWithValue("@teachingRating", teachingRating);
+            cmdInsert.Parameters.AddWithValue("@availabilityRating", availabilityRating);
+            cmdInsert.Parameters.AddWithValue("@preparationRating", preparationRating);
+            cmdInsert.Parameters.AddWithValue("@professionalismRating", professionalismRating);
+
+            cmdInsert.ExecuteNonQuery();
+            con.Close();
+        }
+
         private bool HasStudentReviewedCourse(int studentId, int courseId)
         {
             // Assuming you have a connection string in your web.config
@@ -254,26 +379,8 @@ namespace OnlineTutoringSystem
         }
 
 
-        protected void addReview(int rating, string comment, int tutorID, int courseID)
-        {
-            int studentID = (int)this.Session["userId"]; 
-                SqlConnection con;
-                string strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                con = new SqlConnection(strCon);
-                con.Open();
-                string strInsert = "Insert Into Review(tutor_id, course_id, student_id, review_date, review_comment, review_rating)" +
-                                    "Values (@tutorID, @courseID, @studentID, @date, @comment, @rating)";
-                SqlCommand cmdInsert = new SqlCommand(strInsert, con);
+        
 
-                cmdInsert.Parameters.AddWithValue("@tutorID", tutorID);
-                cmdInsert.Parameters.AddWithValue("@courseID", courseID);
-                cmdInsert.Parameters.AddWithValue("@studentID", studentID);
-                cmdInsert.Parameters.AddWithValue("@date", DateTime.Now);
-                cmdInsert.Parameters.AddWithValue("@comment", comment);
-                cmdInsert.Parameters.AddWithValue("@rating", rating);
-                cmdInsert.ExecuteNonQuery();
-                con.Close(); 
-        } 
 
         private int GetTutorIdFromCourseId(int courseId)
         {

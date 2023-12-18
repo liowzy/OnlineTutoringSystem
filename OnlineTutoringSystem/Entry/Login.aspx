@@ -97,11 +97,16 @@
                             <div class="col-md-9">
                                 <asp:TextBox ID="tbUserN" runat="server" Placeholder="Password" CssClass="form-control" TextMode="Password" />
                             </div>
+                            <!-- Forgot Password link -->
+                        <div class="col-md-12 forgotPassword">
+                            <asp:HyperLink ID="hlForgotPassword" runat="server" NavigateUrl="ForgetPassword.aspx" Text="Forgot Password?" />
+                        </div>
                         </div>
                             <div class="col-md-12 d-flex justify-content-end">
                                 <asp:Button ID="btnCreate" runat="server" CssClass="btn-orange" Text="Sign In" OnClick="btnCreate_Click" />
                             </div>
                         </div> 
+
 
                 </div>
             </div>
