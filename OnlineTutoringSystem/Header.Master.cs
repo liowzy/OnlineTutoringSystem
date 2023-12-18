@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -114,9 +114,18 @@ namespace OnlineTutoringSystem
         {
 
             string searchTerm = txtSearch.Text.Trim();
+            string searchType = ddlSearchType.SelectedValue.ToLower(); // Convert to lowercase for case-insensitive comparison
 
-            // Redirect to Course.aspx with the search term as a query parameter
-            Response.Redirect($"~/Student/Course.aspx?searchTerm={Server.UrlEncode(searchTerm)}");
+            if (searchType == "course")
+            {
+                // Redirect to Course.aspx with the search term as a query parameter
+                Response.Redirect($"~/Student/Course.aspx?searchTerm={Server.UrlEncode(searchTerm)}");
+            }
+            else if (searchType == "tutor")
+            {
+                // Redirect to TutorList.aspx with the search term as a query parameter
+                Response.Redirect($"~/Student/TutorList.aspx?searchTerm={Server.UrlEncode(searchTerm)}");
+            }
         }
 
         // to change the profile pic after edit in account setting
