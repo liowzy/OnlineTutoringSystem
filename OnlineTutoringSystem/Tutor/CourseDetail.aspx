@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Tutor/TutorSideBar.Master" AutoEventWireup="true" CodeBehind="CourseDetail.aspx.cs" Inherits="OnlineTutoringSystem.Tutor.WebForm5" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Tutor/TutorSideBar.Master" AutoEventWireup="true" CodeBehind="CourseDetail.aspx.cs" Inherits="OnlineTutoringSystem.Tutor.WebForm5" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
