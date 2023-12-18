@@ -27,8 +27,8 @@ namespace OnlineTutoringSystem.Tutor
         {
             if (!IsPostBack)
             {
-                // Load events from the database
-                LoadEvents();
+                //// Load events from the database
+                //LoadEvents();
 
                 LoadTutorData();
             }
@@ -122,33 +122,33 @@ namespace OnlineTutoringSystem.Tutor
             }
         }
 
-
-        [WebMethod]
-        public static string AddEvent(string scheduleDate, string startTime, string endTime, string subject, string description, string status, int tutorId)
+        protected void addEventBtn_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Create a new Event object
-                Event newEvent = new Event
-                {
-                    ScheduleDate = Convert.ToDateTime(scheduleDate),
-                    ScheduleStartTime = Convert.ToDateTime(startTime),
-                    ScheduleEndTime = Convert.ToDateTime(endTime),
-                    ScheduleSubject = subject,
-                    ScheduleDescription = description,
-                    ScheduleStatus = status,
-                    TutorId = tutorId
-                };
+            // Event Information
+            string evtTitle = txtEventTitle.Text;
+            string evtTimeFrom = txtEventTimeFrom.Text;  // Corrected typo
+            string evtTimeTo = txtEventTimeTo.Text;
+            string scheduleDte = txtScheduleDate.Text;
+            string scheduleDesc = txtScheduleDescription.Text;
+            string scheduleStat = txtScheduleStatus.Text;
+            int tutorID = GetTutorId();
 
-                // Add the new event to the database
-                AddEventToDatabase(newEvent);
-
-                return "Event added successfully";
-            }
-            catch (Exception ex)
+            // Create a new Event object
+            Event newEvent = new Event
             {
-                return "Error adding event: " + ex.Message;
-            }
+                ScheduleDate = DateTime.ParseExact(txtScheduleDate.Text, "yyyy-MM-dd", null),
+                ScheduleStartTime = DateTime.ParseExact(evtTimeFrom, "HH:mm", null),
+                ScheduleEndTime = DateTime.ParseExact(evtTimeTo, "HH:mm", null),
+                ScheduleSubject = evtTitle,
+                ScheduleDescription = scheduleDesc,
+                ScheduleStatus = scheduleStat,
+                TutorId = GetTutorId(),
+            };
+
+            AddEventToDatabase(newEvent);
+
+            ClientScript.RegisterStartupScript(this.GetType(), "eventSubmit", "eventSubmit()", true);
+
         }
 
         protected static void AddEventToDatabase(Event newEvent)

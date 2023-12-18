@@ -3955,6 +3955,20 @@
     <Compile Include="Tutor\CourseDetail.aspx.designer.cs">
       <DependentUpon>CourseDetail.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Tutor\ResourceManagement.aspx.cs">
+      <DependentUpon>ResourceManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\ResourceManagement.aspx.designer.cs">
+      <DependentUpon>ResourceManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tutor\UploadFile.aspx.cs">
+      <DependentUpon>UploadFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\UploadFile.aspx.designer.cs">
+      <DependentUpon>UploadFile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Student\TutorList.aspx.cs">
       <DependentUpon>TutorList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -129,7 +129,8 @@ namespace OnlineTutoringSystem.Tutor
                 string chatLinkQuery = "SELECT chat_link FROM Tutor WHERE tutor_id = @TutorId";
                 using (SqlCommand command = new SqlCommand(chatLinkQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@userID", userID);
+                    // Correct the parameter name to @TutorId
+                    command.Parameters.AddWithValue("@TutorId", userID);
 
                     string chatLink = command.ExecuteScalar()?.ToString();
 
@@ -140,7 +141,6 @@ namespace OnlineTutoringSystem.Tutor
                     }
                 }
             }
-
         }
 
 
@@ -208,6 +208,8 @@ namespace OnlineTutoringSystem.Tutor
                             command.CommandText = "UPDATE Tutor SET tutor_name = @TutorName, tutor_username = @TutorUsername, tutor_phoneNo = @TutorPhoneNo, tutor_gender = @TutorGender, tutor_teachingExperience = @TutorTeachingExperience, tutor_location = @TutorLocation, tutor_expertice = @TutorExpertice, tutor_languageProficiency = @TutorLanguagePro ,tutor_description = @TutorDescription, tutor_dob = @TutorDob , chat_link = @ChatLink WHERE tutor_id = @UserId";
                         }
 
+                        string chatLink = $"https://wa.me/6{tutorPhoneNo}";
+
                         // Add parameters to the SQL command
                         command.Parameters.AddWithValue("@UserId", userId);
                         command.Parameters.AddWithValue("@TutorName", tutorName);
@@ -220,7 +222,7 @@ namespace OnlineTutoringSystem.Tutor
                         command.Parameters.AddWithValue("@TutorDescription", tutorDescription);
                         command.Parameters.AddWithValue("@TutorDob", tutorDob);
                         command.Parameters.AddWithValue("@TutorLanguagePro",tutorLanguage);
-                        command.Parameters.AddWithValue("@ChatLink", tutorPhoneNo);
+                        command.Parameters.AddWithValue("@ChatLink", chatLink);
 
                         // Execute the SQL command
                         int rowsAffected = command.ExecuteNonQuery();
@@ -265,7 +267,7 @@ namespace OnlineTutoringSystem.Tutor
             if (!ValidatePasswordFormat(newPassword))
             {
                 // Display an error message indicating that the new password format is invalid
-                ClientScript.RegisterStartupScript(this.GetType(), "InvalidFormatAlert", "alert('New password must contain at least one alphabet, one digit, and one \"@\");", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "InvalidFormatAlert", "alert('New password must contain at least one alphabet, one digit, and one \"@\"');", true);
                 return;
             }
 

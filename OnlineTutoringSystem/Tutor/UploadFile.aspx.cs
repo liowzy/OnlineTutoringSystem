@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.UI.WebControls; 
+using System.Web.UI.WebControls;
 
 namespace OnlineTutoringSystem.Tutor
 {
@@ -20,12 +20,12 @@ namespace OnlineTutoringSystem.Tutor
                 if (Session["SelectedCourseId"] != null)
                 {
                     int selectedCourseId = (int)Session["SelectedCourseId"];
-                     
+
                     List<Resource> resources = FetchResourcesForCourse(selectedCourseId);
 
                     // Set the resources to ViewState
                     ViewState["Resources"] = resources;
-                     
+
                     BindGridView();
                 }
             }
@@ -99,13 +99,13 @@ namespace OnlineTutoringSystem.Tutor
                 int resId;
                 if (Session["SelectedResId"] != null)
                 {
-                     resId = (int)Session["SelectedResId"];
+                    resId = (int)Session["SelectedResId"];
                     Session.Remove("SelectedResId");
                 }
                 else
                 {
                     // Execute the insert and get the newly inserted res_id
-                     resId = Convert.ToInt32(insertResourceCommand.ExecuteScalar());
+                    resId = Convert.ToInt32(insertResourceCommand.ExecuteScalar());
                 }
 
                 // Insert into File_Attachment table
@@ -144,7 +144,7 @@ namespace OnlineTutoringSystem.Tutor
                     FilePath = null
                 });
             }
-            ViewState["Resources"] = resources; 
+            ViewState["Resources"] = resources;
             // Retrieve the data from the database and set it as the DataSource
             GridViewResource.DataSource = resources;
             GridViewResource.DataBind();
@@ -227,7 +227,7 @@ namespace OnlineTutoringSystem.Tutor
                 txtResourceName.Enabled = false;
             }
         }
-         
+
         private void ClearFormFields()
         {
             // Clear form fields after adding a resource
@@ -246,7 +246,7 @@ namespace OnlineTutoringSystem.Tutor
         {
             Response.Redirect("ResourceManagement.aspx");
         }
-         
+
 
         [Serializable]
         public class Resource

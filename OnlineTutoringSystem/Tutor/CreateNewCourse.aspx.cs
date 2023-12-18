@@ -9,7 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.IO;
-
+using System.Resources;
 
 namespace OnlineTutoringSystem.Tutor
 {
@@ -121,53 +121,60 @@ namespace OnlineTutoringSystem.Tutor
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            // Course Information
-            string courseName = txtCourseName.Text;
-            string courseCategory = ddlCourseCategory.SelectedItem.ToString();
-            int catId = int.Parse(ddlCourseCategory.SelectedValue);
-            string courseLevel = ddlCourseLevel.SelectedValue.ToString();
-            string courseTopic = txtCourseTopic.Text;
-            decimal coursePrice = Convert.ToDecimal(txtCoursePrice.Text);
-            string courseLanguage = ddlCourseLanguage.SelectedValue.ToString();
-            string courseDuration = txtCourseDuration.Text;
-            int tutorId = GetTutorId(); ;
-
-            // Advance Information
-            string courseDescription = txtCourseDescription.Text;
-            string teachingContent = txtCourseContent.Text;
-            string targetAudience = txtCourseTargetAudience.Text;
-            string courseRequirements = txtCourseRequirements.Text;
-
-            // Course Thumbnail and Trailer
-            byte[] courseThumbnail = fileUploadThumbnail.HasFile ? fileUploadThumbnail.FileBytes : null;
-            byte[] courseTrailer = fileUploadTrailer.HasFile ? fileUploadTrailer.FileBytes : null;
-
-            // Resource Information
-            List<ResourceData> resources = new List<ResourceData>();
-
-            // Assuming you have a way to dynamically determine the number of resource input fields, adjust this part accordingly
-            int resourceCount = Request.Form.AllKeys.Count(key => key.StartsWith("txtResourceName"));
-            for (int i = 1; i <= resourceCount; i++)
+            try
             {
-                string resourceName = Request.Form["txtResourceName" + i];
-                string fileName = Request.Form["txtFileName" + i];
-                byte[] fileData = Request.Files["fileUpload" + i]?.InputStream.ToByteArray() ?? new byte[0]; // Adjust based on your file upload control naming
+                // Course Information
+                string courseName = txtCourseName.Text;
+                string courseCategory = ddlCourseCategory.SelectedItem.ToString();
+                int catId = int.Parse(ddlCourseCategory.SelectedValue);
+                string courseLevel = ddlCourseLevel.SelectedValue.ToString();
+                string courseTopic = txtCourseTopic.Text;
+                decimal coursePrice = Convert.ToDecimal(txtCoursePrice.Text);
+                string courseLanguage = ddlCourseLanguage.SelectedValue.ToString();
+                string courseDuration = txtCourseDuration.Text;
+                int tutorId = GetTutorId(); ;
 
-                resources.Add(new ResourceData { ResourceName = resourceName, FileName = fileName, FileData = fileData });
+                // Advance Information
+                string courseDescription = txtCourseDescription.Text;
+                string teachingContent = txtCourseContent.Text;
+                string targetAudience = txtCourseTargetAudience.Text;
+                string courseRequirements = txtCourseRequirements.Text;
+
+                // Course Thumbnail and Trailer
+                byte[] courseThumbnail = fileUploadThumbnail.HasFile ? fileUploadThumbnail.FileBytes : null;
+                byte[] courseTrailer = fileUploadTrailer.HasFile ? fileUploadTrailer.FileBytes : null;
+
+
+                // Call a method to insert data into the database
+                InsertCourseData(courseName, courseCategory, catId, courseLevel, courseTopic, coursePrice,
+                    courseLanguage, courseDuration, courseDescription, teachingContent,
+                    targetAudience, courseRequirements, courseThumbnail, courseTrailer, tutorId);
+
+                // Optionally, you can show a success message
+                ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert", "alert('Course created successfully.');", true);
             }
+            catch (Exception ex)
+            {
+                // Handle update failure if needed
+                ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert", "alert('Failed to create the course.');", true);
 
+                // Log the exception to a log file or a logging framework
+                LogException(ex);
+            }
+        }
 
-            // Call a method to insert data into the database
-            InsertCourseData(courseName, courseCategory, catId, courseLevel, courseTopic, coursePrice,
-                courseLanguage, courseDuration, courseDescription, teachingContent,
-                targetAudience, courseRequirements, courseThumbnail, courseTrailer,
-                resources, tutorId);
+        // Helper method to log exceptions
+        private void LogException(Exception ex)
+        {
+            // Log the exception to a log file or a logging framework
+            string logFilePath = Server.MapPath("~/App_Data/ErrorLog.txt");
+            System.IO.File.AppendAllText(logFilePath, $"{DateTime.Now}: {ex.Message}\n");
         }
 
         private void InsertCourseData(string courseName, string courseCategory, int catId, string courseLevel, string courseTopic,
       decimal coursePrice, string courseLanguage, string courseDuration, string courseDescription,
       string teachingContent, string targetAudience, string courseRequirements, byte[] courseThumbnail,
-      byte[] courseTrailer, List<ResourceData> resources, int tutorId)
+      byte[] courseTrailer, int tutorId)
         {
             // Use your connection string
             string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -211,43 +218,26 @@ namespace OnlineTutoringSystem.Tutor
 
                         // Execute the command
                         newCourseId = Convert.ToInt32(command.ExecuteScalar());
-                    }
 
-                    List<int> resourceIds = new List<int>();
-
-                    // Insert into Resource table
-                    foreach (var resource in resources)
-                    {
-                        string resourceQuery = "INSERT INTO Resource (res_name, course_id) VALUES (@ResourceName, @CourseId); SELECT SCOPE_IDENTITY();";
-
-                        using (SqlCommand command = new SqlCommand(resourceQuery, connection))
+                        // Add parameters only if the corresponding file is uploaded
+                        if (fileUploadThumbnail.HasFile)
                         {
-                            command.Parameters.AddWithValue("@ResourceName", resource.ResourceName);
-                            command.Parameters.AddWithValue("@CourseId", newCourseId);
+                            // If a file is uploaded, read it into a byte array
+                            int thumbnailLength = fileUploadThumbnail.PostedFile.ContentLength;
+                            byte[] thumbnailBytes = new byte[thumbnailLength];
+                            fileUploadThumbnail.PostedFile.InputStream.Read(thumbnailBytes, 0, thumbnailLength);
+                            command.Parameters.AddWithValue("@CourseThumbnail", thumbnailBytes);
+                        }
 
-                            int resourceId = Convert.ToInt32(command.ExecuteScalar());
-                            resourceIds.Add(resourceId);
-
-                            // Insert into File_Attachment table
-                            if (resource.FileData != null)
-                            {
-                                string fileAttachmentQuery = "INSERT INTO File_Attachment (file_name, file_path, res_id) " +
-                                    "VALUES (@FileName, @FilePath, @ResourceId)";
-
-                                using (SqlCommand fileCommand = new SqlCommand(fileAttachmentQuery, connection))
-                                {
-                                    fileCommand.Parameters.AddWithValue("@FileName", resource.FileName);
-                                    fileCommand.Parameters.AddWithValue("@FilePath", resource.FileData);
-                                    fileCommand.Parameters.AddWithValue("@ResourceId", resourceId);
-
-                                    fileCommand.ExecuteNonQuery();
-                                }
-                            }
+                        if (fileUploadTrailer.HasFile)
+                        {
+                            // If a file is uploaded, read it into a byte array
+                            int trailerLength = fileUploadTrailer.PostedFile.ContentLength;
+                            byte[] trailerBytes = new byte[trailerLength];
+                            fileUploadTrailer.PostedFile.InputStream.Read(trailerBytes, 0, trailerLength);
+                            command.Parameters.AddWithValue("@CourseTrailer", trailerBytes);
                         }
                     }
-                    // Display a success message or redirect to another page
-                    lblMessage.Text = "File uploaded successfully!";
-                    lblMessage.Visible = true;
                 }
                 catch (Exception ex)
                 {
@@ -256,34 +246,5 @@ namespace OnlineTutoringSystem.Tutor
                 }
             }
         }
-
-        //protected void btnSubmit_Click2(object sender, EventArgs e)
-        //{
-        //    string vfileName = Path.GetFileName(fileUpload.PostedFile.FileName);
-        //    string contentType = fileUpload.PostedFile.ContentType;
-        //    using (Stream fs = fileUpload.PostedFile.InputStream)
-        //    {
-        //        using (BinaryReader br = new BinaryReader(fs))
-        //        {
-        //            byte[] bytes = br.ReadBytes((Int32)fs.Length);
-        //            string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-        //            using (SqlConnection connection = new SqlConnection(connectionString))
-        //            {
-        //                string query = "INSERT INTO File_Attachment VALUES (@Name, @Data, @CourseId)";
-        //                using (SqlCommand cmd = new SqlCommand(connectionString))
-        //                {
-        //                    cmd.Connection = connection;
-        //                    cmd.Parameters.AddWithValue("@Name", vfileName);
-        //                    cmd.Parameters.AddWithValue("@Data", bytes);
-        //                    cmd.Parameters.AddWithValue("@CourseId", 408);
-        //                    connection.Open();
-        //                    cmd.ExecuteNonQuery();
-        //                    connection.Close();
-        //                }
-        //            }
-        //        }
-        //    }
-        //    Response.Redirect(Request.Url.AbsoluteUri);
-        //}
     }
 }

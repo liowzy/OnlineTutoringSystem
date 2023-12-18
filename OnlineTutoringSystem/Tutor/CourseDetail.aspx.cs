@@ -53,11 +53,197 @@ namespace OnlineTutoringSystem.Tutor
             }
         }
 
-        protected void editBtn_Command(object sender, CommandEventArgs e)
+        protected void btnEdit_Click(object sender, EventArgs e)
         {
-            int courseId = Convert.ToInt32(e.CommandArgument);
-            // Redirect to the edit page with the course ID in the query string
-            Response.Redirect($"EditCourse.aspx?courseId={courseId}");
+            // Set ReadOnly property to false for all TextBox controls
+            SetTextBoxesEditable(true);
+
+            // Toggle to edit mode
+            ToggleEditMode(true);
+        }
+
+        private void SetTextBoxesEditable(bool editable)
+        {
+            // Enable or disable the TextBox controls based on the mode
+            txtCourseName.ReadOnly = !editable;
+            txtCourseCategory.ReadOnly = !editable;
+            txtCourseContent.ReadOnly = !editable;
+            txtCourseDescription.ReadOnly = !editable;
+            txtCourseDuration.ReadOnly = !editable;
+            txtCourseLanguage.ReadOnly = !editable;
+            txtCourseLevel.ReadOnly = !editable;
+            txtCoursePrice.ReadOnly = !editable;
+            txtCourseRequirements.ReadOnly = !editable;
+            txtCourseTargetAudience.ReadOnly = !editable;
+            txtCourseTopic.ReadOnly = !editable;
+        }
+
+        private void ToggleEditMode(bool enableEdit)
+        {
+            // Show or hide the buttons based on the mode
+            btnEdit.Visible = !enableEdit;
+            deleteBtn.Visible = !enableEdit;
+            btnUpdate.Visible = enableEdit;
+            btnCancel.Visible = enableEdit;
+
+            SetTextBoxesEditable(enableEdit);
+
+            // Show or hide the FileUpload controls based on the mode
+            fileUploadTrailer.Visible = enableEdit;
+            fileUploadThumbnail.Visible = enableEdit;
+
+            // If not in edit mode, clear the content of the FileUpload controls
+            if (!enableEdit)
+            {
+                fileUploadTrailer.Attributes.Clear();
+                fileUploadThumbnail.Attributes.Clear();
+            }
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            // Get the course ID from the query string
+            int courseId = Convert.ToInt32(Request.QueryString["courseId"]);
+
+            // Toggle back to read-only mode without saving changes
+            ToggleEditMode(false);
+
+            // Reload the original course data
+            LoadCourseData(courseId);
+        }
+
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            Button updateButton = (Button)sender;
+            int courseId = Convert.ToInt32(Request.QueryString["courseId"]);
+
+            try
+            {
+                // Update the course details in the database
+                UpdateCourse(courseId);
+
+                // Toggle back to read-only mode after updating
+                ToggleEditMode(false);
+
+                // Reload the updated course data
+                LoadCourseData(courseId);
+
+                // Optionally, you can show a success message
+                ScriptManager.RegisterStartupScript(this, GetType(), "updateAlert", "alert('Course updated successfully.');", true);
+            }
+            catch (Exception ex)
+            {
+                // Handle update failure if needed
+                ScriptManager.RegisterStartupScript(this, GetType(), "updateAlert", "alert('Failed to update the course.');", true);
+
+                // Log the exception to a log file or a logging framework
+                LogException(ex);
+            }
+        }
+
+        // Updated UpdateCourse method with exception handling
+        private void UpdateCourse(int courseId)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = @"
+                    UPDATE Course
+                    SET
+                        course_name = @CourseName,
+                        course_category = @CourseCategory,
+                        course_level = @CourseLevel,
+                        course_topic = @CourseTopic,
+                        course_fee = @CoursePrice,
+                        course_language = @CourseLanguage,
+                        course_duration = @CourseDuration,
+                        course_desc = @CourseDescription,
+                        course_content = @CourseContent,
+                        course_targetAudience = @CourseTargetAudience,
+                        course_requirement = @CourseRequirements";
+
+                    // Add parameters only if the corresponding file is uploaded
+                    if (fileUploadThumbnail.HasFile)
+                    {
+                        query += ", course_pic = @CourseThumbnail";
+                    }
+
+                    if (fileUploadTrailer.HasFile)
+                    {
+                        query += ", course_video = @CourseTrailer";
+                    }
+
+                    query += " WHERE course_id = @CourseId";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@CourseId", courseId);
+                        command.Parameters.AddWithValue("@CourseName", txtCourseName.Text);
+                        command.Parameters.AddWithValue("@CourseCategory", txtCourseCategory.Text);
+                        command.Parameters.AddWithValue("@CourseLevel", txtCourseLevel.Text);
+                        command.Parameters.AddWithValue("@CourseTopic", txtCourseTopic.Text);
+                        command.Parameters.AddWithValue("@CoursePrice", Convert.ToSingle(txtCoursePrice.Text));
+                        command.Parameters.AddWithValue("@CourseLanguage", txtCourseLanguage.Text);
+                        command.Parameters.AddWithValue("@CourseDuration", txtCourseDuration.Text);
+                        command.Parameters.AddWithValue("@CourseDescription", txtCourseDescription.Text);
+                        command.Parameters.AddWithValue("@CourseContent", txtCourseContent.Text);
+                        command.Parameters.AddWithValue("@CourseTargetAudience", txtCourseTargetAudience.Text);
+                        command.Parameters.AddWithValue("@CourseRequirements", txtCourseRequirements.Text);
+
+                        // Add parameters only if the corresponding file is uploaded
+                        if (fileUploadThumbnail.HasFile)
+                        {
+                            // If a file is uploaded, read it into a byte array
+                            int thumbnailLength = fileUploadThumbnail.PostedFile.ContentLength;
+                            byte[] thumbnailBytes = new byte[thumbnailLength];
+                            fileUploadThumbnail.PostedFile.InputStream.Read(thumbnailBytes, 0, thumbnailLength);
+                            command.Parameters.AddWithValue("@CourseThumbnail", thumbnailBytes);
+                        }
+
+                        if (fileUploadTrailer.HasFile)
+                        {
+                            // If a file is uploaded, read it into a byte array
+                            int trailerLength = fileUploadTrailer.PostedFile.ContentLength;
+                            byte[] trailerBytes = new byte[trailerLength];
+                            fileUploadTrailer.PostedFile.InputStream.Read(trailerBytes, 0, trailerLength);
+                            command.Parameters.AddWithValue("@CourseTrailer", trailerBytes);
+                        }
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            // The update was successful
+                        }
+                        else
+                        {
+                            // The update failed
+                            throw new Exception("Update failed. No rows affected.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception to a log file or a logging framework
+                LogException(ex);
+
+                // Rethrow the exception to let it propagate
+                throw;
+            }
+        }
+
+        // Helper method to log exceptions
+        private void LogException(Exception ex)
+        {
+            // Log the exception to a log file or a logging framework
+            string logFilePath = Server.MapPath("~/App_Data/ErrorLog.txt");
+            System.IO.File.AppendAllText(logFilePath, $"{DateTime.Now}: {ex.Message}\n");
         }
 
         protected void deleteBtn_Click(object sender, EventArgs e)
@@ -66,18 +252,14 @@ namespace OnlineTutoringSystem.Tutor
             Button deleteButton = (Button)sender;
             int courseId = Convert.ToInt32(Request.QueryString["courseId"]);
             int tempcourseId = int.Parse(Session["courseId"].ToString());
-
+           
             // You can perform the delete operation here using the courseId 
             bool deletionSuccess = DeleteCourse(tempcourseId);
 
             if (deletionSuccess)
             {
                 // Show a client-side alert if the deletion was successful
-                ScriptManager.RegisterStartupScript(this, GetType(), "deleteAlert", "alert('Course deleted successfully.');", true);
-
-                // Optionally, you can rebind your data after deletion
-                // RebindData();
-                Response.Redirect("MyCourses.aspx");
+                ScriptManager.RegisterStartupScript(this, GetType(), "deleteAlert", "alert('Course deleted successfully.'); console.log('Redirection attempted'); window.location.href = 'MyCourses.aspx';", true);
             }
             else
             {
@@ -85,7 +267,6 @@ namespace OnlineTutoringSystem.Tutor
                 ScriptManager.RegisterStartupScript(this, GetType(), "deleteAlert", "alert('Failed to delete the course.');", true);
             }
         }
-
 
         private bool DeleteCourse(int courseId)
         {
@@ -183,27 +364,29 @@ namespace OnlineTutoringSystem.Tutor
             if (course != null)
             {
                 // Display course information
-                lblCourseName.Text = course.CourseName;
-                lblCourseCategory.Text = course.CourseCategory;
-                lblCourseLevel.Text = course.CourseLevel;
-                lblCourseTopic.Text = course.CourseTopic;
-                lblCoursePrice.Text = course.CoursePrice.ToString();
-                lblCourseLanguage.Text = course.CourseLanguage;
-                lblCourseDuration.Text = course.CourseDuration;
-                lblCourseDescription.Text = course.CourseDescription;
-                lblCourseContent.Text = course.CourseContent;
-                lblCourseTargetAudience.Text = course.CourseTargetAudience;
-                lblCourseRequirements.Text = course.CourseRequirements;
+                txtCourseName.Text = course.CourseName;
+                txtCourseCategory.Text = course.CourseCategory;
+                txtCourseLevel.Text = course.CourseLevel;
+                txtCourseTopic.Text = course.CourseTopic;
+                txtCoursePrice.Text = course.CoursePrice.ToString();
+                txtCourseLanguage.Text = course.CourseLanguage;
+                txtCourseDuration.Text = course.CourseDuration;
+                txtCourseDescription.Text = course.CourseDescription;
+                txtCourseContent.Text = course.CourseContent;
+                txtCourseTargetAudience.Text = course.CourseTargetAudience;
+                txtCourseRequirements.Text = course.CourseRequirements;
 
-                // Display the thumbnail image
+               // Display the thumbnail image
                 byte[] thumbnailBytes = course.CourseThumbnail;
                 string thumbnailBase64 = Convert.ToBase64String(thumbnailBytes);
-                imgCourseThumbnail.Src = "data:image/jpeg;base64," + thumbnailBase64;
+                imgCourseThumbnail.ImageUrl = "data:image/jpeg;base64," + thumbnailBase64;
 
                 // Display the trailer video
                 byte[] trailerBytes = course.CourseTrailer;
-                string trailerBase64 = Convert.ToBase64String(trailerBytes);
-                iframeCourseTrailer.Src = "data:video/mp4;base64," + trailerBase64;
+                string trailerBase64 = Convert.ToBase64String(trailerBytes)
+                           .Replace("\r\n", string.Empty)
+                           .Replace(" ", string.Empty);
+                iframeCourseTrailer.Attributes["src"] = "data:video/mp4;base64," + trailerBase64;
             }
             else
             {

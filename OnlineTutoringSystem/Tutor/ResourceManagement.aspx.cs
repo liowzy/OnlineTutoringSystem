@@ -22,9 +22,9 @@ namespace OnlineTutoringSystem.Tutor
                 // Get the course_id from the data keys
                 int courseId = Convert.ToInt32(GridViewCourseDetails.DataKeys[row.RowIndex].Values["course_id"]);
 
-            // Set the course_id in the session
-            Session["SelectedCourseId"] = courseId;
-            Response.Redirect("UploadFile.aspx");
+                // Set the course_id in the session
+                Session["SelectedCourseId"] = courseId;
+                Response.Redirect("UploadFile.aspx");
             }
         }
     }

@@ -143,8 +143,10 @@
                     <div class="row mb-3">
                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                         <div class="col-md-8 col-lg-9">
-                           <asp:Image ID="imgUserProfile_2" runat="server" CssClass="img-fluid" AlternateText="Profile Picture" Style="width: 70px; height: 70px; cursor: pointer;" />
-                            <asp:FileUpload ID="btnFileUpload" runat="server" CssClass="p-2" />
+                            <div id="profileImageContainer" class="empty-image-box" style="width: 130px; height: 130px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;">
+                                <asp:Image ID="imgUserProfile_2" runat="server" CssClass="img-fluid" AlternateText="Profile Picture" Style="width: 100%; height: 100%;" />
+                            </div>
+                            <asp:FileUpload ID="btnFileUpload" runat="server" CssClass="p-2" onchange="showProfileImage(this)" />
                         </div>
                     </div>
 
@@ -269,28 +271,46 @@
                             <asp:Button ID="btnChangePassword" runat="server" Text="Change Password" OnClick="btnChangePassword_Click" CssClass="btn btn-primary" Style="background-color: #FF6636; border-color: #FF6636;" />
                         </div><!-- End Change Password Form -->
                 </div>
-
-                  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-                    <script>
-                        function togglePassword(inputId) {
-                            const passwordInput = document.getElementById(inputId);
-                            const toggleButton = document.getElementById(`toggle${inputId}`);
-                            if (passwordInput.type === 'password') {
-                                passwordInput.type = 'text';
-                                toggleButton.innerHTML = '<i class="bi bi-eye-slash"></i>';
-                            } else {
-                                passwordInput.type = 'password';
-                                toggleButton.innerHTML = '<i class="bi bi-eye"></i>';
-                            }
-                        }
-                    </script>
               </div><!-- End Bordered Tabs -->
 
             </div>
           </div>
             </div>
-        </div>
+
+         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+           <script>
+               function togglePassword(inputId) {
+                   const passwordInput = document.getElementById(inputId);
+                   const toggleButton = document.getElementById(`toggle${inputId}`);
+                   if (passwordInput.type === 'password') {
+                       passwordInput.type = 'text';
+                       toggleButton.innerHTML = '<i class="bi bi-eye-slash"></i>';
+                   } else {
+                       passwordInput.type = 'password';
+                       toggleButton.innerHTML = '<i class="bi bi-eye"></i>';
+                   }
+               }
+
+               function showProfileImage(input) {
+                   var file = input.files[0];
+                   var profileImageContainer = document.getElementById('profileImageContainer');
+                   var imgUserProfile_2 = document.getElementById('<%= imgUserProfile_2.ClientID %>');
+                 
+
+                  if (file) {
+                      var reader = new FileReader();
+                      reader.onload = function (e) {
+                          imgUserProfile_2.src = e.target.result;
+                          emptyProfileIcon.style.display = 'none'; // Hide the empty icon
+                      }
+                      reader.readAsDataURL(file);
+                  } else {
+                      imgUserProfile_2.src = ''; // Clear the profile image source
+                    
+                  }
+              }
+           </script>
     </section>
   </main><!-- End #main -->
 </asp:Content>

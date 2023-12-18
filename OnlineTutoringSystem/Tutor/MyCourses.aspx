@@ -83,34 +83,37 @@
                 </div>
             </div>
 
-                    <!-- Sorting Options -->
+              <!-- Sorting Options -->
             <div class="row justify-content-center" style="margin-bottom: 20px">
                 <div class="col-md-3 mb-2">
                     <!-- Search Box -->
                     <label for="ddlSearch" class="form-label" style="color: #FF6636; margin-left: -200px; font-weight: bold;">Search By:</label>
                     <div class="input-group">
-                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search your course"></asp:TextBox>
-                            <button class="btn btn-outline-secondary" type="button" onclick="btnSearch_Click()" style="">Search</button>
+                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search your course" aria-label="Search" ></asp:TextBox>
+                        <div class="input-group-append"> 
+                    <asp:Button ID="ButtonSearch" runat="server" Text="Search" class="btn btn-outline-secondary"  OnClick="ButtonSearch_Click" />
                         </div>
+                    </div>
                 </div>
                 <div class="col-md-3 mb-2">
                      <!-- Category Dropdown -->
                     <label for="ddlCourseCategory" class="form-label" style="color: #FF6636; margin-left: -200px; font-weight: bold;">Category by:</label>
-                    <asp:DropDownList ID="ddlCourseCategory" runat="server" CssClass="form-control" DataTextField="cat_name" DataValueField="cat_id" AutoPostBack="true" style="background-color: white;">
-                        <asp:ListItem Text="All Categories" Value="" />
+                    <asp:DropDownList ID="ddlCourseCategory" runat="server" CssClass="form-select" DataTextField="cat_name" DataValueField="cat_id" AutoPostBack="true" style="background-color: white;" OnSelectedIndexChanged="ddlCourseCategory_SelectedIndexChanged">
+                        
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-3 mb-2">
                     <!-- Rating Dropdown -->
                     <label for="ddlRating" class="form-label" style="color: #FF6636; margin-left: -200px; font-weight: bold;">Rating by:</label>
-                    <select class="form-select" aria-label="Rating" style="background-color: white; font-weight: bold;">
-                        <option selected disabled hidden>Rating by...</option>
-                        <option value="1">1 star</option>
-                        <option value="2">2 stars</option>
-                        <option value="3">3 stars</option>
-                        <option value="4">4 stars</option>
-                        <!-- Add more rating options as needed -->
-                    </select>
+                    <asp:DropDownList ID="ddlRating" runat="server" CssClass="form-select" aria-label="Rating" style="background-color: white; font-weight: bold;" OnSelectedIndexChanged="ddlRating_SelectedIndexChanged" AutoPostBack="true">
+                        <asp:ListItem Text="Rating by..." Value="" Disabled="true" Selected="true" />
+                        <asp:ListItem Text="All Ratings" Value="" />
+                        <asp:ListItem Text="0 star" Value="0.0" />
+                        <asp:ListItem Text="1 star" Value="1.0" />
+                        <asp:ListItem Text="2 stars" Value="2.0" />
+                        <asp:ListItem Text="3 stars" Value="3.0" />
+                        <asp:ListItem Text="4 stars" Value="4.0" />
+                    </asp:DropDownList>
                 </div>
             </div>
             <!-- End Sorting Options -->
@@ -119,8 +122,9 @@
                 <asp:DataList ID="DataListCourses" runat="server" DataSourceID="SqlDataSourceCourses" RepeatColumns="4"
                     RepeatDirection="Horizontal" DataKeyField="course_id" OnSelectedIndexChanged="DataListCourses_SelectedIndexChanged"
                      OnItemDataBound="DataListCourses_ItemDataBound">
-                 
+
                     <ItemTemplate>
+
                         <div class="col mb-4 mx-auto">
                             <div style="width: 280px;">
                                 <img src='data:image/jpeg;base64,<%# Convert.ToBase64String((byte[])Eval("course_pic")) %>'
@@ -156,7 +160,7 @@
 
                                         </div>
                                         <div class="col-6 text-right">
-                                         <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
+                                         <asp:LinkButton CssClass="selectBtn btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
                                         </div>
                                     </div>
 
@@ -167,17 +171,15 @@
                 </asp:DataList>
 
                <asp:SqlDataSource ID="SqlDataSourceCourses" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
-    SelectCommand="SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name
-                   FROM Course c
-                   JOIN Category cat ON c.cat_id = cat.cat_id
-                   WHERE c.tutor_id = @TutorId
-                   ORDER BY c.course_id ASC">
-    <SelectParameters>
-        <asp:SessionParameter Name="TutorId" SessionField="userId" Type="Int32" />
-    </SelectParameters>
+                SelectCommand="SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name
+                               FROM Course c
+                               JOIN Category cat ON c.cat_id = cat.cat_id
+                               WHERE c.tutor_id = @TutorId
+                               ORDER BY c.course_id ASC">
+                <SelectParameters>
+                    <asp:SessionParameter Name="TutorId" SessionField="userId" Type="Int32" />
+                </SelectParameters>
 </asp:SqlDataSource>
-
-
             </div>
         </div>
     </div> 

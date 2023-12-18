@@ -31,53 +31,6 @@
                     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
                     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-    <style>
-        .editBtn {
-            text-decoration: none;
-            background-color: #FFC107; /* Yellow background color for edit button */
-            color: #212529; /* Text color */
-            font-size: 1.1vw;
-            border: none;
-            margin-right: 5px; /* Adjust margin as needed */
-            padding: 1% 5% 1% 5%;
-        }
-
-        .deleteBtn {
-            text-decoration: none;
-            background-color: #DC3545; /* Red background color for delete button */
-            color: #fff; /* Text color */
-            font-size: 1.1vw;
-            border: none;
-            padding: 1% 5% 1% 5%;
-        }
-
-        /* Add these styles to your existing styles */
-    .image-container {
-        border: 1px solid #ccc; /* Border style */
-        padding: 10px; /* Add padding */
-        max-width: 100%; /* Ensure the image doesn't overflow its container */
-    }
-
-    .img-thumbnail {
-        width: 100%; /* Make the image fill its container */
-        height: auto; /* Maintain aspect ratio */
-        max-height: 200px; /* Set a max height */
-    }
-
-    .video-container {
-        border: 1px solid #ccc; /* Border style */
-        padding: 10px; /* Add padding */
-        position: relative;
-        overflow: hidden;
-        max-width: 100%; /* Ensure the video doesn't overflow its container */
-    }
-
-    .embed-responsive-item {
-        width: 100%; /* Make the video fill its container */
-        height: 100%; /* Make the video fill its container */
-    }
-    </style>
          
 <main id="main" class="main">
     <div class="pagetitle">
@@ -98,21 +51,26 @@
             <div class="card">
                 <div class="card-body pt-3">
 
-                    <!-- Fourth Row -->
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="courseThumbnail">Course Thumbnail</label>
-                            <div class="image-container">
-                                <img id="imgCourseThumbnail" runat="server" class="img-thumbnail" alt="Course Thumbnail" />
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="courseTrailer">Course Trailer</label>
-                            <div class="video-container">
-                                <iframe id="iframeCourseTrailer" runat="server" class="embed-responsive-item" allowfullscreen=""></iframe>
-                            </div>
-                        </div>
+          <!-- Form Fields -->
+            <div class="form-row">
+               <!-- Course Thumbnail -->
+                <div class="form-group col-md-6">
+                    <label for="fileUploadThumbnail">Course Thumbnail</label>
+                    <div class="image-container" id="courseThumbnailContainer" style="width: 100%; height: 230px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;">
+                        <asp:Image ID="imgCourseThumbnail" runat="server" CssClass="img-thumbnail" AlternateText="Course Thumbnail" style="width: 100%; height: 230px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;" />
                     </div>
+                    <asp:FileUpload ID="fileUploadThumbnail" runat="server" CssClass="btn btn-primary" Accept=".jpg, .jpeg, .png" onchange="showThumbnail(this)" Style="background-color: #FF6636; border-color: #FF6636; width: 100%; font-size: small; border-radius: 0; margin-top: 20px" Visible="false" />
+                </div>
+
+                <!-- Course Trailer -->
+                <div class="form-group col-md-6">
+                    <label for="fileUploadTrailer">Course Trailer</label>
+                    <div class="video-container" id="courseTrailerContainer" style="width: 100%; height: 230px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;">
+                        <iframe id="iframeCourseTrailer" typeof="video/mp4" runat="server" class="video-container" allowfullscreen="" style="width: 100%; height: 230px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;"></iframe>
+                    </div>
+                    <asp:FileUpload ID="fileUploadTrailer" runat="server" CssClass="btn btn-primary" onchange="showVideo(this)" Style="background-color: #FF6636; border-color: #FF6636; width: 100%; font-size: small; border-radius: 0; margin-top: 20px" ReadOnly="true" Visible="false" />
+                </div>
+            </div>
 
                     <h5 class="card-title">Course Information</h5>
 
@@ -121,98 +79,135 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="courseName">Course Name</label>
-                            <asp:Label ID="lblCourseName" runat="server" CssClass="form-control" Text=""></asp:Label>
+                            <asp:TextBox ID="txtCourseName" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="courseCategory">Course Category</label>
-                            <asp:Label ID="lblCourseCategory" runat="server" CssClass="form-control" Text=""></asp:Label>
+                            <asp:TextBox ID="txtCourseCategory" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
                         </div>
                     </div>
 
                     <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="courseLevel">Course Level</label>
-                        <asp:Label ID="lblCourseLevel" runat="server" CssClass="form-control" Text=""></asp:Label>
+                        <div class="form-group col-md-6">
+                            <label for="courseLevel">Course Level</label>
+                            <asp:TextBox ID="txtCourseLevel" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="courseTopic">Course Topic</label>
+                            <asp:TextBox ID="txtCourseTopic" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="courseTopic">Course Topic</label>
-                        <asp:Label ID="lblCourseTopic" runat="server" CssClass="form-control" Text=""></asp:Label>
-                    </div>
-                </div>
 
-                <!-- Second Row -->
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="coursePrice">Course Price (RM)</label>
-                        <asp:Label ID="lblCoursePrice" runat="server" CssClass="form-control" Text=""></asp:Label>
+                    <!-- Second Row -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="coursePrice">Course Price (RM)</label>
+                            <asp:TextBox ID="txtCoursePrice" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="courseLanguage">Course Language</label>
+                            <asp:TextBox ID="txtCourseLanguage" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="courseLanguage">Course Language</label>
-                        <asp:Label ID="lblCourseLanguage" runat="server" CssClass="form-control" Text=""></asp:Label>
-                    </div>
-                </div>
 
-                <!-- Third Row -->
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="courseDuration">Course Duration</label>
-                        <asp:Label ID="lblCourseDuration" runat="server" CssClass="form-control" Text=""></asp:Label>
+                    <!-- Third Row -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="courseDuration">Course Duration</label>
+                            <asp:TextBox ID="txtCourseDuration" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
+                        </div>
                     </div>
-                </div>
 
-                 <h5 class="card-title">Advance Information</h5>
+                    <h5 class="card-title">Advance Information</h5>
 
-                <!-- Fifth Row -->
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="courseDescription">Course Description</label>
-                        <asp:Label ID="lblCourseDescription" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4"></asp:Label>
+                    <!-- Fifth Row -->
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="courseDescription">Course Description</label>
+                            <asp:TextBox ID="txtCourseDescription" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Sixth Row -->
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="teachingContent">What will you teach in these courses?</label>
-                        <asp:Label ID="lblCourseContent" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4"></asp:Label>
+                    <!-- Sixth Row -->
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="teachingContent">What will you teach in these courses?</label>
+                            <asp:TextBox ID="txtCourseContent" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Seventh Row -->
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="targetAudience">Target Audience</label>
-                        <asp:Label ID="lblCourseTargetAudience" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4"></asp:Label>
+                    <!-- Seventh Row -->
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="targetAudience">Target Audience</label>
+                            <asp:TextBox ID="txtCourseTargetAudience" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Eighth Row -->
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="courseRequirements">Course Requirements</label>
-                        <asp:Label ID="lblCourseRequirements" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4"></asp:Label>
+                    <!-- Eighth Row -->
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="courseRequirements">Course Requirements</label>
+                            <asp:TextBox ID="txtCourseRequirements" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
+                        </div>
                     </div>
-                </div>
 
                     <!-- Hidden field to store course ID -->
                     <asp:HiddenField ID="hdnCourseId" runat="server" />
                     
                     <!-- Display Delete Button -->
                     <div class="col-6 text-right">
-                        <!-- Edit and Delete Buttons -->
-                        <asp:LinkButton CssClass="editBtn btn-warning" ID="editBtn" runat="server" CommandName="Edit" CommandArgument='<%# Eval("course_id") %>' OnCommand="editBtn_Command">Edit</asp:LinkButton>
-                       <asp:Button ID="deleteBtn" runat="server" CssClass="deleteBtn btn btn-danger"
+                         <!-- Edit and Delete Buttons -->
+                        <asp:Button ID="btnEdit" runat="server" CssClass="btn btn-primary"  style="background-color: #FF6636; border-color: #FF6636;" Text="Edit" OnClick="btnEdit_Click" />
+                        <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary"   style="background-color: #FF6636; border-color: #FF6636;" Text="Update" 
+                       OnClientClick="if (!confirm('Are you sure you want to update this course?')) return false;"
+                       OnClick="btnUpdate_Click" Visible="false" CausesValidation="false"  />
+                        <asp:Button ID="btnCancel" runat="server" CssClass=" btn btn-primary btn-danger" Text="Cancel" OnClick="btnCancel_Click" Visible="false" />
+                       <asp:Button ID="deleteBtn" runat="server" CssClass=" btn btn-primary btn-danger"
                         OnClientClick="if (!confirm('Are you sure you want to delete this course?')) return false;"
                         OnClick="deleteBtn_Click"
                         CommandArgument='<%# Eval("course_id") %>'
                         UseSubmitBehavior="false"
                         Text="Delete" CausesValidation="false" />
                     </div>
-
                 </div>
             </div>
-        </div>
+          </div>
     </section>
+
+ <script>
+     function showThumbnail(input) {
+         var file = input.files[0];
+         var courseThumbnailContainer = document.getElementById('courseThumbnailContainer');
+         var imgCourseThumbnail = document.getElementById('<%= imgCourseThumbnail.ClientID %>');
+
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                courseThumbnailContainer.innerHTML = '<img src="' + e.target.result + '" style="max-width: 100%; max-height: 100%;">';
+            }
+            reader.readAsDataURL(file);
+        } else {
+            courseThumbnailContainer.innerHTML = '<i class="bi bi-image" style="font-size: 3rem; color: #ccc;"></i>';
+        }
+    }
+
+    function showVideo(input) {
+        var file = input.files[0];
+        var courseTrailerContainer = document.getElementById('courseTrailerContainer');
+             var iframeCourseTrailer = document.getElementById('<%= iframeCourseTrailer.ClientID %>');
+
+             if (file) {
+                 var reader = new FileReader();
+                 reader.onload = function (e) {
+                     courseTrailerContainer.innerHTML = '<video width="100%" height="100%" controls><source src="' + e.target.result + '" type="video/mp4">Your browser does not support the video tag.</video>';
+                 }
+                 reader.readAsDataURL(file);
+             } else {
+                 courseTrailerContainer.innerHTML = '<i class="bi bi-play" style="font-size: 3rem; color: #ccc;"></i>';
+             }
+         }
+ </script>
 </main>
 
 
