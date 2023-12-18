@@ -1,69 +1,67 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Student/CourseDetailHeader.master" AutoEventWireup="true" CodeBehind="CourseOverview.aspx.cs" Inherits="OnlineTutoringSystem.Student.WebForm3" %>
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Configuration;
+using System.Web.Configuration;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <style>
-        .gray-row {
-            background-color: #F3FCF4; /* Light grey background for odd rows */
+namespace OnlineTutoringSystem.Student
+{
+    public partial class WebForm3 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            { 
+                string courseId = Session["courseId"]?.ToString();
+
+                if (!string.IsNullOrEmpty(courseId))
+                {
+                    FetchCourseOverview(courseId);
+                }
+                else
+                {
+                    Response.Redirect("Course.aspx");
+                }
+            }
         }
-    </style>
 
-    <!-- Course Overview -->
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <div class="row mt-3">
-                <div class="col">
-                    <asp:Label ID="OverviewLabel" runat="server" Text="Course Overview" CssClass="h4 fw-bold"></asp:Label>
-                </div>
-            </div>
-            <div class="row mt-1 pb-3 content-row">
-                <div class="col">
-                    <span class="bi bi-info-circle icon"></span>
-                    <asp:Label ID="OverviewContent" runat="server" CssClass="text-muted"></asp:Label>
-                </div>
-            </div>
+        private void FetchCourseOverview(string courseId)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-            <!-- Course Description -->
-            <div class="row mt-3 pb-3 gray-row">
-                <div class="row mt-3">
-                    <div class="col">
-                        <asp:Label ID="DescriptionLabel" runat="server" Text="Description" CssClass="h4 fw-bold"></asp:Label>
-                    </div>
-                </div>
-                <div class="row mt-1 pb-3 content-row">
-                    <div class="col">
-                        <span class="bi bi-book icon"></span>
-                        <asp:Label ID="DescriptionContent" runat="server" CssClass="text-muted"></asp:Label>
-                    </div>
-                </div>
-            </div>
-            <!-- Who is this course for? -->
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
 
-            <div class="row mt-3">
-                <div class="col">
-                    <asp:Label ID="ForWhoLabel" runat="server" Text="Who is this course for?" CssClass="h4 fw-bold"></asp:Label>
-                </div>
-            </div>
-            <div class="row mt-1 pb-3 content-row">
-                <div class="col">
-                    <span class="bi bi-person icon"></span>
-                    <asp:Label ID="ForWhoContent" runat="server" CssClass="text-muted"></asp:Label>
-                </div>
-            </div>
+                // Fetch course overview data from the database
+                string overviewQuery = "SELECT course_overview, course_desc, course_targetAudience, course_requirement FROM Course WHERE course_id = @CourseId";
 
-            <!-- Course Requirements -->
-            <div class="row mt-3 pb-3 gray-row mb-4">
-                <div class="row mt-3">
-                    <div class="col">
-                        <asp:Label ID="RequirementsLabel" runat="server" Text="Course Requirements" CssClass="h4 fw-bold"></asp:Label>
-                    </div>
-                </div>
-                <div class="row mt-1 pb-3 content-row">
-                    <div class="col">
-                        <span class="bi bi-check icon"></span>
-                        <asp:Label ID="RequirementsContent" runat="server" CssClass="text-muted"></asp:Label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</asp:Content>
+                using (SqlCommand command = new SqlCommand(overviewQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@CourseId", courseId);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Populate labels with data from the database
+                            OverviewContent.Text = reader["course_overview"].ToString();
+                            DescriptionContent.Text = reader["course_desc"].ToString();
+                            ForWhoContent.Text = reader["course_targetAudience"].ToString();
+                            RequirementsContent.Text = reader["course_requirement"].ToString();
+                        }
+                        else
+                        { 
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Error: Course information not available.');", true);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
