@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -131,7 +131,7 @@ namespace OnlineTutoringSystem
                 else if (userType == "tutor")
                 {
                     // Redirect the tutor to the dashboard
-                    Response.Redirect("../Student/HomePage.aspx");
+                    Response.Redirect("../Tutor/Profile.aspx");
                 }
                 else
                 {
