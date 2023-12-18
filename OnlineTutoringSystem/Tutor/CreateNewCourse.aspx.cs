@@ -188,7 +188,7 @@ namespace OnlineTutoringSystem.Tutor
                     // Insert into Course table
                     string courseQuery = "INSERT INTO Course (course_name, course_category, cat_id, course_level, course_topic, " +
                      "course_fee, course_language, course_duration, course_desc, course_content, " +
-                     "course_targetAudience, course_requirement, course_pic, course_video, tutor_id) " +
+                     "course_targetAudience, course_requirement, course_pic, course_status, course_video, tutor_id) " +
                      "VALUES (@CourseName, @CourseCategory, @CatId, @CourseLevel, @CourseTopic, " +
                      "@CoursePrice, @CourseLanguage, @CourseDuration, @CourseDescription, @TeachingContent, " +
                      "@TargetAudience, @CourseRequirements, @CourseThumbnail, @CourseTrailer, @TutorId)" +

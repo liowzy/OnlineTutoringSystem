@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
@@ -91,6 +92,12 @@ namespace OnlineTutoringSystem
                 }
             }
         }
+        private bool ValidatePasswordFormat(string password)
+        {
+            // Password should contain at least one alphabet, one digit, and have a minimum length of 6 characters
+            var regex = new Regex("^(?=.*[a-zA-Z])(?=.*\\d).{6,}$");
+            return regex.IsMatch(password);
+        }
 
 
 
@@ -111,6 +118,14 @@ namespace OnlineTutoringSystem
             // Check if the email already exists in the database
             if (!CheckEmailExist(email))
             {
+                // Validate the new password format
+                if (!ValidatePasswordFormat(password))
+                {
+                    // Display an error message indicating that the new password format is invalid
+                    ClientScript.RegisterStartupScript(this.GetType(), "InvalidFormatAlert", "alert('Password must contain at least one alphabet, one digit and have a minimum length of 6 characters');", true);
+                    return;
+                }
+
                 // Email does not exist, proceed with registration
                 // Get the profile picture as a byte array
                 byte[] picture = null;

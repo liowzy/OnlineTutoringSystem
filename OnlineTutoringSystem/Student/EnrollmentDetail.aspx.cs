@@ -120,15 +120,46 @@ namespace OnlineTutoringSystem
             else
             {
                 // Handle the case where courseId is not found in the session
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('Please login again.", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert", "alert('Please login again.');", true);
+
             }
         }
 
          
 
         protected void btnRateTutorAndCourse_Click(object sender, EventArgs e)
-        { 
-            Response.Redirect("Rating.aspx");
+        {
+            int courseId = Convert.ToInt32(Session["courseId"]);
+            string courseStatus = GetCourseStatus(courseId);
+            if (courseStatus == "F")
+            {
+                // Redirect to the Rating.aspx page
+                Response.Redirect("Rating.aspx");
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert", "alert('You can rate the tutor after the course is completed.');", true);
+            }
+        }
+        private string GetCourseStatus(int courseId)
+        {
+
+            string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT course_status FROM Course WHERE course_id = @courseId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@courseId", courseId);
+                    object result = command.ExecuteScalar();
+
+                    // Check for DBNull and return the result as a string
+                    return result != DBNull.Value ? result.ToString() : null;
+                }
+            }
         }
 
         protected void btnOpen_Click(object sender, EventArgs e)

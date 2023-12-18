@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
@@ -126,6 +127,12 @@ namespace OnlineTutoringSystem.Student
                 ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", script, true);
             }
         }
+        private bool ValidatePasswordFormat(string password)
+        {
+            // Password should contain at least one alphabet, one digit, and have a minimum length of 6 characters
+            var regex = new Regex("^(?=.*[a-zA-Z])(?=.*\\d).{6,}$");
+            return regex.IsMatch(password);
+        }
 
         private void UpdateMasterPageUserInfo(dynamic masterPage)
         {
@@ -206,6 +213,8 @@ namespace OnlineTutoringSystem.Student
             string newPassword = TextBox14.Text;
             string confirmNewPassword = TextBox23.Text;
 
+            
+
             // Validate that the new password and confirm new password match
             if (newPassword != confirmNewPassword)
             { 
@@ -221,13 +230,20 @@ namespace OnlineTutoringSystem.Student
                 return;
             }
 
+            // Validate the new password format
+            if (!ValidatePasswordFormat(newPassword))
+            {
+                // Display an error message indicating that the new password format is invalid
+                ClientScript.RegisterStartupScript(this.GetType(), "InvalidFormatAlert", "alert('Password must contain at least one alphabet, one digit and have a minimum length of 6 characters');", true);
+                return;
+            }
+
             // If validation is successful, update the password in the database
             bool success = UpdatePassword(userId, newPassword);
 
             if (success)
             {
-                // Update the profile picture after successfully updating user data
-                imgUserProfile.ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(user.ProfilePicture);
+                // Update the profile picture after successfully updating user data 
                 ClientScript.RegisterStartupScript(this.GetType(), "SuccessAlert", "alert('Password changed successfully.');", true);
             }
             else

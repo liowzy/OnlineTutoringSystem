@@ -39,7 +39,7 @@ namespace OnlineTutoringSystem.Student
                 connection.Open();
 
                 // Fetch course overview data from the database
-                string overviewQuery = "SELECT course_content, course_desc, course_targetAudience, course_requirement FROM Course WHERE course_id = @CourseId";
+                string overviewQuery = "SELECT course_overview, course_desc, course_targetAudience, course_requirement FROM Course WHERE course_id = @CourseId";
 
                 using (SqlCommand command = new SqlCommand(overviewQuery, connection))
                 {
@@ -50,7 +50,7 @@ namespace OnlineTutoringSystem.Student
                         if (reader.Read())
                         {
                             // Populate labels with data from the database
-                            OverviewContent.Text = reader["course_content"].ToString();
+                            OverviewContent.Text = reader["course_overview"].ToString();
                             DescriptionContent.Text = reader["course_desc"].ToString();
                             ForWhoContent.Text = reader["course_targetAudience"].ToString();
                             RequirementsContent.Text = reader["course_requirement"].ToString();
