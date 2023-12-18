@@ -293,8 +293,7 @@ addEventTo.addEventListener("input", (e) => {
     }
 });
 
-//function to add event to eventsArr
-addEventSubmit.addEventListener("click", () => {
+function eventSubmit() {
     const eventTitle = addEventTitle.value;
     const eventTimeFrom = addEventFrom.value;
     const eventTimeTo = addEventTo.value;
@@ -380,53 +379,22 @@ addEventSubmit.addEventListener("click", () => {
     if (!activeDayEl.classList.contains("event")) {
         activeDayEl.classList.add("event");
     }
-});
 
-//function to delete event when clicked on event
+     //Use AJAX to call the server-side method
+    addEventToDatabase(eventTitle, eventTimeFrom, eventTimeTo);
+}
+//function to add event to eventsArr
+addEventSubmit.addEventListener("click", eventSubmit);
+
+// Modify your eventsContainer.addEventListener to handle the event deletion
 eventsContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("event")) {
         if (confirm("Are you sure you want to delete this event?")) {
-            const eventTitle = e.target.children[0].children[1].innerHTML;
-            eventsArr.forEach((event) => {
-                if (
-                    event.day === activeDay &&
-                    event.month === month + 1 &&
-                    event.year === year
-                ) {
-                    event.events.forEach((item, index) => {
-                        if (item.title === eventTitle) {
-                            event.events.splice(index, 1);
-                        }
-                    });
-                    //if no events left in a day then remove that day from eventsArr
-                    if (event.events.length === 0) {
-                        eventsArr.splice(eventsArr.indexOf(event), 1);
-                        //remove event class from day
-                        const activeDayEl = document.querySelector(".day.active");
-                        if (activeDayEl.classList.contains("event")) {
-                            activeDayEl.classList.remove("event");
-                        }
-                    }
-                }
-            });
-            updateEvents(activeDay);
+            /*const scheduleId = *//* Retrieve scheduleId from your HTML element or other source *//*;*/
+            deleteEventFromDatabase(scheduleId);
         }
     }
 });
-
-//function to save events in local storage
-function saveEvents() {
-   /* localStorage.setItem("events", JSON.stringify(eventsArr));*/
-}
-
-//function to get events from local storage
-function getEvents() {
-    ////check if events are already saved in local storage then return event else nothing
-    //if (localStorage.getItem("events") === null) {
-    //    return;
-    //}
-    //eventsArr.push(...JSON.parse(localStorage.getItem("events")));
-}
 
 function convertTime(time) {
     //convert time to 24 hour format
@@ -438,6 +406,3 @@ function convertTime(time) {
     time = timeHour + ":" + timeMin + " " + timeFormat;
     return time;
 }
-
-
-

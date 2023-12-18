@@ -64,10 +64,7 @@
                         <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#course-info">Course Info</button>
                     </li>
                     <li class="nav-item flex-fill">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#course-content">Content</button>
-                    </li>
-                    <li class="nav-item flex-fill">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#review-publish">Review & Publish</button>
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#course-content">Advance Info</button>
                     </li>
                 </ul>
 
@@ -183,39 +180,39 @@
 
                         <!-- Form Fields -->
                         <!-- First Row -->
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="courseThumbnail">Course Thumbnail</label>
-                                        <div class="input-group">
-                                            <!-- Image box with empty image icon -->
-                                            <div class="empty-image-box" style="width: 140px; height: 140px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;">
-                                                <i class="bi bi-image" style="font-size: 3rem; color: #ccc;"></i>
-                                            </div>
-                                            <div class="input-group-append" style="width: calc(100% - 228px); flex: 0 0 auto; margin-left: 10px; display: flex; flex-direction: column; align-items: flex-start;">
-                                                <!-- Description beside the button -->
-                                                <p style="font-size: small; margin-bottom: 5px;">Upload your course Thumbnail here. Important guidelines: 1200x800 pixels or 12:8 Ratio. Supported format: .jpg, .jpeg, or .png</p>
-                                                <!-- Button for Upload Image -->
-                                                <asp:FileUpload ID="fileUploadThumbnail" runat="server" CssClass="btn btn-primary" Accept=".jpg, .jpeg, .png" Style="background-color: #FF6636; border-color: #FF6636; width: 50%; font-size: small; border-radius: 0; margin-top: 20px" />
-                                            </div>
-                                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="courseThumbnail">Course Thumbnail</label>
+                                <div class="input-group">
+                                    <!-- Image box with empty image icon -->
+                                    <div id="thumbnailContainer" class="empty-image-box" style="width: 140px; height: 140px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;">
+                                        <i class="bi bi-image" style="font-size: 3rem; color: #ccc;"></i>
                                     </div>
-                                    <!-- Second column for the Course Trailer -->
-                                    <div class="form-group col-md-6">
-                                        <label for="courseTrailer">Course Trailer</label>
-                                        <div class="input-group">
-                                            <!-- Video box with empty video icon -->
-                                            <div class="empty-video-box" style="width: 140px; height: 140px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;">
-                                                <i class="bi bi-play" style="font-size: 3rem; color: #ccc;"></i>
-                                            </div>
-                                            <div class="input-group-append" style="width: calc(100% - 228px); flex: 0 0 auto; margin-left: 10px; display: flex; flex-direction: column; align-items: flex-start;">
-                                                <!-- Description beside the button -->
-                                                <p style="font-size: small; margin-bottom: 5px;">Students who watch a well-made promo video are 5X more likely to enroll in your course. We've seen that statistic go up to 10X for exceptionally awesome videos.</p>
-                                                <!-- Button for Upload Video -->
-                                                <asp:FileUpload ID="fileUploadTrailer" runat="server" CssClass="btn btn-primary" Style="background-color: #FF6636; border-color: #FF6636; width: 50%; font-size: small; border-radius: 0; margin-top: 20px" />
-                                            </div>
-                                        </div>
+                                    <div class="input-group-append" style="width: calc(100% - 228px); flex: 0 0 auto; margin-left: 10px; display: flex; flex-direction: column; align-items: flex-start;">
+                                        <!-- Description beside the button -->
+                                        <p style="font-size: small; margin-bottom: 5px;">Upload your course Thumbnail here. Important guidelines: 1200x800 pixels or 12:8 Ratio. Supported format: .jpg, .jpeg, or .png</p>
+                                        <!-- Button for Upload Image -->
+                                        <asp:FileUpload ID="fileUploadThumbnail" runat="server" CssClass="btn btn-primary" Accept=".jpg, .jpeg, .png" Style="background-color: #FF6636; border-color: #FF6636; width: 100%; font-size: small; border-radius: 0; margin-top: 20px" onchange="showThumbnail(this)" />
                                     </div>
                                 </div>
+                            </div>
+                            <!-- Second column for the Course Trailer -->
+                            <div class="form-group col-md-6">
+                                <label for="courseTrailer">Course Trailer</label>
+                                <div class="input-group">
+                                    <!-- Video box with empty video icon -->
+                                    <div id="trailerContainer" class="empty-video-box" style="width: 140px; height: 140px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;">
+                                        <i class="bi bi-play" style="font-size: 3rem; color: #ccc;"></i>
+                                    </div>
+                                    <div class="input-group-append" style="width: calc(100% - 228px); flex: 0 0 auto; margin-left: 10px; display: flex; flex-direction: column; align-items: flex-start;">
+                                        <!-- Description beside the button -->
+                                        <p style="font-size: small; margin-bottom: 5px;">Students who watch a well-made promo video are 5X more likely to enroll in your course. We've seen that statistic go up to 10X for exceptionally awesome videos.</p>
+                                        <!-- Button for Upload Video -->
+                                        <asp:FileUpload ID="fileUploadTrailer" runat="server" CssClass="btn btn-primary" Style="background-color: #FF6636; border-color: #FF6636; width: 100%; font-size: small; border-radius: 0; margin-top: 20px" onchange="showTrailer(this)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Second Row -->
                         <div class="form-row">
@@ -250,40 +247,10 @@
 
                          <div class="text-center">
                              <button  type="button" class="btn btn-primary prev-tab" style="background-color: #FF6636; border-color: #FF6636;"data-bs-target="#course-info">Previous</button>
-                            <button type="button" class="btn btn-primary next-tab" style="background-color: #FF6636; border-color: #FF6636;"data-bs-target="#review-publish">Next</button>
+                             <asp:Button ID="Button1" runat="server" Text="Save" CssClass="btn btn-primary save-btn"
+                                Style="background-color: #FF6636; border-color: #FF6636;" OnClientClick="if (!confirm('Are you sure you want to save?')) return false;" OnClick="btnSubmit_Click" />
                          </div>
                     </div>
-
-                    <div class="tab-pane fade pt-3" id="review-publish">
-
-                       <!-- Review and Publish Form -->
-                           <h5 class="card-title">Course Resource</h5>
-
-                           <!-- List of Resources -->
-                           <div class="container mt-4">
-                                <div class="mb-3">
-                                    <label for="resourceName" class="form-label">Resource Name:</label>
-                                    <asp:TextBox runat="server" ID="txtresourceName" CssClass="form-control" placeholder="Enter Resource Name" required="true"></asp:TextBox>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="fileName" class="form-label">File Name:</label>
-                                    <asp:TextBox runat="server" ID="txtfileName" CssClass="form-control" placeholder="Enter File Name" required="true"></asp:TextBox>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="fileUpload" class="form-label">Upload File:</label>
-                                    <asp:FileUpload runat="server" ID="fileUpload" CssClass="form-control" Required="true" />
-                                </div>     
-                            </div>
-
-
-                         <div class="text-center">
-                             <button  type="button" class="btn btn-primary prev-tab" style="background-color: #FF6636; border-color: #FF6636;"data-bs-target="#course-info">Previous</button>
-                             <asp:Button ID="btnSubmit" runat="server" Text="Save" CssClass="btn btn-primary save-btn"
-                                  Style="background-color: #FF6636; border-color: #FF6636;" OnClientClick="return confirm('Are you sure you want to save?');" OnClick="btnSubmit_Click" />
-                              </div>
-                          </div>
-                      </div>
-        
 
                  <!-- jQuery -->
                  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -295,26 +262,58 @@
                <%-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>--%>
       
                 <script>
-                     $(document).ready(function () {
-                         // Handle "Next" button click
-                         $('.next-tab').on('click', function () {
-                             var currentTab = $('.nav-link.active');
-                             var nextTab = currentTab.parent().next().find('.nav-link');
-                             if (nextTab.length > 0) {
-                                 nextTab.tab('show');
-                             }
-                         });
+                    var resourceCounter = 1; // Initialize the counter
 
-                         // Handle "Previous" button click
-                         $('.prev-tab').on('click', function () {
-                             var currentTab = $('.nav-link.active');
-                             var prevTab = currentTab.parent().prev().find('.nav-link');
-                             if (prevTab.length > 0) {
-                                 prevTab.tab('show');
-                             }
-                         });
-                     });
-                 </script>
+                    $(document).ready(function () {
+                        // Handle "Next" button click
+                        $('.next-tab').on('click', function () {
+                            var currentTab = $('.nav-link.active');
+                            var nextTab = currentTab.parent().next().find('.nav-link');
+                            if (nextTab.length > 0) {
+                                nextTab.tab('show');
+                            }
+                        });
+
+                        // Handle "Previous" button click
+                        $('.prev-tab').on('click', function () {
+                            var currentTab = $('.nav-link.active');
+                            var prevTab = currentTab.parent().prev().find('.nav-link');
+                            if (prevTab.length > 0) {
+                                prevTab.tab('show');
+                            }
+                        });
+                    });
+
+                    function showThumbnail(input) {
+                        var file = input.files[0];
+                        var thumbnailContainer = document.getElementById('thumbnailContainer');
+
+                        if (file) {
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                thumbnailContainer.innerHTML = '<img src="' + e.target.result + '" style="max-width: 100%; max-height: 100%;">';
+                            }
+                            reader.readAsDataURL(file);
+                        } else {
+                            thumbnailContainer.innerHTML = '<i class="bi bi-image" style="font-size: 3rem; color: #ccc;"></i>';
+                        }
+                    }
+
+                    function showTrailer(input) {
+                        var file = input.files[0];
+                        var trailerContainer = document.getElementById('trailerContainer');
+
+                        if (file) {
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                trailerContainer.innerHTML = '<video width="100%" height="100%" controls><source src="' + e.target.result + '" type="video/mp4">Your browser does not support the video tag.</video>';
+                            }
+                            reader.readAsDataURL(file);
+                        } else {
+                            trailerContainer.innerHTML = '<i class="bi bi-play" style="font-size: 3rem; color: #ccc;"></i>';
+                        }
+                    }
+                </script>
                 </div>
             </div>
          </div>
