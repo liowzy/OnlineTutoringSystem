@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -22,31 +22,28 @@ namespace OnlineTutoringSystem
             if (!IsPostBack)
             {
                 // Check if the search term is present in the query string
-                //if (Request.QueryString["searchTerm"] != null)
-                //{
-                //    string searchTerm = Server.UrlDecode(Request.QueryString["searchTerm"]);
+                if (Request.QueryString["searchTerm"] != null)
+                {
+                    string searchTerm = Server.UrlDecode(Request.QueryString["searchTerm"]);
 
-                //    // Perform the search using the retrieved searchTerm
-                //    ExecuteSearch(searchTerm);
-                //}
+                    // Perform the search using the retrieved searchTerm
+                    ExecuteSearch(searchTerm);
+                }
             }
-        } 
-        //private void ExecuteSearch(string searchTerm)
-        //{
-        //    SqlDataSourceTutors.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name " +
-        //                                 "FROM Course c " +
-        //                                 "JOIN Category cat ON c.cat_id = cat.cat_id " +
-        //                                 "WHERE c.course_name LIKE @SearchTerm " +
-        //                                 "ORDER BY c.course_id ASC";
+        }
+        private void ExecuteSearch(string searchTerm)
+        {
+            SqlDataSourceTutors.SelectCommand = "SELECT tutor_id, tutor_picture, tutor_name, tutor_expertice FROM Tutor " +
+                "WHERE tutor_name LIKE @SearchTerm ORDER BY tutor_id ASC";
 
-        //    // Clear existing parameters and add the new search parameter
-        //    SqlDataSourceTutors.SelectParameters.Clear();
-        //    SqlDataSourceTutors.SelectParameters.Add("SearchTerm", "%" + searchTerm + "%");
+            // Clear existing parameters and add the new search parameter
+            SqlDataSourceTutors.SelectParameters.Clear();
+            SqlDataSourceTutors.SelectParameters.Add("SearchTerm", "%" + searchTerm + "%");
 
-        //    // Bind the data to the DataListCourses
-        //    SqlDataSourceTutors.DataSourceID = "SqlDataSourceCourses";
-        //    SqlDataSourceTutors.DataBind();
-        //}
+            // Bind the data to the DataListCourses
+            DataListCourses.DataSourceID = "SqlDataSourceTutors";
+            DataListCourses.DataBind();
+        }
 
 
         protected void DataListCourses_SelectedIndexChanged(object sender, EventArgs e)
