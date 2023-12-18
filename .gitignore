@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/OnlineTutoringSystem/App_Data/dB.mdf
+/OnlineTutoringSystem/App_Data/ErrorLog.txt
