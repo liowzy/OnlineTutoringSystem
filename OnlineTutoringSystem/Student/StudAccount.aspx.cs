@@ -1,17 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Xml.Linq;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.Configuration;
+using System.Text.RegularExpressions;
 
 namespace OnlineTutoringSystem.Student
 {
@@ -24,7 +21,7 @@ namespace OnlineTutoringSystem.Student
         public string Gender { get; set; }
         public string PhoneNumber { get; set; }
         public byte[] ProfilePicture { get; set; }
-        public DateTime DateOfBirth { get; set; } // Add this line for Date of Birth 
+        public DateTime DateOfBirth { get; set; }
     }
 
 
@@ -32,9 +29,10 @@ namespace OnlineTutoringSystem.Student
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-              
-                    LoadUserData(); 
-             
+            if (!IsPostBack)
+            {
+                LoadUserData();
+            }
 
         }
 
@@ -150,36 +148,38 @@ namespace OnlineTutoringSystem.Student
         
 
         private bool UpdateUserData()
-        { 
-                // Get the user ID from the session
-                int userId = Convert.ToInt32(Session["userID"]);
-
-                // Get the updated user information from the textboxes and other controls
-                string firstName = tbFirstN.Text;
-                string lastName = tbLastN.Text;
-                string username = tbUserN.Text;
-                string email = tbEmail.Text;
-                string gender = DropDownList1.SelectedValue;
-                string phoneNumber = TextBox19.Text;
-                string dob = tbDateOfBirth.Text;
-
-            // Validate Date of Birth
-            if (!IsValidDob(dob))
+        {
+            try
             {
-                // Show error alert
-                ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", "alert('Invalid Date of Birth. Please make sure it is at least 15 years old.');", true);
-                return false;
-            }
+                    // Get the user ID from the session
+                    int userId = Convert.ToInt32(Session["userID"]);
 
-            string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                    // Get the updated user information from the textboxes and other controls
+                    string firstName = tbFirstN.Text;
+                    string lastName = tbLastN.Text;
+                    string username = tbUserN.Text;
+                    string email = tbEmail.Text;
+                    string gender = DropDownList1.SelectedValue;
+                    string phoneNumber = TextBox19.Text;
+                    string dob = tbDateOfBirth.Text;
 
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                // Validate Date of Birth
+                if (!IsValidDob(dob))
                 {
-                    connection.Open();
+                    // Show error alert
+                    ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", "alert('Invalid Date of Birth. Please make sure it is at least 15 years old.');", true);
+                    return false;
+                }
 
-                    using (SqlCommand command = new SqlCommand())
-                { 
-                    command.Connection = connection;
+                string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        using (SqlCommand command = new SqlCommand())
+                    { 
+                        command.Connection = connection;
 
                         if (btnFileUpload.HasFile)
                         {
@@ -188,13 +188,12 @@ namespace OnlineTutoringSystem.Student
                             byte[] profilePicture = new byte[imagefilelenth];
                             HttpPostedFile img = btnFileUpload.PostedFile;
                             img.InputStream.Read(profilePicture, 0, imagefilelenth);
-
                             // Update the query with the profile picture
                             command.CommandText = "UPDATE Student SET stud_name = @fullName, stud_username = @username, stud_email = @email, stud_gender = @gender, stud_dob = @dob, stud_phoneNo = @phoneNumber, stud_picture = @profilePicture WHERE stud_id = @userId";
                             command.Parameters.AddWithValue("@profilePicture", profilePicture);
-                            UserInfo user = GetUserInformation(userId.ToString()); 
+                            UserInfo user = GetUserInformation(userId.ToString());
                             user.ProfilePicture = profilePicture;
-                    }
+                        }
                         else
                         {
                             // If no file is uploaded, update without changing the profile picture
@@ -203,18 +202,25 @@ namespace OnlineTutoringSystem.Student
 
                         // Common parameters for both cases
                         command.Parameters.AddWithValue("@fullName", $"{firstName} {lastName}");
-                        command.Parameters.AddWithValue("@username", username);
-                        command.Parameters.AddWithValue("@email", email);
-                        command.Parameters.AddWithValue("@gender", gender);
-                        command.Parameters.AddWithValue("@dob", dob);
-                        command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
-                        command.Parameters.AddWithValue("@userId", userId);
+                            command.Parameters.AddWithValue("@username", username);
+                            command.Parameters.AddWithValue("@email", email);
+                            command.Parameters.AddWithValue("@gender", gender);
+                            command.Parameters.AddWithValue("@dob", dob);
+                            command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                            command.Parameters.AddWithValue("@userId", userId);
 
-                        int rowsAffected = command.ExecuteNonQuery();
+                            int rowsAffected = command.ExecuteNonQuery();
 
-                        return rowsAffected > 0;
-                    }
-                } 
+                            return rowsAffected > 0;
+                        }
+                }
+            }
+                catch (Exception ex)
+                {
+                    // Handle the exception (log it, display an error message)
+                    Response.Write("An error occurred: " + ex.Message);
+                    return false;
+                }
         }
 
         private bool IsValidDob(string dob)

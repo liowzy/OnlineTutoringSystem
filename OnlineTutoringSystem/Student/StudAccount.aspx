@@ -152,7 +152,7 @@
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-8 m-0 d-flex justify-content-end">
-                        <asp:Button ID="btnCreate" runat="server" class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636; margin: 0;" Text="Save Changes"  OnClick="btnCreate_Click1"/>
+                        <asp:Button ID="btnCreate" runat="server" class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636; margin: 0;" Text="Save Changes"  OnClick="btnCreate_Click1" />
                     </div>
                 </div>
             </div>
