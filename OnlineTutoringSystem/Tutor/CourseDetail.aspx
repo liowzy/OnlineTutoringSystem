@@ -52,161 +52,164 @@
                 <div class="card">
                     <div class="card-body pt-3">
 
-          <!-- Form Fields -->
-            <div class="form-row">
-               <!-- Course Thumbnail -->
-                <div class="form-group col-md-6">
-                    <label for="fileUploadThumbnail">Course Thumbnail</label>
-                    <div class="image-container" id="courseThumbnailContainer" style="width: 100%; height: 230px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;">
-                        <asp:Image ID="imgCourseThumbnail" runat="server" CssClass="img-thumbnail" AlternateText="Course Thumbnail" style="width: 100%; height: 230px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;" />
-                    </div>
-                    <asp:FileUpload ID="fileUploadThumbnail" runat="server" CssClass="btn btn-primary" Accept=".jpg, .jpeg, .png" onchange="showThumbnail(this)" Style="background-color: #FF6636; border-color: #FF6636; width: 100%; font-size: small; border-radius: 0; margin-top: 20px" Visible="false" />
-                </div>
-            </div>
+                        <!-- Form Fields -->
+                        <div class="form-row">
+                            <!-- Course Thumbnail -->
+                            <div class="form-group col-md-6">
+                                <label for="fileUploadThumbnail">Course Thumbnail</label>
+                                <div class="image-container" id="courseThumbnailContainer" style="width: 100%; height: 230px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;">
+                                    <asp:Image ID="imgCourseThumbnail" runat="server" CssClass="img-thumbnail" AlternateText="Course Thumbnail" Style="width: 100%; height: 230px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;" />
+                                </div>
+                                <asp:FileUpload ID="fileUploadThumbnail" runat="server" CssClass="btn btn-primary" Accept=".jpg, .jpeg, .png" onchange="showThumbnail(this)" Style="background-color: #FF6636; border-color: #FF6636; width: 100%; font-size: small; border-radius: 0; margin-top: 20px" Visible="false" />
+                            </div>
+                        </div>
 
                         <h5 class="card-title">Course Information</h5>
 
-                    <!-- Form Fields -->
-                    <!-- Display-only Fields -->
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="courseName">Course Name</label>
-                            <asp:TextBox ID="txtCourseName" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseName" Display="Dynamic" ErrorMessage="Course Name is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation"/>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="courseCategory">Course Category</label>
-                             <asp:DropDownList ID="ddlCourseCategory" runat="server" CssClass="form-control" DataTextField="cat_name" DataValueField="cat_id" AutoPostBack="true" Enabled="false">
-                            </asp:DropDownList>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCourseCategory" Display="Dynamic" ErrorMessage="Course Category is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation"/>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="courseLevel">Course Level</label>
-                            <div class="input-group">
-                                <asp:DropDownList ID="ddlCourseLevel" runat="server" CssClass="form-control" Enabled="false">
-                                    <asp:ListItem Text="Select level" Value="" Disabled="true" Selected="true"></asp:ListItem>
-                                    <asp:ListItem Text="Beginner" Value="beginner"></asp:ListItem>
-                                    <asp:ListItem Text="Intermediate" Value="intermediate"></asp:ListItem>
-                                    <asp:ListItem Text="Advanced" Value="advanced"></asp:ListItem>
+                        <!-- Form Fields -->
+                        <!-- Display-only Fields -->
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="courseName">Course Name</label>
+                                <asp:TextBox ID="txtCourseName" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseName" Display="Dynamic" ErrorMessage="Course Name is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="courseCategory">Course Category</label>
+                                <asp:DropDownList ID="ddlCourseCategory" runat="server" CssClass="form-control" DataTextField="cat_name" DataValueField="cat_id" AutoPostBack="true" Enabled="false">
                                 </asp:DropDownList>
-                                <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCourseLevel" Display="Dynamic" ErrorMessage="Course Level is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation"/>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCourseCategory" Display="Dynamic" ErrorMessage="Course Category is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation" />
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="courseTopic">Course Topic</label>
-                            <asp:TextBox ID="txtCourseTopic" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseRequirements" Display="Dynamic" ErrorMessage="Course Requirements is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation"/>
-                        </div>
-                    </div>
 
-                    <!-- Second Row -->
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="coursePrice">Course Price (RM)</label>
-                            <asp:TextBox ID="txtCoursePrice" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
-                             <asp:RegularExpressionValidator ID="regexPrice" runat="server" ControlToValidate="txtCoursePrice"
-                                 ErrorMessage="Please enter a valid integer price." ValidationExpression="^\d+$"
-                                 Display="Dynamic" CssClass="text-danger" ValidationGroup="CourseInfoValidation">
-                             </asp:RegularExpressionValidator>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCoursePrice" Display="Dynamic" ErrorMessage="Course Price is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation"/>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="courseLevel">Course Level</label>
+                                <div class="input-group">
+                                    <asp:DropDownList ID="ddlCourseLevel" runat="server" CssClass="form-control" Enabled="false">
+                                        <asp:ListItem Text="Select level" Value="" Disabled="true" Selected="true"></asp:ListItem>
+                                        <asp:ListItem Text="SPM" Value="SPM"></asp:ListItem>
+                                        <asp:ListItem Text="STPM" Value="STPM"></asp:ListItem>
+                                        <asp:ListItem Text="Foundation" Value="Foundation"></asp:ListItem>
+                                        <asp:ListItem Text="Diploma" Value="Diploma"></asp:ListItem>
+                                        <asp:ListItem Text="Degree" Value="Degree"></asp:ListItem>
+                                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCourseLevel" Display="Dynamic" ErrorMessage="Course Level is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="courseTopic">Course Topic</label>
+                                <asp:TextBox ID="txtCourseTopic" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseRequirements" Display="Dynamic" ErrorMessage="Course Requirements is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation" />
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="courseLanguage">Course Language</label>
-                            <asp:DropDownList ID="ddlCourseLanguage" runat="server" CssClass="form-control" Enabled="false">
-                                <asp:ListItem Text="Select language" Value="" Disabled="true" Selected="true"></asp:ListItem>
-                                <asp:ListItem Text="English" Value="english"></asp:ListItem>
-                                <asp:ListItem Text="Tamil" Value="Tamil"></asp:ListItem>
-                                <asp:ListItem Text="Chinese" Value="chinese"></asp:ListItem>
-                                <asp:ListItem Text="Malayu" Value="melayu"></asp:ListItem>
-                            </asp:DropDownList>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCourseLanguage" Display="Dynamic" ErrorMessage="Course Language is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation"/>
-                        </div>
-                    </div>
 
-                    <!-- Third Row -->
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="courseDuration">Course Duration</label>
-                            <asp:TextBox ID="txtCourseDuration" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseDuration" Display="Dynamic" ErrorMessage="Course Duration is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation"/>
+                        <!-- Second Row -->
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="coursePrice">Course Price (RM)</label>
+                                <asp:TextBox ID="txtCoursePrice" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="regexPrice" runat="server" ControlToValidate="txtCoursePrice"
+                                    ErrorMessage="Please enter a valid integer price." ValidationExpression="^\d+$"
+                                    Display="Dynamic" CssClass="text-danger" ValidationGroup="CourseInfoValidation">
+                                </asp:RegularExpressionValidator>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCoursePrice" Display="Dynamic" ErrorMessage="Course Price is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="courseLanguage">Course Language</label>
+                                <asp:DropDownList ID="ddlCourseLanguage" runat="server" CssClass="form-control" Enabled="false">
+                                    <asp:ListItem Text="Select language" Value="" Disabled="true" Selected="true"></asp:ListItem>
+                                    <asp:ListItem Text="English" Value="english"></asp:ListItem>
+                                    <asp:ListItem Text="Tamil" Value="Tamil"></asp:ListItem>
+                                    <asp:ListItem Text="Chinese" Value="chinese"></asp:ListItem>
+                                    <asp:ListItem Text="Malayu" Value="melayu"></asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCourseLanguage" Display="Dynamic" ErrorMessage="Course Language is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation" />
+                            </div>
                         </div>
-                    </div>
+
+                        <!-- Third Row -->
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="courseDuration">Course Duration</label>
+                                <asp:TextBox ID="txtCourseDuration" runat="server" CssClass="form-control" Text="" ReadOnly="true"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseDuration" Display="Dynamic" ErrorMessage="Course Duration is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation" />
+                            </div>
+                        </div>
 
                         <h5 class="card-title">Advance Information</h5>
 
-                    <!-- Fifth Row -->
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="courseDescription">Course Description</label>
-                            <asp:TextBox ID="txtCourseDescription" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseDescription" Display="Dynamic" ErrorMessage="Course Requirements is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation"/>
+                        <!-- Fifth Row -->
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="courseDescription">Course Description</label>
+                                <asp:TextBox ID="txtCourseDescription" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseDescription" Display="Dynamic" ErrorMessage="Course Requirements is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation" />
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Sixth Row -->
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="teachingContent">What will you teach in these courses?</label>
-                            <asp:TextBox ID="txtCourseContent" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseContent" Display="Dynamic" ErrorMessage="Course Content is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation"/>
+                        <!-- Sixth Row -->
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="teachingContent">What will you teach in these courses?</label>
+                                <asp:TextBox ID="txtCourseContent" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseContent" Display="Dynamic" ErrorMessage="Course Content is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation" />
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Seventh Row -->
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="targetAudience">Target Audience</label>
-                            <asp:TextBox ID="txtCourseTargetAudience" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
-                        <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseTargetAudience" Display="Dynamic" ErrorMessage="Target Audience is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation"/>
+                        <!-- Seventh Row -->
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="targetAudience">Target Audience</label>
+                                <asp:TextBox ID="txtCourseTargetAudience" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseTargetAudience" Display="Dynamic" ErrorMessage="Target Audience is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation" />
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Eighth Row -->
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="courseRequirements">Course Requirements</label>
-                            <asp:TextBox ID="txtCourseRequirements" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseRequirements" Display="Dynamic" ErrorMessage="Course Requirements is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation"/>
+                        <!-- Eighth Row -->
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="courseRequirements">Course Requirements</label>
+                                <asp:TextBox ID="txtCourseRequirements" runat="server" CssClass="form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseRequirements" Display="Dynamic" ErrorMessage="Course Requirements is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseDetailsValidation" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
+                        <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="ddlCourseStatus">Course Status</label>
-                                <asp:DropDownList ID="ddlCourseStatus" runat="server" CssClass="form-control"  Enabled="false">
+                                <asp:DropDownList ID="ddlCourseStatus" runat="server" CssClass="form-control" Enabled="false">
                                     <asp:ListItem Text="Complete" Value="F"></asp:ListItem>
                                     <asp:ListItem Text="In Progress" Value="T"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                         </div>
 
-                    <!-- Hidden field to store course ID -->
-                    <asp:HiddenField ID="hdnCourseId" runat="server" />
-                    
-                    <!-- Display Delete Button -->
-                    <div class="col-6 text-right">
-                         <!-- Edit and Delete Buttons -->
-                        <asp:Button ID="btnEdit" runat="server" CssClass="btn btn-primary"  style="background-color: #FF6636; border-color: #FF6636;" Text="Edit" OnClick="btnEdit_Click" />
-                        <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary"   style="background-color: #FF6636; border-color: #FF6636;" Text="Update" 
-                       OnClientClick="if (!confirm('Are you sure you want to update this course?')) return false;"
-                       OnClick="btnUpdate_Click" Visible="false" CausesValidation="false" ValidationGroup="CourseDetailsValidation" />
-                        <asp:Button ID="btnCancel" runat="server" CssClass=" btn btn-primary btn-danger" Text="Cancel" OnClick="btnCancel_Click" Visible="false" />
-                       <asp:Button ID="deleteBtn" runat="server" CssClass=" btn btn-primary btn-danger"
-                        OnClientClick="if (!confirm('Are you sure you want to delete this course?')) return false;"
-                        OnClick="deleteBtn_Click"
-                        CommandArgument='<%# Eval("course_id") %>'
-                        UseSubmitBehavior="false"
-                        Text="Delete" CausesValidation="false" />
+                        <!-- Hidden field to store course ID -->
+                        <asp:HiddenField ID="hdnCourseId" runat="server" />
+
+                        <!-- Display Delete Button -->
+                        <div class="col-6 text-right">
+                            <!-- Edit and Delete Buttons -->
+                            <asp:Button ID="btnEdit" runat="server" CssClass="btn btn-primary" Style="background-color: #FF6636; border-color: #FF6636;" Text="Edit" OnClick="btnEdit_Click" />
+                            <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary" Style="background-color: #FF6636; border-color: #FF6636;" Text="Update"
+                                OnClientClick="if (!confirm('Are you sure you want to update this course?')) return false;"
+                                OnClick="btnUpdate_Click" Visible="false" CausesValidation="false" ValidationGroup="CourseDetailsValidation" />
+                            <asp:Button ID="btnCancel" runat="server" CssClass=" btn btn-primary btn-danger" Text="Cancel" OnClick="btnCancel_Click" Visible="false" />
+                            <asp:Button ID="deleteBtn" runat="server" CssClass=" btn btn-primary btn-danger"
+                                OnClientClick="if (!confirm('Are you sure you want to delete this course?')) return false;"
+                                OnClick="deleteBtn_Click"
+                                CommandArgument='<%# Eval("course_id") %>'
+                                UseSubmitBehavior="false"
+                                Text="Delete" CausesValidation="false" />
+                        </div>
+                        <!-- Add a ValidationSummary to display a summary of errors -->
+                        <asp:ValidationSummary runat="server" ID="ValidationSummary2" HeaderText="Please correct the following errors:" ShowSummary="true" DisplayMode="BulletList" CssClass="text-danger" ValidationGroup="CourseDetailsValidation" />
                     </div>
-                      <!-- Add a ValidationSummary to display a summary of errors -->
- <asp:ValidationSummary runat="server" ID="ValidationSummary2" HeaderText="Please correct the following errors:" ShowSummary="true" DisplayMode="BulletList" CssClass="text-danger" ValidationGroup="CourseDetailsValidation" />
                 </div>
             </div>
-          </div>
-    </section>
+        </section>
 
         <script>
             function showThumbnail(input) {
@@ -240,8 +243,8 @@
                  courseTrailerContainer.innerHTML = '<i class="bi bi-play" style="font-size: 3rem; color: #ccc;"></i>';
              }
          }--%>
- </script>
-</main>
+        </script>
+    </main>
 
 
 </asp:Content>
