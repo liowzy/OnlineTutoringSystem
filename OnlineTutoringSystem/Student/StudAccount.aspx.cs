@@ -213,7 +213,11 @@ namespace OnlineTutoringSystem.Student
             string newPassword = TextBox14.Text;
             string confirmNewPassword = TextBox23.Text;
 
-            
+            if (newPassword != confirmNewPassword)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "MismatchAlert", "alert('New password and confirm password do not match.');", true);
+                return;
+            }
 
             // Validate that the new password and confirm new password match
             if (newPassword != confirmNewPassword)
