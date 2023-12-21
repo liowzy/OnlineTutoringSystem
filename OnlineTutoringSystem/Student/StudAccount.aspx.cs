@@ -130,6 +130,7 @@ namespace OnlineTutoringSystem.Student
                 ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", script, true);
             }
         }
+
         private bool ValidatePasswordFormat(string password)
         {
             // Password should contain at least one alphabet, one digit, and have a minimum length of 6 characters
