@@ -20,6 +20,14 @@ namespace OnlineTutoringSystem
             if (!IsPostBack)
             {
                 BindDataList();
+                if (DataList1.Items.Count == 0)
+                {
+                    Checkwl.Visible = true;
+                }
+                else
+                {
+                    Checkwl.Visible = false;
+                }
             }
         }
 

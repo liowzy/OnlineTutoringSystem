@@ -115,6 +115,13 @@ namespace OnlineTutoringSystem
             DateTime dob = DateTime.Parse(tbDob.Text);  
             string phoneNo = tbPhone.Text;
 
+            if (dob > DateTime.Now)
+            {
+                // Display an error message indicating that the date of birth is invalid
+                ClientScript.RegisterStartupScript(this.GetType(), "InvalidDateAlert", "alert('Date of Birth cannot be in the future.');", true);
+                return;
+            }
+
             // Check if the email already exists in the database
             if (!CheckEmailExist(email))
             {

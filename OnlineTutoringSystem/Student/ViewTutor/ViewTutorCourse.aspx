@@ -73,7 +73,7 @@
             }
     </style>
 
-    <div class="container">
+    <div class="container mt-2">
        <asp:Label ID="Label1" runat="server" CssClass="h2" Text="Tutor Course"></asp:Label> 
         <hr />
         <div class="row justify-content-center" style="margin-left: 1.5%;"> 
@@ -116,7 +116,7 @@
 
                                     </div>
                                     <div class="col-6 text-right">
-                                        <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
+                                        <asp:LinkButton class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
 
                                     </div>
                                 </divs>

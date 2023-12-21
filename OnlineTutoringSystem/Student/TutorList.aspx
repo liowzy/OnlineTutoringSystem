@@ -128,7 +128,7 @@
 
                                         </div>
                                         <div class="col-6 text-right">
-                                            <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("tutor_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
+                                            <asp:LinkButton class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("tutor_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
 
                                         </div>
                                     </div>
@@ -149,6 +149,9 @@
         </div>
     </div> 
     
-            <div class="chatbotBtn"><a href="chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
+            <div class="chatbotBtn" onclick="openChatbotWindow()">
+            <i class='bx bxs-message-dots'></i>
+        </div>
+
 </asp:Content>
 

@@ -15,6 +15,16 @@ namespace OnlineTutoringSystem.Student
             if (Session["courseId"] != null)
             {
                 int courseId = int.Parse(Session["courseId"].ToString());
+                if (SqlDataSourceReviews.Select(DataSourceSelectArguments.Empty) == null || SqlDataSourceReviews.Select(DataSourceSelectArguments.Empty).GetEnumerator().MoveNext() == false)
+                {
+                    // No reviews, make the Checkwl label visible
+                    Checkwl.Visible = true;
+                }
+                else
+                {
+                    // Reviews exist, make the Checkwl label invisible
+                    Checkwl.Visible = false;
+                }
             }
             else
             {

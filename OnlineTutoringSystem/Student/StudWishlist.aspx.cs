@@ -11,7 +11,16 @@ namespace OnlineTutoringSystem.Student
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Check if the wishlist is empty
+            if (DataListCourses.Items.Count == 0)
+            {
+                Checkwl.Visible = true;
+            }
+            else
+            {
 
+                Checkwl.Visible = false;
+            }
         }
 
         protected string GetCardColor(int index)

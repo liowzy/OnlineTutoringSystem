@@ -195,8 +195,8 @@
                         <div class="row">
                             <div class="col-md-6">
                             </div>
-                            <div class="col-md-6 d-flex justify-content-end">
-                                <asp:Button ID="btnCreate" runat="server" CssClass="btn-orange" Text="Create Account" OnClick="btnCreate_Click" />
+                            <div class="col-md-6 d-flex justify-content-end mt-2">
+                                <asp:Button ID="btnCreate" runat="server" class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" Text="Create Account" OnClick="btnCreate_Click" />
                             </div>
                         </div>
 

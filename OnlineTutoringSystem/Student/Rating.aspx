@@ -214,7 +214,7 @@
                     <br />
                     <asp:TextBox ID="tbComment" CssClass="textBox" runat="server" ValidationGroup="rating1" TextMode="MultiLine" Rows="3"></asp:TextBox>
                 </div>
-                <asp:Button ID="btnSubmit" runat="server" CssClass="btn-orange" Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="rating1,rating2,rating3,rating,4,rating5" />
+                <asp:Button ID="btnSubmit" runat="server" class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="rating1,rating2,rating3,rating,4,rating5" />
                 <asp:ValidationSummary ID="ValidationSummary2" runat="server" ForeColor="Red" ValidationGroup="rating1,rating2,rating3,rating,4,rating5" HeaderText="The following problems have been encountered" ShowMessageBox="True" ShowSummary="False" />
             </div>
         </div>

@@ -40,7 +40,8 @@
         <div class="container mt-5">
             <h2 class="text-center">Schedule Information</h2>
             <hr />
-            <div class="row justify-content-center p-3">
+            <div class="row justify-content-center p-3" style="min-height: 60vh;"">
+                        <asp:Label ID="Checkwl" runat="server" Text="Your schedule is empty" CssClass="h4 text-cen font-weight-bold text-muted" Visible="False"></asp:Label>
                 <asp:DataList ID="DataList1" runat="server" CssClass="schedule-lis mx-auto">
                     <ItemTemplate>
                         <div class="col-9 mb-4 mx-auto">

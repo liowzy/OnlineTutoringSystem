@@ -41,10 +41,13 @@
             padding: 10px; /* Adjust padding as needed */
         }
     </style>
-
-    <div class="container mt-5">
+    
+    <div class="container mt-2">
         <asp:Label ID="Label1" runat="server" CssClass="h2" Text="Tutor Schedule"></asp:Label>
         <hr />
+        
+            <asp:Label ID="Checkwl" runat="server" Text="No schedule" CssClass="h4 font-weight-bold text-muted" Visible="False"></asp:Label>
+            
         <asp:DataList ID="DataList1" runat="server" CssClass="table">
             <itemtemplate>
                 <div class='<%# Container.ItemIndex % 2 == 0 ? "odd-row" : "even-row" %>'>
