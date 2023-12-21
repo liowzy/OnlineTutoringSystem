@@ -72,8 +72,8 @@
                         <div class="row inputField">
                             <div class="col-md-12">
                                 <asp:Label ID="Label5" runat="server" BorderStyle="None" Text="Full Name"></asp:Label>
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="tbLastN" ErrorMessage="Field is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="tbFirstN" ErrorMessage="Field is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="tbLastN" ErrorMessage="Last Name is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="tbFirstN" ErrorMessage="First Name is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
 
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                         <div class="row inputField">
                             <div class="col-md-6">
                                 <asp:Label ID="Label10" runat="server" BorderStyle="None" Text="Gender"></asp:Label>
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator33" runat="server" ControlToValidate="RadioButtonListGender" ErrorMessage="Field is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator33" runat="server" ControlToValidate="RadioButtonListGender" ErrorMessage="Gender is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
 
                             </div>
                         </div>
@@ -96,21 +96,21 @@
                             <div class="col-md-12">
                                 <asp:RadioButtonList ID="RadioButtonListGender" runat="server" CssClass="form-control" RepeatDirection="Horizontal">
                                     <asp:ListItem Text="Male" Value="Male"></asp:ListItem>
-                                    <asp:ListItem Text="Female" Value="Female"></asp:ListItem> 
-                                </asp:RadioButtonList> 
+                                    <asp:ListItem Text="Female" Value="Female"></asp:ListItem>
+                                </asp:RadioButtonList>
                             </div>
                         </div>
                         <div class="row inputField">
                             <div class="col-md-6">
                                 <asp:Label ID="Label7" runat="server" BorderStyle="None" Text="Date of Birth"></asp:Label>
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbDob" ErrorMessage="Field is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbDob" ErrorMessage="Date of Birth is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
 
                             </div>
                             <div class="col-md-6">
                                 <asp:Label ID="Label8" runat="server" BorderStyle="None" Text="Phone Number"></asp:Label>
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbPhone" ErrorMessage="Field is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
-
-                            </div>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbPhone" ErrorMessage="Phone Number is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
+                              </div>
+                             
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -119,11 +119,14 @@
                             <div class="col-md-6">
                                 <asp:TextBox ID="tbPhone" runat="server" Placeholder="0123456789" CssClass="form-control" />
                             </div>
+                            <div class="col-md-6"> 
+                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="tbPhone" ErrorMessage="Please enter a valid 10 or 11-digit phone number" ValidationExpression="^\d{10,11}$" Display="Dynamic" ForeColor="Red" />
+                            </div>
                         </div>
                         <div class="row inputField">
                             <div class="col-md-12">
                                 <asp:Label ID="Label4" runat="server" BorderStyle="None" Text="Username"></asp:Label>
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="tbUserN" ErrorMessage="Field is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="tbUserN" ErrorMessage="Username is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
 
                             </div>
                         </div>
@@ -135,7 +138,7 @@
                         <div class="row inputField">
                             <div class="col-md-12">
                                 <asp:Label ID="Label3" runat="server" BorderStyle="None" Text="Email"></asp:Label>
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="tbEmail" ErrorMessage="Field is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="tbEmail" ErrorMessage="Email is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
 
                             </div>
                         </div>
@@ -148,12 +151,12 @@
                         <div class="row inputField">
                             <div class="col-md-6">
                                 <asp:Label ID="Label1" runat="server" BorderStyle="None" Text="Password"></asp:Label>
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="tbPw" ErrorMessage="Field is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="tbPw" ErrorMessage="Password is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
 
                             </div>
                             <div class="col-md-6">
                                 <asp:Label ID="Label2" runat="server" BorderStyle="None" Text="Confirm Password"></asp:Label>
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="TextBox2" ErrorMessage="Field is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="TextBox2" ErrorMessage="Confirm Password is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
 
                             </div>
                         </div>
@@ -170,7 +173,7 @@
                         <div class="row inputField">
                             <div class="col-md-12">
                                 <asp:Label ID="Label9" runat="server" BorderStyle="None" Text="Profile Picture" CssClass="form-label"></asp:Label>
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="FileUpload1" ErrorMessage="Field is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="FileUpload1" ErrorMessage="Profile Picture is required" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
 
                                 <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" />
                             </div>
@@ -195,7 +198,13 @@
                             <div class="col-md-6 d-flex justify-content-end">
                                 <asp:Button ID="btnCreate" runat="server" CssClass="btn-orange" Text="Create Account" OnClick="btnCreate_Click" />
                             </div>
-                        </div> 
+                        </div>
+
+                        <div class="row inputField">
+                            <div class="col-md-12">
+                                <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="Validation Errors:" ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList" ForeColor="Red" />
+                            </div>
+                        </div>
                     </div>
 
                 </div>
