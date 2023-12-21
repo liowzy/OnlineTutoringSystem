@@ -64,6 +64,19 @@ namespace OnlineTutoringSystem.Tutor
                 lblDob.Text = tutor.TutorDob.ToString("yyyy-MM-dd");
                 lblDes.Text = tutor.TutorDescription.ToString();
 
+                // Set the labels with tutor information
+                txtUsername.Text = tutor.TutorUsername;
+                txtName.Text = tutor.TutorName; // Display the full name directly
+
+                txtPhoneNumber.Text = tutor.TutorPhoneNumber;
+                ddlGender.Text = tutor.TutorGender;
+                txtTeachingExperience.Text = tutor.TutorTeachingExperience.ToString();
+                txtLangPro.Text = tutor.TutorLanguageProficiency;
+                txtLocation.Text = tutor.TutorLocation;
+                txtTutorExpertice.Text = tutor.TutorExpertice;
+                txtDob.Text = tutor.TutorDob.ToString("yyyy-MM-dd");
+                txtBiography.Text = tutor.TutorDescription.ToString();
+
                 // Set the profile picture
                 imgUserProfile.ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(tutor.TutorPicture);
                 imgUserProfile_2.ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(tutor.TutorPicture);
@@ -146,6 +159,7 @@ namespace OnlineTutoringSystem.Tutor
 
         protected void btnUpdateTutorProfile_Click(object sender, EventArgs e)
         {
+
             // Get the tutor ID from the session
             bool success = UpdateTutorInformation();
 
@@ -180,6 +194,14 @@ namespace OnlineTutoringSystem.Tutor
                 string tutorExpertice = txtTutorExpertice.Text;
                 string tutorDescription = txtBiography.Text;
                 string tutorDob = txtDob.Text;
+
+                // Validate Date of Birth
+                if (!IsValidDob(tutorDob))
+                {
+                    // Show error alert
+                    ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", "alert('Invalid Date of Birth. Please make sure it is at least 18 years old.');", true);
+                    return false;
+                }
 
                 string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
@@ -241,6 +263,21 @@ namespace OnlineTutoringSystem.Tutor
             }
         }
 
+        private bool IsValidDob(string dob)
+        {
+            DateTime currentDate = DateTime.Now;
+            DateTime dateOfBirth;
+
+            if (DateTime.TryParse(dob, out dateOfBirth))
+            {
+                // Check if the user is at least 18 years old
+                return currentDate.Year - dateOfBirth.Year >= 18;
+            }
+
+            // If the date is not a valid DateTime, consider it as invalid
+            return false;
+        }
+
         protected void btnChangePassword_Click(object sender, EventArgs e)
         {
             int userId = Convert.ToInt32(Session["userID"]);
@@ -249,6 +286,12 @@ namespace OnlineTutoringSystem.Tutor
             string currentPassword = lblCurrentPass.Text;
             string newPassword = lblNewPass.Text;
             string confirmNewPassword = lblReNewPass.Text;
+
+            if (currentPassword == newPassword)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "MismatchAlert", "alert('New password cannot same as current password.');", true);
+                return;
+            }
 
             // Validate that the new password and confirm new password match
             if (newPassword != confirmNewPassword)
