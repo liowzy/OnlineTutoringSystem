@@ -33,21 +33,23 @@ namespace OnlineTutoringSystem
 
         private void BindDataList()
         {
-            // Check if the tutor ID is stored in the session
+            // Check if the student ID is stored in the session
             if (Session["userId"] != null)
             {
-                int tutorId = Convert.ToInt32(Session["userId"]);
+                int studentId = Convert.ToInt32(Session["userId"]);
 
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                string query = "SELECT schedule_date, schedule_startTime, schedule_endTime, " +
-                "schedule_subject, schedule_description, schedule_status, google_meet, schedule_resource " +
-                "FROM Schedule WHERE tutor_id = @TutorId";
+                string query = "SELECT S.schedule_id, S.schedule_date, S.schedule_startTime, S.schedule_endTime, " +
+                               "S.schedule_subject, S.schedule_description, S.schedule_status " +
+                               "FROM Schedule S " +
+                               "INNER JOIN StudentBooking B ON S.schedule_id = B.schedule_id " +
+                               "WHERE B.student_id = @StudentId";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@TutorId", tutorId);
+                        command.Parameters.AddWithValue("@StudentId", studentId);
 
                         connection.Open();
                         SqlDataReader reader = command.ExecuteReader();
@@ -66,12 +68,9 @@ namespace OnlineTutoringSystem
                             row["schedule_startTime"] = startTime.ToString("hh\\:mm");
                             row["schedule_endTime"] = endTime.ToString("hh\\:mm");
 
-
-
                             // Convert other columns if needed
-                            row["schedule_status"] = row["schedule_status"].ToString();
-                            row["schedule_subject"] = row["schedule_subject"].ToString();  
-                            row["schedule_description"] = row["schedule_description"].ToString();  
+                            row["schedule_subject"] = row["schedule_subject"].ToString();
+                            row["schedule_description"] = row["schedule_description"].ToString();
                         }
 
                         // Bind data to the DataList
@@ -82,10 +81,11 @@ namespace OnlineTutoringSystem
             }
             else
             {
-                // Handle the case when the tutor ID is not in the session
+                // Handle the case when the student ID is not in the session
                 Response.Write("Please login again. Session end.");
             }
         }
+
 
 
         protected void DeleteSchedule_Click(object sender, EventArgs e)
@@ -122,16 +122,18 @@ namespace OnlineTutoringSystem
 
         private void DeleteSchedule(int scheduleId)
         {
+            int studentId = Convert.ToInt32(Session["userId"]);
             // Connection string from your web.config
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
             // SQL query to delete a record from the Schedule table
-            string deleteQuery = "DELETE FROM Schedule WHERE schedule_id = @ScheduleId";
+            string deleteQuery = "DELETE FROM StudentBooking WHERE student_id = @StudentId AND schedule_id = @ScheduleId";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand command = new SqlCommand(deleteQuery, connection))
                 {
+                    command.Parameters.AddWithValue("@StudentId", studentId);
                     command.Parameters.AddWithValue("@ScheduleId", scheduleId);
 
                     connection.Open();

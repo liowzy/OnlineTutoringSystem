@@ -204,7 +204,7 @@ namespace OnlineTutoringSystem.Tutor
                         course_language = @CourseLanguage,
                         course_duration = @CourseDuration,
                         course_desc = @CourseDescription,
-                        course_content = @CourseContent,
+                        course_overview = @CourseContent,
                         course_targetAudience = @CourseTargetAudience,
                         course_requirement = @CourseRequirements,
                         course_status = @CourseStatus";
@@ -448,7 +448,7 @@ namespace OnlineTutoringSystem.Tutor
             {
                 connection.Open();
 
-                string query = "SELECT course_id, course_name, course_category, course_level, course_topic, course_fee, course_language, course_duration, course_desc, course_content, course_targetAudience, course_requirement, course_pic ,course_status FROM Course WHERE course_id = @courseId";
+                string query = "SELECT course_id, course_name, course_category, course_level, course_topic, course_fee, course_language, course_duration, course_desc, course_overview, course_targetAudience, course_requirement, course_pic ,course_status FROM Course WHERE course_id = @courseId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -470,7 +470,7 @@ namespace OnlineTutoringSystem.Tutor
                             course.CourseLanguage = reader["course_language"].ToString();
                             course.CourseDuration = reader["course_duration"].ToString();
                             course.CourseDescription = reader["course_desc"].ToString();
-                            course.CourseContent = reader["course_content"].ToString();
+                            course.CourseContent = reader["course_overview"].ToString();
                             course.CourseTargetAudience = reader["course_targetAudience"].ToString();
                             course.CourseRequirements = reader["course_requirement"].ToString();
                             course.CourseThumbnail = (byte[])reader["course_pic"];

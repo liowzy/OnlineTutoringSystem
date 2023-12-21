@@ -39,7 +39,7 @@ namespace OnlineTutoringSystem.Student.ViewTutor
                 int tutorId = Convert.ToInt32(Session["TutorId"]);
 
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                string query = "SELECT schedule_date, schedule_startTime, schedule_endTime, " +
+                string query = "SELECT schedule_id, schedule_date, schedule_startTime, schedule_endTime, " +
                                "schedule_subject, schedule_description, tutor_id " +
                                "FROM Schedule " +
                                "WHERE tutor_id = @TutorId";
@@ -67,14 +67,14 @@ namespace OnlineTutoringSystem.Student.ViewTutor
                             // Format the TimeSpan as HH:mm
                             row["schedule_startTime"] = startTime.ToString("hh\\:mm");
                             row["schedule_endTime"] = endTime.ToString("hh\\:mm");
+                            
 
 
                             // Convert other columns if needed
                             row["schedule_subject"] = row["schedule_subject"].ToString(); // Example: Convert to string
                             row["schedule_description"] = row["schedule_description"].ToString(); // Example: Convert to string 
                         }
-
-
+                         
 
                         // Bind data to the DataList
                         DataList1.DataSource = dataTable;
@@ -105,17 +105,16 @@ namespace OnlineTutoringSystem.Student.ViewTutor
                 string date = ((Label)item.FindControl("LabelDate")).Text;
                 string startTime = ((Label)item.FindControl("LabelStartTime")).Text;
                 string endTime = ((Label)item.FindControl("LabelEndTime")).Text;
-                string subject = ((Label)item.FindControl("LabelSubject")).Text;
-                string description = ((Label)item.FindControl("LabelDescription")).Text;
+                int scheduleId = Convert.ToInt32(DataList1.DataKeys[item.ItemIndex]);
+
 
                 // Check for clashes with another class
                 if (!IsClash(userId, date, startTime, endTime))
                 {
                     // Insert the new schedule entry into the database
                     string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                    string insertQuery = "INSERT INTO Schedule (schedule_date, schedule_startTime, schedule_endTime, " +
-                                         "schedule_subject, schedule_description, schedule_status, tutor_id) " +
-                                         "VALUES (@Date, @StartTime, @EndTime, @Subject, @Description, 'Booked', @TutorId)";
+                    string insertQuery = "INSERT INTO StudentBooking (schedule_date,schedule_startTime, schedule_endTime, " +
+                        "student_id, schedule_id) VALUES (@Date, @StartTime, @EndTime, @StudentId, @ScheduleId)";
 
                     using (SqlConnection connection = new SqlConnection(connectionString))
                     {
@@ -124,8 +123,8 @@ namespace OnlineTutoringSystem.Student.ViewTutor
                             command.Parameters.AddWithValue("@Date", DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture));
                             command.Parameters.AddWithValue("@StartTime", TimeSpan.Parse(startTime));
                             command.Parameters.AddWithValue("@EndTime", TimeSpan.Parse(endTime));
-                            command.Parameters.AddWithValue("@Subject", subject);
-                            command.Parameters.AddWithValue("@Description", description);
+                            command.Parameters.AddWithValue("@StudentId", userId);
+                            command.Parameters.AddWithValue("@ScheduleId", scheduleId);
                             command.Parameters.AddWithValue("@TutorId", userId);
 
                             connection.Open();
@@ -157,8 +156,8 @@ namespace OnlineTutoringSystem.Student.ViewTutor
         private bool IsClash(int tutorId, string date, string startTime, string endTime)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            string clashQuery = "SELECT COUNT(*) FROM Schedule " +
-                                "WHERE tutor_id = @TutorId " +
+            string clashQuery = "SELECT COUNT(*) FROM StudentBooking " +
+                                "WHERE student_id = @TutorId " +
                                 "AND schedule_date = @Date " +
                                 "AND ((schedule_startTime <= @StartTime AND schedule_endTime > @StartTime) OR " +
                                 "(schedule_startTime < @EndTime AND schedule_endTime >= @EndTime) OR " +
