@@ -10,6 +10,10 @@
     <!-- Lightbox2 CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 
+     <!-- Include Lightbox2 CSS -->
+    <link href="~/Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+
     <link rel="stylesheet" href="../Content/css/studentMaster.css" />
     <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css">
     <style>

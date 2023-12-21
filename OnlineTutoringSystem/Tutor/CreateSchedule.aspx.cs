@@ -245,6 +245,8 @@ namespace OnlineTutoringSystem.Tutor
                 string status = this.txtScheduleStatus.SelectedValue;
                 int tutorId = Convert.ToInt32(this.GetTutorId());
                 int courseId = int.Parse(ddlCourse.SelectedValue);
+                // Get the selected file_id from ddlResourceFile
+                int fileId = int.Parse(ddlResourceFile.SelectedValue);
                 string subject = ddlCourse.SelectedItem.ToString(); // Assuming subject is a string
                 string fileName = ddlResourceFile.SelectedItem.ToString(); // Assuming resource is an int
 
@@ -299,10 +301,10 @@ namespace OnlineTutoringSystem.Tutor
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
                 string insertQuery = "INSERT INTO Schedule (schedule_date, schedule_startTime, schedule_endTime, " +
-                                     "schedule_description, schedule_status, tutor_id, google_meet, course_id, " +
-                                     "schedule_subject, schedule_resource) " +
-                                     "VALUES (@ScheduleDate, @StartTime, @EndTime, @Description, @Status, @TutorId, " +
-                                     "@GoogleMeetLink, @CourseId, @Subject, @Resource)";
+                             "schedule_description, schedule_status, tutor_id, google_meet, course_id, file_id, " +
+                             "schedule_subject, schedule_resource) " +
+                             "VALUES (@ScheduleDate, @StartTime, @EndTime, @Description, @Status, @TutorId, @GoogleMeetLink, " +
+                             "@CourseId, @FileId, @Subject, @Resource)";
 
                 // Using statement ensures that the SqlConnection is closed and disposed when done
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -319,6 +321,7 @@ namespace OnlineTutoringSystem.Tutor
                         command.Parameters.AddWithValue("@TutorId", tutorId);
                         command.Parameters.AddWithValue("@GoogleMeetLink", googleMeetLink);
                         command.Parameters.AddWithValue("@CourseId", courseId);
+                        command.Parameters.AddWithValue("@FileId", fileId); // Add file_id parameter
                         command.Parameters.AddWithValue("@Subject", subject);
                         command.Parameters.AddWithValue("@Resource", fileName);
 
