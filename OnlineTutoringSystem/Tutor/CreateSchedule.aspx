@@ -79,13 +79,16 @@
                         <asp:DropDownList runat="server" ID="ddlCourse" CssClass="form-control" DataTextField="course_name" DataValueField="course_id" AutoPostBack="true" OnSelectedIndexChanged="ddlCourse_SelectedIndexChanged">
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCourse" Display="Dynamic" ErrorMessage="Course Name is required." CssClass="text-danger" InitialValue="" ValidationGroup="CreateScheduleValidation"/>
-                    </div>
+                           <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlCourse" 
+                                    InitialValue="" ValidationGroup="ResourceValidationGroup"
+                                    ErrorMessage="Please select a Course"></asp:RequiredFieldValidator>--%>
+                        </div>
 
                     <div class="mb-3">
                         <label for="ddlResourceFile" class="form-label">Resource File:</label>
-                        <asp:DropDownList runat="server" ID="ddlResourceFile" CssClass="form-control" DataTextField="file_name" DataValueField="file_id">
+                        <asp:DropDownList runat="server" ID="ddlResourceFile" CssClass="form-control" DataTextField="file_name" DataValueField="file_id" EnableViewState="true" AutoPostBack="true">
                         </asp:DropDownList>
-                        <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlResourceFile" Display="Dynamic" ErrorMessage="Resource File is required." CssClass="text-danger" InitialValue="" ValidationGroup="CreateScheduleValidation"/>
+                        <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlResourceFile" Display="Dynamic" ErrorMessage="Resource File is required." CssClass="text-danger" InitialValue="" ValidationGroup="CreateScheduleValidation"/>              
                     </div>
 
                    <div class="mb-3">

@@ -116,6 +116,7 @@ namespace OnlineTutoringSystem.Tutor
             txtCourseTargetAudience.ReadOnly = !editable;
             txtCourseTopic.ReadOnly = !editable;
             ddlCourseCategory.Enabled = editable;
+            ddlCourseStatus.Enabled = editable;
         }
 
         private void ToggleEditMode(bool enableEdit)
@@ -203,7 +204,7 @@ namespace OnlineTutoringSystem.Tutor
                         course_language = @CourseLanguage,
                         course_duration = @CourseDuration,
                         course_desc = @CourseDescription,
-                        course_overview = @CourseContent,
+                        course_content = @CourseContent,
                         course_targetAudience = @CourseTargetAudience,
                         course_requirement = @CourseRequirements,
                         course_status = @CourseStatus";
@@ -447,7 +448,7 @@ namespace OnlineTutoringSystem.Tutor
             {
                 connection.Open();
 
-                string query = "SELECT course_id, course_name, course_category, course_level, course_topic, course_fee, course_language, course_duration, course_desc, course_content, course_targetAudience, course_requirement, course_pic FROM Course WHERE course_id = @courseId";
+                string query = "SELECT course_id, course_name, course_category, course_level, course_topic, course_fee, course_language, course_duration, course_desc, course_content, course_targetAudience, course_requirement, course_pic ,course_status FROM Course WHERE course_id = @courseId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -474,6 +475,7 @@ namespace OnlineTutoringSystem.Tutor
                             course.CourseRequirements = reader["course_requirement"].ToString();
                             course.CourseThumbnail = (byte[])reader["course_pic"];
                             //course.CourseTrailer = (byte[])reader["course_video"];
+                            course.CourseStatus = reader["course_status"].ToString();
                         }
                     }
                 }

@@ -11,7 +11,46 @@ namespace OnlineTutoringSystem.Tutor
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                int tutorId = LoadTutorData(); // Assuming you have a method to get the tutor ID
 
+                // Bind the GridView with data
+                GridViewCourseDetails.DataBind();
+
+                // Check if there are rows in the GridView
+                if (GridViewCourseDetails.Rows.Count == 0)
+                {
+                    lblNoCourse.Visible = true;
+                }
+                else
+                {
+                    lblNoCourse.Visible = false;
+                }
+            }
+        }
+
+        private int LoadTutorData()
+        {
+            // Get the tutor ID directly from the session
+            int tutorId = GetTutorId();
+
+            // If you need to use the tutorId elsewhere, you can store it in a variable or property
+            // Example: int currentTutorId = tutorId;
+
+            // Note: If you don't need to use the tutorId elsewhere, you can directly use it in ExecuteSearch and ExecuteCategory
+            return tutorId;
+        }
+
+        private int GetTutorId()
+        {
+            if (Session["userId"] != null)
+            {
+                return Convert.ToInt32(Session["userId"]);
+            }
+
+            // Handle the case when the user is not logged in (return a default value or handle it accordingly)
+            return -1; // You can choose an appropriate default value
         }
 
         protected void Unnamed_Click(object sender, EventArgs e)

@@ -60,7 +60,10 @@
     </SelectParameters>
 </asp:SqlDataSource>
 
-
+                    <asp:Label runat="server" ID="lblNoCourse" CssClass="text-info" Visible="false">
+                        <h1 style="margin-top:30px">No Course Has Been Created.</h1>
+                        <h3 style="color:darkred; margin-top:20px">### Please Create A Course Before File Management ###</h3>
+                    </asp:Label>
 
 
                     <!-- GridView to display data -->

@@ -19,12 +19,10 @@ const createChatLi = (message, className) => {
 const generateResponse = () => {
     const userMessageLowerCase = userMessage.toLowerCase();
 
-    // Check if the user's message matches any predefined pattern
     for (const pattern in predefinedResponses) {
-        if (userMessageLowerCase.includes(pattern)) {
-            const response = predefinedResponses[pattern];
-            chatbox.appendChild(createChatLi(response, "incoming"));
-            chatbox.scrollTo(0, chatbox.scrollHeight);
+        const patternLowerCase = pattern.toLowerCase();
+        if (userMessageLowerCase.includes(patternLowerCase)) {
+            handlePredefinedResponse(pattern);
             return;
         }
     }
@@ -33,6 +31,50 @@ const generateResponse = () => {
     chatbox.appendChild(createChatLi("I'm not sure how to respond to that.", "incoming"));
     chatbox.scrollTo(0, chatbox.scrollHeight);
 }
+
+const handlePredefinedResponse = (pattern) => {
+    const patternLowerCase = pattern.toLowerCase();
+
+    if (patternLowerCase.endsWith(".aspx")) {
+        const pageName = patternLowerCase.substring(0, patternLowerCase.indexOf(".aspx"));
+        redirectToPage(pageName);
+    } else {
+        const response = predefinedResponses[pattern];
+        chatbox.appendChild(createChatLi(response, "incoming"));
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+    }
+}
+
+
+const redirectToPage = (pageName) => {
+    const pageData = predefinedResponses[pageName];
+    if (pageData) {
+        const { message, buttonText } = pageData;
+        chatbox.appendChild(createChatLi(message, "incoming"));
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+    } else {
+        chatbox.appendChild(createChatLi("I'm not sure which page you're referring to.", "incoming"));
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+    }
+
+    switch (pageName) {
+        case "course":
+            window.location.href = "course.aspx";
+            break;
+        case "tutor":
+            window.location.href = "TutorList.aspx";
+            break;
+        case "account":
+            window.location.href = "StudAccount.aspx";
+            break;
+        // Add more cases for other pages
+        default:
+            chatbox.appendChild(createChatLi("I'm not sure which page you're referring to.", "incoming"));
+            chatbox.scrollTo(0, chatbox.scrollHeight);
+            break;
+    }
+}
+
 
 const handleChat = () => {
     userMessage = chatInput.value.trim(); // Get the user's entered message and remove extra whitespace

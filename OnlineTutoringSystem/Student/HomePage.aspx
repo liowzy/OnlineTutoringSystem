@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../Content/css/studentMaster.css" />
     <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css"> 
 
+
     <style>
         body {
             margin: 0;
