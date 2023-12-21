@@ -10,6 +10,10 @@
     <!-- Lightbox2 CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 
+     <!-- Include Lightbox2 CSS -->
+    <link href="~/Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+
     <link rel="stylesheet" href="../Content/css/studentMaster.css" />
     <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css">
     <style>
@@ -74,6 +78,15 @@
 
     <%-------------------------------------------course----------------------------------%>
     <main id="main" class="main">
+        <div class="pagetitle">
+                <h1>Course Management</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="Profile.aspx">Home</a></li>
+                        <li class="breadcrumb-item active">My Courses</li>
+                    </ol>
+                </nav>
+            </div>
 
     <div class="container-fluid p-2 text-center pb-0"> 
         <div class="row">

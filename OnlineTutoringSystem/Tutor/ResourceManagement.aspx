@@ -33,7 +33,7 @@
             <h1>File Resource Management</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="../Student/HomePage.aspx">Home</a></li>
+                    <li class="breadcrumb-item"><a href="Profile.aspx">Home</a></li>
                     <li class="breadcrumb-item active">File Resource Management</li>
                 </ol>
             </nav>

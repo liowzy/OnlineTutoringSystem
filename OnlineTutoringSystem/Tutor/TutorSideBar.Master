@@ -84,7 +84,7 @@
         <header id="header" class="header fixed-top d-flex align-items-center">
 
             <div class="d-flex align-items-center justify-content-between">
-                <a href="../Student/HomePage.aspx" class="logo d-flex align-items-center">
+                <a href="Profile.aspx" class="logo d-flex align-items-center">
                     <img src="../imgs/logo.png" alt="" style="max-height: 50px;border-radius: 50%!important">
                     <span class="d-none d-lg-block">E-Tutor</span>
                 </a>

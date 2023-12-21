@@ -134,8 +134,9 @@ namespace OnlineTutoringSystem.Tutor
                     courseLanguage, courseDuration, courseDescription, teachingContent,
                     targetAudience, courseRequirements, courseThumbnail, tutorId);
 
-                // Optionally, you can show a success message
-                ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert", "alert('Course created successfully.');", true);
+                // Show a success message using JavaScript with a confirmation dialog
+                ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert",
+                    "if(confirm('Course created successfully. Do you want to add a resource?')) { window.location='ResourceManagement.aspx'; } else { window.location='MyCourses.aspx'; }", true);
             }
             catch (Exception ex)
             {

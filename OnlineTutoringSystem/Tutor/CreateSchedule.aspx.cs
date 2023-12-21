@@ -81,10 +81,15 @@ namespace OnlineTutoringSystem.Tutor
                 // Trigger validation explicitly for the ResourceValidationGroup
                 Page.Validate("ResourceValidationGroup");
             }
+            else
+            {
+                // Add the default item for the case when there are multiple courses
+                ListItem defaultItem = new ListItem("Please select a course", "");
+                ddlCourse.Items.Insert(0, defaultItem);
 
-            // Add the default item for the case when there are multiple courses
-            ListItem defaultItem = new ListItem("Please select a course", "");
-            ddlCourse.Items.Insert(0, defaultItem);
+                // Trigger validation explicitly for the ResourceValidationGroup
+                Page.Validate("ResourceValidationGroup");
+            }
         }
 
 
@@ -240,6 +245,8 @@ namespace OnlineTutoringSystem.Tutor
                 string status = this.txtScheduleStatus.SelectedValue;
                 int tutorId = Convert.ToInt32(this.GetTutorId());
                 int courseId = int.Parse(ddlCourse.SelectedValue);
+                // Get the selected file_id from ddlResourceFile
+                int fileId = int.Parse(ddlResourceFile.SelectedValue);
                 string subject = ddlCourse.SelectedItem.ToString(); // Assuming subject is a string
                 string fileName = ddlResourceFile.SelectedItem.ToString(); // Assuming resource is an int
 
@@ -260,6 +267,14 @@ namespace OnlineTutoringSystem.Tutor
                 {
                     // Display an error message or take appropriate action
                     ScriptManager.RegisterStartupScript(this, GetType(), "validationAlert", "alert('The time duration should not be more than 2 hours.');", true);
+                    return;
+                }
+
+                if (duration.TotalMinutes < 5)
+                {
+                    
+                    // Display an alert message
+                    ScriptManager.RegisterStartupScript(this, GetType(), "validationAlert", "alert('The time duration should not be less than 5 minutes.');", true);
                     return;
                 }
 
@@ -286,10 +301,10 @@ namespace OnlineTutoringSystem.Tutor
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
                 string insertQuery = "INSERT INTO Schedule (schedule_date, schedule_startTime, schedule_endTime, " +
-                                     "schedule_description, schedule_status, tutor_id, google_meet, course_id, " +
-                                     "schedule_subject, schedule_resource) " +
-                                     "VALUES (@ScheduleDate, @StartTime, @EndTime, @Description, @Status, @TutorId, " +
-                                     "@GoogleMeetLink, @CourseId, @Subject, @Resource)";
+                             "schedule_description, schedule_status, tutor_id, google_meet, course_id, file_id, " +
+                             "schedule_subject, schedule_resource) " +
+                             "VALUES (@ScheduleDate, @StartTime, @EndTime, @Description, @Status, @TutorId, @GoogleMeetLink, " +
+                             "@CourseId, @FileId, @Subject, @Resource)";
 
                 // Using statement ensures that the SqlConnection is closed and disposed when done
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -306,6 +321,7 @@ namespace OnlineTutoringSystem.Tutor
                         command.Parameters.AddWithValue("@TutorId", tutorId);
                         command.Parameters.AddWithValue("@GoogleMeetLink", googleMeetLink);
                         command.Parameters.AddWithValue("@CourseId", courseId);
+                        command.Parameters.AddWithValue("@FileId", fileId); // Add file_id parameter
                         command.Parameters.AddWithValue("@Subject", subject);
                         command.Parameters.AddWithValue("@Resource", fileName);
 
@@ -346,8 +362,8 @@ namespace OnlineTutoringSystem.Tutor
 
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 string query = "SELECT schedule_id, schedule_date, schedule_startTime, schedule_endTime, " +
-                               "schedule_subject, schedule_description, schedule_status, google_meet, schedule_resource " +
-                               "FROM Schedule WHERE tutor_id = @TutorId";
+                                "schedule_subject, schedule_description, schedule_status, google_meet, schedule_resource " +
+                                "FROM Schedule WHERE tutor_id = @TutorId";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -360,6 +376,18 @@ namespace OnlineTutoringSystem.Tutor
 
                         DataTable dataTable = new DataTable();
                         dataTable.Load(reader);
+
+                        // Iterate through the rows and update schedule_status based on the end time
+                        foreach (DataRow row in dataTable.Rows)
+                        {
+                            DateTime scheduleEndTime = (DateTime)row["schedule_date"] + (TimeSpan)row["schedule_endTime"];
+
+                            if (scheduleEndTime < DateTime.Now)
+                            {
+                                // The schedule has expired, update status to "Inactive"
+                                row["schedule_status"] = "Inactive";
+                            }
+                        }
 
                         // Convert date and time columns explicitly
                         foreach (DataRow row in dataTable.Rows)
@@ -396,6 +424,7 @@ namespace OnlineTutoringSystem.Tutor
                 lblNoSchedule.Text = "No Schedule has been created.";
             }
         }
+
 
         protected void DataList1_ItemDataBound(object sender, DataListItemEventArgs e)
         {
@@ -470,7 +499,7 @@ namespace OnlineTutoringSystem.Tutor
                     if (rowsAffected > 0)
                     {
                         // Record deleted successfully
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "deleteSuccess", "alert('Booking is deleted successfully.');", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "deleteSuccess", "alert('Schedule is deleted successfully.');", true);
                     }
                     else
                     {
