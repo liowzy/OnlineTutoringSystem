@@ -95,7 +95,6 @@
                         <label for="scheduleStatus">Schedule Status</label>
                         <asp:DropDownList runat="server" ID="txtScheduleStatus" CssClass="form-control">
                              <asp:ListItem Text="Active" Value="Active"></asp:ListItem>
-                             <asp:ListItem Text="Inactive" Value="Inactive"></asp:ListItem>
                          </asp:DropDownList>
                     </div>
 
@@ -144,6 +143,8 @@
                                         </p>
                                        <p class="card-text">
                                             <i class="bi bi-file-earmark"></i> <%# Eval("schedule_resource") %>
+                                            <!-- Button to jump to another page -->
+                                            <asp:Button ID="btnOpen" runat="server" Text="Open" OnClick="btnOpen_Click" CssClass="btn btn-primary btn-sm" CommandArgument='<%# Eval("file_id") %>' />
                                         </p>
                                     </div>
                                     <div class="card-footer">
