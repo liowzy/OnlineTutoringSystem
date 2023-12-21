@@ -48,12 +48,12 @@
         
             <asp:Label ID="Checkwl" runat="server" Text="No schedule" CssClass="h4 font-weight-bold text-muted" Visible="False"></asp:Label>
             
-        <asp:DataList ID="DataList1" runat="server" CssClass="table">
+        <asp:DataList ID="DataList1" runat="server" CssClass="table" DataKeyField="schedule_id">
             <itemtemplate>
                 <div class='<%# Container.ItemIndex % 2 == 0 ? "odd-row" : "even-row" %>'>
 
                     <div class="row justify-content-between">
-                        <div class="col-8">
+                        <div class="col-8"> 
                             <asp:Label ID="LabelDate" runat="server" Text='<%# Eval("schedule_date", "{0:dd-MM-yyyy}") %>'></asp:Label>
                         </div>
                         <div class="col-4">
