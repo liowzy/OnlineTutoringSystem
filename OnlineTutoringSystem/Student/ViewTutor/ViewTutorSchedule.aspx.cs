@@ -88,8 +88,7 @@ namespace OnlineTutoringSystem.Student.ViewTutor
 
 
                             // Convert other columns if needed
-                            row["schedule_subject"] = row["schedule_subject"].ToString(); // Example: Convert to string
-                            row["schedule_description"] = row["schedule_description"].ToString(); // Example: Convert to string 
+                            row["schedule_subject"] = row["schedule_subject"].ToString(); // Example: Convert to string 
                         }
                          
 

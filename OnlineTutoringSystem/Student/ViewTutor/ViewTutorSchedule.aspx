@@ -67,11 +67,6 @@
                         <div class="col">
                             <asp:Label ID="LabelSubject" runat="server" CssClass="h4" Text='<%# Eval("schedule_subject") %>'></asp:Label>
                         </div>
-                    </div>
-                    <div class="row pt-2">
-                        <div class="col">
-                            <asp:Label ID="LabelDescription" runat="server" Text='<%# Eval("schedule_description") %>' CssClass="text-muted"></asp:Label>
-                        </div>
                     </div> 
                 </div>
             </ItemTemplate>

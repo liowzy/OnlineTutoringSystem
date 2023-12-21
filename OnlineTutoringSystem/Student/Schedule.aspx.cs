@@ -94,12 +94,14 @@ namespace OnlineTutoringSystem
                             row["schedule_subject"] = row["schedule_subject"].ToString();
                             row["schedule_description"] = row["schedule_description"].ToString();
                             }
-                        }
-                        dataTable = dataTable.Select("schedule_status = 'Active'").CopyToDataTable();
-
-                        // Bind data to the DataList
-                        DataList1.DataSource = dataTable;
-                        DataList1.DataBind();
+                        } 
+                         
+                            // Bind data to the DataList
+                            DataList1.DataSource = dataTable;
+                            DataList1.DataBind();
+                            Checkwl.Visible = false;
+                       
+                         
                     }
                 }
             }
