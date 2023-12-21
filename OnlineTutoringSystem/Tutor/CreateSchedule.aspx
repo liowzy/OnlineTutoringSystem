@@ -142,8 +142,9 @@
                                                 <%# Eval("google_meet") %>
                                             </a>
                                         </p>
-                                       <p class="card-text">
-                                            <i class="bi bi-file-earmark"></i> <%# Eval("schedule_resource") %>
+                                         <p class="card-text">
+                                            <i class="bi bi-file-earmark"></i> 
+                                            <a href='<%# Eval("file_path") %>' target="_blank"><%# Eval("schedule_resource") %></a>
                                         </p>
                                     </div>
                                     <div class="card-footer">
