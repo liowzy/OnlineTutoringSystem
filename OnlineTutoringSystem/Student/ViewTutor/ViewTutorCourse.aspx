@@ -77,6 +77,8 @@
        <asp:Label ID="Label1" runat="server" CssClass="h2" Text="Tutor Course"></asp:Label> 
         <hr />
         <div class="row justify-content-center" style="margin-left: 1.5%;"> 
+            <asp:Label ID="Checkwl" runat="server" Text="No course" CssClass="h4 font-weight-bold text-muted" Visible="False"></asp:Label>
+            
             <asp:DataList ID="DataListCourses" runat="server" DataSourceID="SqlDataSourceCourses" RepeatColumns="2"
                 RepeatDirection="Horizontal" DataKeyField="course_id" OnSelectedIndexChanged="DataListCourses_SelectedIndexChanged">
                 <ItemTemplate>

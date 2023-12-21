@@ -27,6 +27,14 @@ namespace OnlineTutoringSystem.Student.ViewTutor
                     // Bind the data to the DataListCourses
                     DataListCourses.DataSourceID = "SqlDataSourceCourses";
                     DataListCourses.DataBind();
+                    if (DataListCourses.Items.Count == 0)
+                    {
+                        Checkwl.Visible = true;
+                    }
+                    else
+                    {
+                        Checkwl.Visible = false;
+                    }
                 }
                 else
                 {
