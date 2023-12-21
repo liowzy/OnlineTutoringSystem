@@ -1,55 +1,56 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Tutor/TutorSideBar.Master" AutoEventWireup="true" CodeBehind="CourseDetail.aspx.cs" Inherits="OnlineTutoringSystem.Tutor.WebForm5" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Tutor/TutorSideBar.Master" AutoEventWireup="true" CodeBehind="CourseDetail.aspx.cs" Inherits="OnlineTutoringSystem.Tutor.WebForm5" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-                    <link href="../Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
-                     <!-- Bootstrap CSS -->
-                    <link href="../Content/boostrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="../Content/boostrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
 
-                    <!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
-                    <script src="../Content/boostrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
+    <script src="../Content/boostrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
 
-                    <!-- Bootstrap Icons CSS -->
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
 
-                    <!-- Include Lightbox2 CSS -->
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <!-- Include Lightbox2 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 
-                    <!-- Bootstrap 5 CSS -->
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-                    <link rel="stylesheet"
-                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-                      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-                      crossorigin="anonymous"
-                      referrerpolicy="no-referrer"/>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
 
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-                    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-         
-<main id="main" class="main">
-    <div class="pagetitle">
-        <h1>View/Edit Course</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../Student/HomePage.aspx">Home</a></li>
-                <li class="breadcrumb-item active"><a href="MyCourses.aspx">My Courses</a></li>
-                <li class="breadcrumb-item active">View Course</li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-    <section class="section view-edit-course">
-        <asp:Label ID="lblMessage" runat="server" CssClass="error-message" Visible="false"></asp:Label>
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>View/Edit Course</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../Student/HomePage.aspx">Home</a></li>
+                    <li class="breadcrumb-item active"><a href="MyCourses.aspx">My Courses</a></li>
+                    <li class="breadcrumb-item active">View Course</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End Page Title -->
 
-        <div class="col-xl-8">
-            <div class="card">
-                <div class="card-body pt-3">
+        <section class="section view-edit-course">
+            <asp:Label ID="lblMessage" runat="server" CssClass="error-message" Visible="false"></asp:Label>
+
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-body pt-3">
 
           <!-- Form Fields -->
             <div class="form-row">
@@ -63,7 +64,7 @@
                 </div>
             </div>
 
-                    <h5 class="card-title">Course Information</h5>
+                        <h5 class="card-title">Course Information</h5>
 
                     <!-- Form Fields -->
                     <!-- Display-only Fields -->
@@ -134,7 +135,7 @@
                         </div>
                     </div>
 
-                    <h5 class="card-title">Advance Information</h5>
+                        <h5 class="card-title">Advance Information</h5>
 
                     <!-- Fifth Row -->
                     <div class="form-row">
@@ -197,22 +198,22 @@
           </div>
     </section>
 
- <script>
-     function showThumbnail(input) {
-         var file = input.files[0];
-         var courseThumbnailContainer = document.getElementById('courseThumbnailContainer');
-         var imgCourseThumbnail = document.getElementById('<%= imgCourseThumbnail.ClientID %>');
+        <script>
+            function showThumbnail(input) {
+                var file = input.files[0];
+                var courseThumbnailContainer = document.getElementById('courseThumbnailContainer');
+                var imgCourseThumbnail = document.getElementById('<%= imgCourseThumbnail.ClientID %>');
 
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                courseThumbnailContainer.innerHTML = '<img src="' + e.target.result + '" style="max-width: 100%; max-height: 100%;">';
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        courseThumbnailContainer.innerHTML = '<img src="' + e.target.result + '" style="max-width: 100%; max-height: 100%;">';
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    courseThumbnailContainer.innerHTML = '<i class="bi bi-image" style="font-size: 3rem; color: #ccc;"></i>';
+                }
             }
-            reader.readAsDataURL(file);
-        } else {
-            courseThumbnailContainer.innerHTML = '<i class="bi bi-image" style="font-size: 3rem; color: #ccc;"></i>';
-        }
-    }
 
   <%--  function showVideo(input) {
         var file = input.files[0];

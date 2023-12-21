@@ -47,7 +47,7 @@ namespace OnlineTutoringSystem.Tutor
 
         private void LoadTutorData()
         {
-            TutorInfo tutor = GetTutorInformation(Session["userID"].ToString());
+            TutorInfo tutor = GetTutorInformation(Session["userId"].ToString());
 
             if (tutor != null)
             {

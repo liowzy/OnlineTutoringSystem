@@ -28,7 +28,7 @@ namespace OnlineTutoringSystem
                 }
                 else
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Your session end. Please login again!');", true);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert", "alert('Session End. Please login again.');", true);
                     Response.Redirect("~/Student/Course.aspx");
                 }
             }
@@ -95,15 +95,17 @@ namespace OnlineTutoringSystem
                 }
             }
 
-            // Show a success message
-            ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Payment successful!');", true);
+                // Show a success message
+                ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert", "alert('Payment Successful!');", true);
 
-            Response.Redirect("~/Student/Enrollment.aspx");
+
+                Response.Redirect("~/Student/Enrollment.aspx");
             }
             else
             {
                 // Handle the case where the expiration date is not valid
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Payment failed! Your card is Expired.');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert", "alert('Your card is expired.');", true);
+
             }
         }
         private bool IsValidExpirationDate(string inputDate)

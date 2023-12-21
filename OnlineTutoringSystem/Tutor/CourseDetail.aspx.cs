@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -28,6 +28,7 @@ namespace OnlineTutoringSystem.Tutor
         public string CourseRequirements { get; set; }
         public byte[] CourseThumbnail { get; set; }
         public byte[] CourseTrailer { get; set; }
+        public string CourseStatus { get; set; }
     }
 
     public partial class WebForm5 : System.Web.UI.Page
@@ -202,9 +203,10 @@ namespace OnlineTutoringSystem.Tutor
                         course_language = @CourseLanguage,
                         course_duration = @CourseDuration,
                         course_desc = @CourseDescription,
-                        course_content = @CourseContent,
+                        course_overview = @CourseContent,
                         course_targetAudience = @CourseTargetAudience,
-                        course_requirement = @CourseRequirements";
+                        course_requirement = @CourseRequirements,
+                        course_status = @CourseStatus";
 
                     // Add parameters only if the corresponding file is uploaded
                     if (fileUploadThumbnail.HasFile)
@@ -233,6 +235,7 @@ namespace OnlineTutoringSystem.Tutor
                         command.Parameters.AddWithValue("@CourseContent", txtCourseContent.Text);
                         command.Parameters.AddWithValue("@CourseTargetAudience", txtCourseTargetAudience.Text);
                         command.Parameters.AddWithValue("@CourseRequirements", txtCourseRequirements.Text);
+                        command.Parameters.AddWithValue("@CourseStatus", ddlCourseStatus.SelectedValue.ToString());
 
                         // Add parameters only if the corresponding file is uploaded
                         if (fileUploadThumbnail.HasFile)
@@ -414,8 +417,9 @@ namespace OnlineTutoringSystem.Tutor
                 txtCourseContent.Text = course.CourseContent;
                 txtCourseTargetAudience.Text = course.CourseTargetAudience;
                 txtCourseRequirements.Text = course.CourseRequirements;
+                ddlCourseStatus.SelectedValue = course.CourseStatus;
 
-               // Display the thumbnail image
+                // Display the thumbnail image
                 byte[] thumbnailBytes = course.CourseThumbnail;
                 string thumbnailBase64 = Convert.ToBase64String(thumbnailBytes);
                 imgCourseThumbnail.ImageUrl = "data:image/jpeg;base64," + thumbnailBase64;

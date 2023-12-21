@@ -3669,7 +3669,6 @@
     <Content Include="Student\ViewTutor\ViewTutorSchedule.aspx" />
     <Content Include="Student\CourseReview.aspx" />
     <Content Include="Student\WebForm51.aspx" />
-    <Content Include="TempAddData.aspx" />
     <Content Include="Tutor\assets\css\calander.css" />
     <Content Include="Tutor\assets\css\style.css" />
     <Content Include="Tutor\assets\img\apple-touch-icon.png" />
@@ -3722,9 +3721,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="FileHandler.ashx.cs">
-      <DependentUpon>FileHandler.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Header.Master.cs">
       <DependentUpon>Header.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3829,13 +3825,6 @@
     </Compile>
     <Compile Include="Student\WebForm51.aspx.designer.cs">
       <DependentUpon>WebForm51.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TempAddData.aspx.cs">
-      <DependentUpon>TempAddData.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TempAddData.aspx.designer.cs">
-      <DependentUpon>TempAddData.aspx</DependentUpon>
     </Compile>
     <Compile Include="Tutor\TutorSideBar.Master.cs">
       <DependentUpon>TutorSideBar.Master</DependentUpon>
@@ -3974,6 +3963,20 @@
     <Compile Include="Tutor\CreateSchedule.aspx.designer.cs">
       <DependentUpon>CreateSchedule.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Tutor\ResourceManagement.aspx.cs">
+      <DependentUpon>ResourceManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\ResourceManagement.aspx.designer.cs">
+      <DependentUpon>ResourceManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tutor\UploadFile.aspx.cs">
+      <DependentUpon>UploadFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\UploadFile.aspx.designer.cs">
+      <DependentUpon>UploadFile.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-5.3.2-dist\css\bootstrap-grid.css.map" />
@@ -4107,7 +4110,6 @@
     <Content Include="Content\fontawesome-free-5.15.4-web\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\fontawesome-free-5.15.4-web\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fontawesome-free-5.15.4-web\webfonts\fa-solid-900.woff2" />
-    <Content Include="FileHandler.ashx" />
     <None Include="packages.config" />
     <Content Include="SignUp.Master" />
     <Content Include="Tutor\TutorSideBar.Master" />

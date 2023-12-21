@@ -72,14 +72,11 @@ namespace OnlineTutoringSystem
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "SELECT pc.purchase_id, pc.purchase_date, c.course_name, t.tutor_name, c.course_pic, " +
-                                   "r.res_id, r.res_name, f.file_id, f.file_name, f.file_path " +
-                                   "FROM PurchasedCourse pc " +
-                                   "INNER JOIN Course c ON pc.course_id = c.course_id " +
-                                   "INNER JOIN Tutor t ON c.tutor_id = t.tutor_id " +
-                                   "LEFT JOIN Resource r ON c.course_id = r.course_id " +
-                                   "LEFT JOIN File_Attachment f ON r.res_id = f.res_id " +
-                                   "WHERE c.course_id = @courseId";
+                    string query = "SELECT pc.purchase_id, pc.purchase_date, c.course_name," +
+                        " t.tutor_name, c.course_pic, r.res_id, r.res_name, f.file_id, f.file_name, f.file_path " +
+                        "FROM PurchasedCourse pc INNER JOIN Course c ON pc.course_id = c.course_id INNER JOIN Tutor t" +
+                        " ON c.tutor_id = t.tutor_id LEFT JOIN Resource r ON c.course_id = r.course_id LEFT JOIN File_Attachment f " +
+                        "ON r.res_id = f.res_id WHERE c.course_id = @courseId";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -123,15 +120,46 @@ namespace OnlineTutoringSystem
             else
             {
                 // Handle the case where courseId is not found in the session
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('Please login again.", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert", "alert('Please login again.');", true);
+
             }
         }
 
          
 
         protected void btnRateTutorAndCourse_Click(object sender, EventArgs e)
-        { 
-            Response.Redirect("Rating.aspx");
+        {
+            int courseId = Convert.ToInt32(Session["courseId"]);
+            string courseStatus = GetCourseStatus(courseId);
+            if (courseStatus == "F")
+            {
+                // Redirect to the Rating.aspx page
+                Response.Redirect("Rating.aspx");
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert", "alert('You can rate the tutor after the course is completed.');", true);
+            }
+        }
+        private string GetCourseStatus(int courseId)
+        {
+
+            string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT course_status FROM Course WHERE course_id = @courseId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@courseId", courseId);
+                    object result = command.ExecuteScalar();
+
+                    // Check for DBNull and return the result as a string
+                    return result != DBNull.Value ? result.ToString() : null;
+                }
+            }
         }
 
         protected void btnOpen_Click(object sender, EventArgs e)

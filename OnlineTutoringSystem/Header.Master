@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Header.master.cs" Inherits="OnlineTutoringSystem.Header" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Header.master.cs" Inherits="OnlineTutoringSystem.Header" %>
 
 <!DOCTYPE html>
 
@@ -18,7 +18,7 @@
 
     <%--chatbot--%>
     <link rel="stylesheet" href="~/Content/Style.css">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Amiko&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="javascript/normal_script.js" defer></script>
@@ -112,13 +112,13 @@
                             <li class="nav-item active">
                                 <asp:LinkButton ID="btnCourses" runat="server" CssClass="nav-link" PostBackUrl="~/Student/Course.aspx">Courses</asp:LinkButton>
                             </li>
-                            
+
                             <li class="nav-item active">
                                 <asp:LinkButton ID="btnContact" runat="server" CssClass="nav-link" PostBackUrl="~/Student/TutorList.aspx">Tutors</asp:LinkButton>
                             </li>
-                            <li class="nav-item active">
+                            <%--<li class="nav-item active">
                                 <asp:LinkButton ID="btnAbout" runat="server" CssClass="nav-link" PostBackUrl="#">About</asp:LinkButton>
-                            </li>
+                            </li>--%>
                             <li class="nav-item active">
                                 <asp:LinkButton ID="btnBecomeInstructor" runat="server" CssClass="nav-link" PostBackUrl="~/Entry/Registration.aspx">Become an Instructor</asp:LinkButton>
                             </li>
@@ -142,12 +142,15 @@
                     <!-- Search Bar on the left -->
                     <div class="col-4">
                         <div class="input-group">
-                            <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" 
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control"
                                 placeholder="Search" aria-label="Search" aria-describedby="basic-addon2"></asp:TextBox>
-                            <div class="input-group-append"> 
-                        <asp:Button ID="ButtonSearch" runat="server" Text="Search" class="btn btn-outline-secondary" 
-                            OnClick="ButtonSearch_Click" />
-
+                            <div class="input-group-append">
+                                <asp:Button ID="ButtonSearch" runat="server" Text="Search" class="btn btn-outline-secondary"
+                                    OnClick="ButtonSearch_Click" />
+                                <asp:DropDownList ID="ddlSearchType" runat="server" CssClass="dropdown-toggle">
+                                    <asp:ListItem Text="Course" Value="Course" class="dropdown-item"></asp:ListItem>
+                                    <asp:ListItem Text="Tutor" Value="Tutor" class="dropdown-item"></asp:ListItem>
+                                </asp:DropDownList>
                             </div>
                         </div>
                     </div>
@@ -187,13 +190,15 @@
                                 <asp:LinkButton ID="lnkSchedule" runat="server" CssClass="dropdown-item" OnClick="lnkSchedule_Click">Schedule</asp:LinkButton>
                                 <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item" OnClick="lnkLogout_Click">Logout</asp:LinkButton>
                             </div>
-                        </div>  
-                        <% }else if (Session["userType"].ToString() == "tutor") { %>
-            <!-- Tutor Dashboard Button -->
-            <asp:Button ID="btnDashboard" runat="server" Text="Dashboard" CssClass="btn btn-outline-secondary mx-2"
-                Style="background-color: #FFEEE8; color: #FF6636; border: none; border-radius: 0; font-weight: bold;" OnClick="btnDashboard_Click" />
-        <% } %>
-    <%  
+                        </div>
+                        <% }
+                            else if (Session["userType"].ToString() == "tutor")
+                            { %>
+                        <!-- Tutor Dashboard Button -->
+                        <asp:Button ID="btnDashboard" runat="server" Text="Dashboard" CssClass="btn btn-outline-secondary mx-2"
+                            Style="background-color: #FFEEE8; color: #FF6636; border: none; border-radius: 0; font-weight: bold;" OnClick="btnDashboard_Click" />
+                        <% } %>
+                        <%  
                             } %>
                     </div>
                 </nav>

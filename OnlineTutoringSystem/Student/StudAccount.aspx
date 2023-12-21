@@ -162,7 +162,12 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="input-group">
                         <asp:TextBox ID="TextBox32" runat="server" Placeholder="Password" CssClass="form-control" TextMode="Password" />
+                                    <button type="button" class="btn btn-outline-secondary" id="toggleNCurPassword" onclick="togglePassword('<%= TextBox32.ClientID %>')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
                     </div>
                 </div>
                 <div class="row inputField">
@@ -172,7 +177,12 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="input-group">
                         <asp:TextBox ID="TextBox14" runat="server" Placeholder="Password" CssClass="form-control" TextMode="Password" />
+                                    <button type="button" class="btn btn-outline-secondary" id="toggleNewPassword" onclick="togglePassword('<%= TextBox14.ClientID %>')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
                     </div>
                 </div>
                 <div class="row inputField">
@@ -182,7 +192,12 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="input-group">
                         <asp:TextBox ID="TextBox23" runat="server" Placeholder="Confirm new password" CssClass="form-control" TextMode="Password" />
+                                    <button type="button" class="btn btn-outline-secondary" id="toggleConPassword" onclick="togglePassword('<%= TextBox23.ClientID %>')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
                     </div>
                 </div>
 
@@ -194,6 +209,21 @@
                     </div>
                 </div>
             </div>
+             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+           <script>
+               function togglePassword(inputId) {
+                   const passwordInput = document.getElementById(inputId);
+                   const toggleButton = document.getElementById(`toggle${inputId}`);
+                   if (passwordInput.type === 'password') {
+                       passwordInput.type = 'text';
+                       toggleButton.innerHTML = '<i class="bi bi-eye-slash"></i>';
+                   } else {
+                       passwordInput.type = 'password';
+                       toggleButton.innerHTML = '<i class="bi bi-eye"></i>';
+                   }
+               } 
+           </script>
         </div>
     </div>
 </asp:Content>
