@@ -154,22 +154,28 @@
                      <label for="fullname" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                      <div class="col-md-8 col-lg-9">
                          <asp:TextBox ID="txtName" runat="server" CssClass="form-control" placeholder="Enter your full name" />
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtName" Display="Dynamic" ErrorMessage="Full Name is required." CssClass="text-danger" InitialValue="" ValidationGroup="ProfileInfoValidation" />
+                        </div>
                      </div>
-                 </div>
+                     
 
                    <div class="row mb-3">
                         <label for="username" class="col-md-4 col-lg-3 col-form-label">Username</label>
                         <div class="col-md-8 col-lg-9">
                             <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" placeholder="Enter your username" />
+                               <asp:RequiredFieldValidator runat="server" ControlToValidate="txtUsername" Display="Dynamic" ErrorMessage="Username is required." CssClass="text-danger" InitialValue="" ValidationGroup="ProfileInfoValidation" />
+                            </div>
                         </div>
-                    </div>
+                      
 
                     <div class="row mb-3">
                             <label for="phoneNumber" class="col-md-4 col-lg-3 col-form-label">Phone Number</label>
                             <div class="col-md-8 col-lg-9">
                                 <asp:TextBox ID="txtPhoneNumber" runat="server" CssClass="form-control" placeholder="Enter your phone number" />
-                            </div>
-                        </div>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPhoneNumber" Display="Dynamic" ErrorMessage="Phone Number is required." CssClass="text-danger" InitialValue="" ValidationGroup="ProfileInfoValidation" />
+                                <asp:RegularExpressionValidator runat="server" ControlToValidate="txtPhoneNumber" Display="Dynamic" ErrorMessage="Invalid phone number format." ValidationExpression="^\d{10}$" CssClass="text-danger" ValidationGroup="ProfileInfoValidation" />
+                           </div>
+                    </div>
 
                         <div class="row mb-3">
                             <label for="gender" class="col-md-4 col-lg-3 col-form-label">Gender</label>
@@ -178,55 +184,69 @@
                                     <asp:ListItem Value="male">Male</asp:ListItem>
                                     <asp:ListItem Value="female">Female</asp:ListItem>
                                     <asp:ListItem Value="others">Others</asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
+                                </asp:DropDownList>    <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlGender" Display="Dynamic" ErrorMessage="Gender is required." CssClass="text-danger" InitialValue="" ValidationGroup="ProfileInfoValidation" />
+                             </div>
                         </div>
+                           
 
                     <div class="row mb-3">
                         <label for="DateOfBirth" class="col-md-4 col-lg-3 col-form-label">Date Of Birth</label>
                         <div class="col-md-8 col-lg-9">
                             <asp:TextBox ID="txtDob" runat="server" CssClass="form-control" placeholder="Enter the date of birth" TextMode="Date" />
+                            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtDob" Display="Dynamic" ErrorMessage="Date Of Birt is required." CssClass="text-danger" InitialValue="" ValidationGroup="ProfileInfoValidation" />
                         </div>
-                    </div>
+                       </div>
 
                         <div class="row mb-3">
                             <label for="teachingExperience" class="col-md-4 col-lg-3 col-form-label">Teaching Experience</label>
                             <div class="col-md-8 col-lg-9">
                                 <asp:TextBox ID="txtTeachingExperience" runat="server" CssClass="form-control" placeholder="Enter the number of years" TextMode="Number" />
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtTeachingExperience" Display="Dynamic" ErrorMessage="Teaching Experience is required." CssClass="text-danger" InitialValue="" ValidationGroup="ProfileInfoValidation" />
                             </div>
                         </div>
+
 
                         <div class="row mb-3">
                             <label for="location" class="col-md-4 col-lg-3 col-form-label">Location</label>
                             <div class="col-md-8 col-lg-9">
                                 <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" placeholder="Enter your location" />
+                                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtLocation" Display="Dynamic" ErrorMessage="Location is required." CssClass="text-danger" InitialValue="" ValidationGroup="ProfileInfoValidation" />
+</div>
                             </div>
-                        </div>
+                           
 
                         <div class="row mb-3">
                             <label for="tutorExpertice" class="col-md-4 col-lg-3 col-form-label">Tutor Expertise</label>
                             <div class="col-md-8 col-lg-9">
                                 <asp:TextBox ID="txtTutorExpertice" runat="server" CssClass="form-control" TextMode="MultiLine" placeholder="Enter your tutor expertise"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtTutorExpertice" Display="Dynamic" ErrorMessage="Tutor Expertise is required." CssClass="text-danger" InitialValue="" ValidationGroup="ProfileInfoValidation" />
+</div>
                             </div>
-                        </div>
+                           
 
                         <div class="row mb-3">
                             <label for="tutorLanPro" class="col-md-4 col-lg-3 col-form-label">Language Proficiency</label>
                             <div class="col-md-8 col-lg-9">
                                 <asp:TextBox ID="txtLangPro" runat="server" CssClass="form-control" TextMode="MultiLine" placeholder="Enter your Language Proficiency"></asp:TextBox>
-                            </div>
-                        </div>
+                               <asp:RequiredFieldValidator runat="server" ControlToValidate="txtLangPro" Display="Dynamic" ErrorMessage="Language Proficiency is required." CssClass="text-danger" InitialValue="" ValidationGroup="ProfileInfoValidation" />
+</div>
+                                </div>
+                           
 
                         <div class="row mb-3">
                             <label for="biography" class="col-md-4 col-lg-3 col-form-label">Biography</label>
                             <div class="col-md-8 col-lg-9">
                                 <asp:TextBox ID="txtBiography" runat="server" CssClass="form-control" TextMode="MultiLine" placeholder="Enter your biography"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtBiography" Display="Dynamic" ErrorMessage="Biography is required." CssClass="text-danger" InitialValue="" ValidationGroup="ProfileInfoValidation" />
+</div>
                             </div>
-                        </div>
+                           
 
                         <div class="text-center">
-                            <asp:Button ID="btnUpdateTutorProfile" runat="server" Text="Save Changes" OnClick="btnUpdateTutorProfile_Click" CssClass="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" />
-                        </div>
+                            <asp:Button ID="btnUpdateTutorProfile" runat="server" Text="Save Changes" OnClick="btnUpdateTutorProfile_Click" CssClass="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" ValidationGroup="ProfileInfoValidation" />
+                    </div>
+                      <!-- Add a ValidationSummary to display a summary of errors -->
+                    <asp:ValidationSummary runat="server" ID="ValidationSummary1" HeaderText="Please correct the following errors:" ShowSummary="true" DisplayMode="BulletList" CssClass="text-danger" ValidationGroup="ProfileInfoValidation" />
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">

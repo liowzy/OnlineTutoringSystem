@@ -9,6 +9,7 @@ using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace OnlineTutoringSystem.Tutor
 {
@@ -18,13 +19,16 @@ namespace OnlineTutoringSystem.Tutor
         {
             if (!IsPostBack)
             {
+                // Load tutor data and get the tutorId
+                int tutorId = LoadTutorData();
+
                 // Check if the search term is present in the query string
                 if (Request.QueryString["searchTerm"] != null)
                 {
                     string searchTerm = Server.UrlDecode(Request.QueryString["searchTerm"]);
 
-                    // Perform the search using the retrieved searchTerm
-                    ExecuteSearch(searchTerm);
+                    // Perform the search using the retrieved searchTerm and the tutor's ID
+                    ExecuteSearch(searchTerm, tutorId);
                 }
                 // Check if the category is present in the query string
                 else if (Request.QueryString["category"] != null)
@@ -32,7 +36,7 @@ namespace OnlineTutoringSystem.Tutor
                     string selectedCategory = Server.UrlDecode(Request.QueryString["category"]);
 
                     // Perform the category filter using the retrieved category
-                    ExecuteCategory(selectedCategory);
+                    ExecuteCategory(selectedCategory, tutorId);
                 }
                 // Check if the rating is present in the query string
                 else if (Request.QueryString["rating"] != null)
@@ -40,13 +44,37 @@ namespace OnlineTutoringSystem.Tutor
                     string rating = Server.UrlDecode(Request.QueryString["rating"]);
 
                     // Perform the rating filter using the retrieved rating
-                    ExecuteRating(rating);
+                    ExecuteRating(rating, tutorId);
                 }
 
                 // Populate the course category dropdown on page load
                 PopulateCourseCategoryDropdown();
             }
         }
+
+        private int LoadTutorData()
+        {
+            // Get the tutor ID directly from the session
+            int tutorId = GetTutorId();
+
+            // If you need to use the tutorId elsewhere, you can store it in a variable or property
+            // Example: int currentTutorId = tutorId;
+
+            // Note: If you don't need to use the tutorId elsewhere, you can directly use it in ExecuteSearch and ExecuteCategory
+            return tutorId;
+        }
+
+        private int GetTutorId()
+        {
+            if (Session["userId"] != null)
+            {
+                return Convert.ToInt32(Session["userId"]);
+            }
+
+            // Handle the case when the user is not logged in (return a default value or handle it accordingly)
+            return -1; // You can choose an appropriate default value
+        }
+
 
         private void PopulateCourseCategoryDropdown()
         {
@@ -99,12 +127,31 @@ namespace OnlineTutoringSystem.Tutor
         protected void ButtonSearch_Click(object sender, EventArgs e)
         {
             string searchTerm = txtSearch.Text.Trim();
-            ExecuteSearch(searchTerm);
+            int tutorId = GetTutorId(); // Retrieve the tutor ID
+            ExecuteSearch(searchTerm, tutorId);
+        }
+        private void ExecuteSearch(string searchTerm, int tutorId)
+        {
+            SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name " +
+                                         "FROM Course c " +
+                                         "JOIN Category cat ON c.cat_id = cat.cat_id " +
+                                         "WHERE c.course_name LIKE @SearchTerm AND c.tutor_id = @TutorId " +
+                                         "ORDER BY c.course_id ASC";
+
+            // Clear existing parameters and add the new search parameter
+            SqlDataSourceCourses.SelectParameters.Clear();
+            SqlDataSourceCourses.SelectParameters.Add("SearchTerm", "%" + searchTerm + "%");
+            SqlDataSourceCourses.SelectParameters.Add("TutorId", tutorId.ToString());
+
+            // Bind the data to the DataListCourses
+            DataListCourses.DataSourceID = "SqlDataSourceCourses";
+            DataListCourses.DataBind();
         }
 
         protected void ddlCourseCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedCategory = ddlCourseCategory.SelectedValue;
+            int tutorId = GetTutorId(); // Retrieve the tutor ID
 
             // Check if "All Categories" is selected
             if (selectedCategory == "")
@@ -113,14 +160,16 @@ namespace OnlineTutoringSystem.Tutor
                 SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name " +
                                            "FROM Course c " +
                                            "JOIN Category cat ON c.cat_id = cat.cat_id " +
+                                           "WHERE c.tutor_id = @TutorId " +
                                            "ORDER BY course_id ASC";
 
                 // Clear existing parameters
                 SqlDataSourceCourses.SelectParameters.Clear();
+                SqlDataSourceCourses.SelectParameters.Add("TutorId", tutorId.ToString());
             }
             else
             {
-                ExecuteCategory(selectedCategory);
+                ExecuteCategory(selectedCategory, tutorId);
             }
 
             // Bind the data to the DataListCourses
@@ -128,44 +177,28 @@ namespace OnlineTutoringSystem.Tutor
             DataListCourses.DataBind();
         }
 
-
-        private void ExecuteSearch(string searchTerm)
-        {
-            SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name " +
-                                         "FROM Course c " +
-                                         "JOIN Category cat ON c.cat_id = cat.cat_id " +
-                                         "WHERE c.course_name LIKE @SearchTerm " +
-                                         "ORDER BY c.course_id ASC";
-
-            // Clear existing parameters and add the new search parameter
-            SqlDataSourceCourses.SelectParameters.Clear();
-            SqlDataSourceCourses.SelectParameters.Add("SearchTerm", "%" + searchTerm + "%");
-
-            // Bind the data to the DataListCourses
-            DataListCourses.DataSourceID = "SqlDataSourceCourses";
-            DataListCourses.DataBind();
-        }
-
-        private void ExecuteCategory(string category)
+        private void ExecuteCategory(string category, int tutorId)
         {
             // Set the selected value of the category dropdown list
             ddlCourseCategory.SelectedValue = category;
 
             // Set the category filter in the SQL query
             SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name " +
-                                   "FROM Course c " +
-                                   "JOIN Category cat ON c.cat_id = cat.cat_id " +
-                                   "WHERE cat.cat_id = @CategoryId " +
-                                   "ORDER BY course_id ASC";
+                                       "FROM Course c " +
+                                       "JOIN Category cat ON c.cat_id = cat.cat_id " +
+                                       "WHERE cat.cat_id = @CategoryId AND c.tutor_id = @TutorId " +
+                                       "ORDER BY course_id ASC";
 
             // Clear existing parameters and add the new category parameter
             SqlDataSourceCourses.SelectParameters.Clear();
             SqlDataSourceCourses.SelectParameters.Add("CategoryId", DbType.Int32, category);
+            SqlDataSourceCourses.SelectParameters.Add("TutorId", tutorId.ToString());
         }
 
         protected void ddlRating_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedRating = ddlRating.SelectedValue; // Use SelectedValue for DropDownList
+            int tutorId = GetTutorId(); // Retrieve the tutor ID
 
             // Check if "All Ratings" is selected or if the selected rating is non-numeric
             if (selectedRating == "" || !int.TryParse(selectedRating, out int numericRating))
@@ -174,37 +207,42 @@ namespace OnlineTutoringSystem.Tutor
                 SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name " +
                                            "FROM Course c " +
                                            "JOIN Category cat ON c.cat_id = cat.cat_id " +
+                                           "WHERE c.tutor_id = @TutorId " +
                                            "ORDER BY course_id ASC";
 
                 // Clear existing parameters
                 SqlDataSourceCourses.SelectParameters.Clear();
+                SqlDataSourceCourses.SelectParameters.Add("TutorId", tutorId.ToString());
             }
             else
             {
-                ExecuteRating(selectedRating);
+                ExecuteRating(selectedRating, tutorId);
             }
 
-            // DataListCourses.DataBind(); // AutoPostBack should handle this automatically
+            // Bind the data to the DataListCourses
+            DataListCourses.DataSourceID = "SqlDataSourceCourses";
+            DataListCourses.DataBind(); // AutoPostBack should handle this automatically
         }
 
-        private void ExecuteRating(string rating)
+        private void ExecuteRating(string rating, int tutorId)
         {
-            // Try parsing the rating to an integer
-            if (int.TryParse(rating, out int ratingValue))
+            if (double.TryParse(rating, out double ratingValue))
             {
                 // Set the rating filter in the SQL query
                 SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name " +
-                                       "FROM Course c " +
-                                       "JOIN Category cat ON c.cat_id = cat.cat_id " +
-                                       "WHERE c.course_id IN (SELECT course_id FROM Review GROUP BY course_id HAVING AVG(review_rating) >= @MinRating AND AVG(review_rating) < @MaxRating) " +
-                                       "ORDER BY course_id ASC";
+                                                     "FROM Course c " +
+                                                     "JOIN Category cat ON c.cat_id = cat.cat_id " +
+                                                     "WHERE c.course_id IN (SELECT course_id FROM Review WHERE tutor_id = @TutorId AND review_rating = @Rating) " +
+                                                     "ORDER BY course_id ASC";
 
-                // Update the parameter values if they are not null
-                if (SqlDataSourceCourses.SelectParameters["MinRating"] != null && SqlDataSourceCourses.SelectParameters["MaxRating"] != null)
-                {
-                    SqlDataSourceCourses.SelectParameters["MinRating"].DefaultValue = ratingValue.ToString();
-                    SqlDataSourceCourses.SelectParameters["MaxRating"].DefaultValue = (ratingValue + 1).ToString();
-                }
+                // Clear existing parameters and add the new parameters
+                SqlDataSourceCourses.SelectParameters.Clear();
+
+                // Add the Rating parameter
+                SqlDataSourceCourses.SelectParameters.Add("Rating", DbType.Double, ratingValue.ToString());
+
+                // Add the tutorId parameter
+                SqlDataSourceCourses.SelectParameters.Add("TutorId", tutorId.ToString());
             }
         }
 
@@ -238,8 +276,20 @@ namespace OnlineTutoringSystem.Tutor
                     // For example, you can set its properties or attach events
                     txtSearch.Attributes["placeholder"] = "Search your course";
                 }
+
+                // Find the ddlRating DropDownList within the current item
+                DropDownList ddlRating = e.Item.FindControl("ddlRating") as DropDownList;
+
+                // Check if the control is found
+                if (ddlRating != null)
+                {
+                    // Perform actions with ddlRating if needed
+                    // For example, you can set its default value or attach events
+                    ddlRating.Items.FindByValue("All Ratings").Selected = true; // Set default value
+                }
             }
         }
+
 
         protected string GetCardColor(int index)
         {
@@ -299,6 +349,5 @@ namespace OnlineTutoringSystem.Tutor
 
             return 0.0;
         }
-
     }
 }

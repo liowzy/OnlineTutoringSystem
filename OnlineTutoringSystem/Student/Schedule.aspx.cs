@@ -31,10 +31,9 @@ namespace OnlineTutoringSystem
                 int tutorId = Convert.ToInt32(Session["userId"]);
 
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                string query = "SELECT schedule_id,schedule_date, schedule_startTime, schedule_endTime, " +
-                               "schedule_subject, schedule_description,schedule_status, tutor_id " +
-                               "FROM Schedule " +
-                               "WHERE tutor_id = @TutorId";
+                string query = "SELECT schedule_date, schedule_startTime, schedule_endTime, " +
+                "schedule_subject, schedule_description, schedule_status, google_meet, schedule_resource " +
+                "FROM Schedule WHERE tutor_id = @TutorId";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {

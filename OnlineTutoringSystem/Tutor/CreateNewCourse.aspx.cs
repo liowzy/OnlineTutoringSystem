@@ -14,22 +14,6 @@ using System.Resources;
 namespace OnlineTutoringSystem.Tutor
 {
 
-    public class FileData
-    {
-        public string FileName { get; set; }
-        public string FilePath { get; set; }
-        // Add other properties as needed
-    }
-
-    public class ResourceData
-    {
-        public int ResourceId { get; set; }
-        public string ResourceName { get; set; }
-        public string FileName { get; set; }
-        public byte[] FileData { get; set; }
-        // Add other properties as needed
-    }
-
     public static class StreamExtensions
     {
         public static byte[] ToByteArray(this Stream stream)
@@ -142,13 +126,13 @@ namespace OnlineTutoringSystem.Tutor
 
                 // Course Thumbnail and Trailer
                 byte[] courseThumbnail = fileUploadThumbnail.HasFile ? fileUploadThumbnail.FileBytes : null;
-                byte[] courseTrailer = fileUploadTrailer.HasFile ? fileUploadTrailer.FileBytes : null;
+                //byte[] courseTrailer = fileUploadTrailer.HasFile ? fileUploadTrailer.FileBytes : null;
 
 
                 // Call a method to insert data into the database
                 InsertCourseData(courseName, courseCategory, catId, courseLevel, courseTopic, coursePrice,
                     courseLanguage, courseDuration, courseDescription, teachingContent,
-                    targetAudience, courseRequirements, courseThumbnail, courseTrailer, tutorId);
+                    targetAudience, courseRequirements, courseThumbnail, tutorId);
 
                 // Optionally, you can show a success message
                 ScriptManager.RegisterStartupScript(this, GetType(), "CreateAlert", "alert('Course created successfully.');", true);
@@ -173,8 +157,7 @@ namespace OnlineTutoringSystem.Tutor
 
         private void InsertCourseData(string courseName, string courseCategory, int catId, string courseLevel, string courseTopic,
       decimal coursePrice, string courseLanguage, string courseDuration, string courseDescription,
-      string teachingContent, string targetAudience, string courseRequirements, byte[] courseThumbnail,
-      byte[] courseTrailer, int tutorId)
+      string teachingContent, string targetAudience, string courseRequirements, byte[] courseThumbnail, int tutorId)
         {
             // Use your connection string
             string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -188,10 +171,10 @@ namespace OnlineTutoringSystem.Tutor
                     // Insert into Course table
                     string courseQuery = "INSERT INTO Course (course_name, course_category, cat_id, course_level, course_topic, " +
                      "course_fee, course_language, course_duration, course_desc, course_content, " +
-                     "course_targetAudience, course_requirement, course_pic, course_video, tutor_id) " +
+                     "course_targetAudience, course_requirement, course_pic, tutor_id) " +
                      "VALUES (@CourseName, @CourseCategory, @CatId, @CourseLevel, @CourseTopic, " +
                      "@CoursePrice, @CourseLanguage, @CourseDuration, @CourseDescription, @TeachingContent, " +
-                     "@TargetAudience, @CourseRequirements, @CourseThumbnail, @CourseTrailer, @TutorId)" +
+                     "@TargetAudience, @CourseRequirements, @CourseThumbnail, @TutorId)" +
                         "SELECT SCOPE_IDENTITY();";
 
 
@@ -213,7 +196,6 @@ namespace OnlineTutoringSystem.Tutor
                         command.Parameters.AddWithValue("@TargetAudience", targetAudience);
                         command.Parameters.AddWithValue("@CourseRequirements", courseRequirements);
                         command.Parameters.AddWithValue("@CourseThumbnail", courseThumbnail);
-                        command.Parameters.AddWithValue("@CourseTrailer", courseTrailer);
                         command.Parameters.AddWithValue("@TutorId", tutorId);
 
                         // Execute the command
@@ -227,15 +209,6 @@ namespace OnlineTutoringSystem.Tutor
                             byte[] thumbnailBytes = new byte[thumbnailLength];
                             fileUploadThumbnail.PostedFile.InputStream.Read(thumbnailBytes, 0, thumbnailLength);
                             command.Parameters.AddWithValue("@CourseThumbnail", thumbnailBytes);
-                        }
-
-                        if (fileUploadTrailer.HasFile)
-                        {
-                            // If a file is uploaded, read it into a byte array
-                            int trailerLength = fileUploadTrailer.PostedFile.ContentLength;
-                            byte[] trailerBytes = new byte[trailerLength];
-                            fileUploadTrailer.PostedFile.InputStream.Read(trailerBytes, 0, trailerLength);
-                            command.Parameters.AddWithValue("@CourseTrailer", trailerBytes);
                         }
                     }
                 }

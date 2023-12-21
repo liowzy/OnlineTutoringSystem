@@ -42,24 +42,6 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.FileUpload fileUploadThumbnail;
 
         /// <summary>
-        /// iframeCourseTrailer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlIframe iframeCourseTrailer;
-
-        /// <summary>
-        /// fileUploadTrailer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fileUploadTrailer;
-
-        /// <summary>
         /// txtCourseName control.
         /// </summary>
         /// <remarks>
@@ -69,22 +51,22 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.TextBox txtCourseName;
 
         /// <summary>
-        /// txtCourseCategory control.
+        /// ddlCourseCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCourseCategory;
 
         /// <summary>
-        /// txtCourseLevel control.
+        /// ddlCourseLevel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseLevel;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCourseLevel;
 
         /// <summary>
         /// txtCourseTopic control.
@@ -105,13 +87,22 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.TextBox txtCoursePrice;
 
         /// <summary>
-        /// txtCourseLanguage control.
+        /// regexPrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseLanguage;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regexPrice;
+
+        /// <summary>
+        /// ddlCourseLanguage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCourseLanguage;
 
         /// <summary>
         /// txtCourseDuration control.
@@ -202,5 +193,14 @@ namespace OnlineTutoringSystem.Tutor
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button deleteBtn;
+
+        /// <summary>
+        /// ValidationSummary2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary2;
     }
 }

@@ -240,13 +240,11 @@ namespace OnlineTutoringSystem.Tutor
             fileUpload.Attributes.Clear();
         }
 
-
-
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+           
             Response.Redirect("ResourceManagement.aspx");
         }
-
 
         [Serializable]
         public class Resource

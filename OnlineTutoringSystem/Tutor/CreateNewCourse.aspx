@@ -61,10 +61,10 @@
                 <!-- Bordered Tabs -->
                 <ul class="nav nav-tabs nav-tabs-bordered nav-tabs-course">
                     <li class="nav-item flex-fill">
-                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#course-info">Course Info</button>
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#course-info" data-validation-group="CourseInfoValidation">Course Info</button>
                     </li>
                     <li class="nav-item flex-fill">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#course-content">Advance Info</button>
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#course-content" data-validation-group="CourseInfoValidation" disabled>Advance Info</button>
                     </li>
                 </ul>
 
@@ -81,6 +81,7 @@
                                 <asp:TextBox ID="txtCourseName" runat="server" CssClass="form-control" placeholder="Enter course name" Required="true"></asp:TextBox>
                             </div>
                         </div>
+                      <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseName" Display="Dynamic" ErrorMessage="Course Name is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseInfoValidation"/>
 
                         <!-- Second Row -->
                         <div class="form-row">
@@ -95,7 +96,9 @@
                                         </span>
                                     </div>
                                 </div>
+                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCourseCategory" Display="Dynamic" ErrorMessage="Course Category is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseInfoValidation"/>
                             </div>
+
                             <div class="form-group col-md-6">
                                 <label for="courseLevel">Course Level</label>
                                 <div class="input-group">
@@ -103,6 +106,7 @@
                                         <asp:ListItem Text="Select level" Value="" Disabled="true" Selected="true"></asp:ListItem>
                                         <asp:ListItem Text="Beginner" Value="beginner"></asp:ListItem>
                                         <asp:ListItem Text="Intermediate" Value="intermediate"></asp:ListItem>
+                                        <asp:ListItem Text="Advanced" Value="intermediate"></asp:ListItem>
                                     </asp:DropDownList>
                                     <div class="input-group-append">
                                         <span class="input-group-text">
@@ -110,6 +114,7 @@
                                         </span>
                                     </div>
                                 </div>
+                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCourseLevel" Display="Dynamic" ErrorMessage="Course Level is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseInfoValidation"/>
                             </div>
                         </div>
 
@@ -124,7 +129,8 @@
                                             <i class="bi bi-bookmark"></i>
                                         </span>
                                     </div>
-                                </div>
+                                  </div>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseTopic" Display="Dynamic" ErrorMessage="Crouse Topic is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseInfoValidation"/>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="coursePrice">Course Price (RM)</label>
@@ -134,8 +140,13 @@
                                             RM
                                         </span>
                                     </div>
-                                    <asp:TextBox ID="txtCoursePrice" runat="server" CssClass="form-control" placeholder="Enter price" Required="true"></asp:TextBox>
+                                    <asp:TextBox ID="txtCoursePrice" runat="server" CssClass="form-control" placeholder="Enter price" TextMode="SingleLine" Required="true"></asp:TextBox>
                                 </div>
+                                <asp:RegularExpressionValidator ID="regexPrice" runat="server" ControlToValidate="txtCoursePrice"
+                                        ErrorMessage="Please enter a valid integer price." ValidationExpression="^\d+$"
+                                        Display="Dynamic" CssClass="text-danger" ValidationGroup="CourseInfoValidation">
+                                    </asp:RegularExpressionValidator>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCoursePrice" Display="Dynamic" ErrorMessage="Course Price is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseInfoValidation"/>
                             </div>
                         </div>
 
@@ -147,7 +158,9 @@
                                     <asp:DropDownList ID="ddlCourseLanguage" runat="server" CssClass="form-control" Required="true">
                                         <asp:ListItem Text="Select language" Value="" Disabled="true" Selected="true"></asp:ListItem>
                                         <asp:ListItem Text="English" Value="english"></asp:ListItem>
-                                        <asp:ListItem Text="Spanish" Value="spanish"></asp:ListItem>
+                                        <asp:ListItem Text="Tamil" Value="Tamil"></asp:ListItem>
+                                        <asp:ListItem Text="Chinese" Value="chinese"></asp:ListItem>
+                                        <asp:ListItem Text="Malayu" Value="melayu"></asp:ListItem>
                                     </asp:DropDownList>
                                     <div class="input-group-append">
                                         <span class="input-group-text">
@@ -155,6 +168,7 @@
                                         </span>
                                     </div>
                                 </div>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCourseLanguage" Display="Dynamic" ErrorMessage="Course Language is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseInfoValidation"/>
                             </div>
 
                             <div class="form-group col-md-6">
@@ -168,10 +182,14 @@
                                         </span>
                                     </div>
                                 </div>
+                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseDuration" Display="Dynamic" ErrorMessage="Course Durations is required." CssClass="text-danger" InitialValue="" ValidationGroup="CourseInfoValidation"/>
                             </div>
                         </div>
                         <!-- Next Button -->
-                        <button type="button" class="btn btn-primary next-tab" style="background-color: #FF6636; border-color: #FF6636;"data-bs-target="#course-content">Next</button>
+                        <button type="submit" class="btn btn-primary next-tab" style="background-color: #FF6636; border-color: #FF6636;" data-bs-target="#course-content" data-validation-group="CourseInfoValidation">Next</button>
+
+                      <!-- Add a ValidationSummary to display a summary of errors -->
+                        <asp:ValidationSummary runat="server" ID="ValidationSummary1" HeaderText="Please correct the following errors:" ShowSummary="true" DisplayMode="BulletList" CssClass="text-danger" ValidationGroup="CourseInfoValidation" />
                     </div>
 
                     <div class="tab-pane fade course-content pt-3" id="course-content">
@@ -195,22 +213,7 @@
                                         <asp:FileUpload ID="fileUploadThumbnail" runat="server" CssClass="btn btn-primary" Accept=".jpg, .jpeg, .png" Style="background-color: #FF6636; border-color: #FF6636; width: 100%; font-size: small; border-radius: 0; margin-top: 20px" onchange="showThumbnail(this)" />
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Second column for the Course Trailer -->
-                            <div class="form-group col-md-6">
-                                <label for="courseTrailer">Course Trailer</label>
-                                <div class="input-group">
-                                    <!-- Video box with empty video icon -->
-                                    <div id="trailerContainer" class="empty-video-box" style="width: 140px; height: 140px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;">
-                                        <i class="bi bi-play" style="font-size: 3rem; color: #ccc;"></i>
-                                    </div>
-                                    <div class="input-group-append" style="width: calc(100% - 228px); flex: 0 0 auto; margin-left: 10px; display: flex; flex-direction: column; align-items: flex-start;">
-                                        <!-- Description beside the button -->
-                                        <p style="font-size: small; margin-bottom: 5px;">Students who watch a well-made promo video are 5X more likely to enroll in your course. We've seen that statistic go up to 10X for exceptionally awesome videos.</p>
-                                        <!-- Button for Upload Video -->
-                                        <asp:FileUpload ID="fileUploadTrailer" runat="server" CssClass="btn btn-primary" Style="background-color: #FF6636; border-color: #FF6636; width: 100%; font-size: small; border-radius: 0; margin-top: 20px" onchange="showTrailer(this)" />
-                                    </div>
-                                </div>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="fileUploadThumbnail" Display="Dynamic" ErrorMessage="Course Thumbnail is required." CssClass="text-danger" InitialValue="" ValidationGroup="AdvanceInfoValidation"/>
                             </div>
                         </div>
 
@@ -220,6 +223,7 @@
                                 <label for="courseDescription">Course Description</label>
                                 <asp:TextBox ID="txtCourseDescription" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" Placeholder="Enter course description" Required="true"></asp:TextBox>
                             </div>
+                            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseDescription" Display="Dynamic" ErrorMessage="Course Description is required." CssClass="text-danger" InitialValue="" ValidationGroup="AdvanceInfoValidation"/>
                         </div>
 
                         <!-- Third Row -->
@@ -228,6 +232,7 @@
                                 <label for="teachingContent">What will you teach in these courses?</label>
                                 <asp:TextBox ID="txtCourseContent" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" Placeholder="Enter teaching content" Required="true"></asp:TextBox>
                             </div>
+                             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseContent" Display="Dynamic" ErrorMessage="Teaching Content is required." CssClass="text-danger" InitialValue="" ValidationGroup="AdvanceInfoValidation"/>
                         </div>
 
                         <!-- Fourth Row -->
@@ -236,6 +241,7 @@
                                 <label for="targetAudience">Target Audience</label>
                                 <asp:TextBox ID="txtCourseTargetAudience" runat="server" CssClass="form-control" TextMode="MultiLine" Placeholder="Enter target audience" Required="true"></asp:TextBox>
                             </div>
+                             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseTargetAudience" Display="Dynamic" ErrorMessage="Target Audience is required." CssClass="text-danger" InitialValue="" ValidationGroup="AdvanceInfoValidation"/>
                         </div>
                         <!-- Fifth Row -->
                         <div class="form-row">
@@ -243,13 +249,17 @@
                                 <label for="courseRequirements">Course Requirements</label>
                                 <asp:TextBox ID="txtCourseRequirements" runat="server" CssClass="form-control" TextMode="MultiLine" Placeholder="Enter course requirement" Required="true"></asp:TextBox>
                             </div>
+                             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCourseRequirements" Display="Dynamic" ErrorMessage="Course Requirements is required." CssClass="text-danger" InitialValue="" ValidationGroup="AdvanceInfoValidation"/>
                         </div>
 
                          <div class="text-center">
                              <button  type="button" class="btn btn-primary prev-tab" style="background-color: #FF6636; border-color: #FF6636;"data-bs-target="#course-info">Previous</button>
                              <asp:Button ID="Button1" runat="server" Text="Save" CssClass="btn btn-primary save-btn"
-                                Style="background-color: #FF6636; border-color: #FF6636;" OnClientClick="if (!confirm('Are you sure you want to save?')) return false;" OnClick="btnSubmit_Click" />
+                                Style="background-color: #FF6636; border-color: #FF6636;" OnClientClick="if (!confirm('Are you sure you want to save?')) return false;" OnClick="btnSubmit_Click" ValidationGroup="AdvanceInfoValidation" />
                          </div>
+
+                         <!-- Add a ValidationSummary to display a summary of errors -->
+                        <asp:ValidationSummary runat="server" ID="ValidationSummary2" HeaderText="Please correct the following errors:" ShowSummary="true" DisplayMode="BulletList" CssClass="text-danger" ValidationGroup="AdvanceInfoValidation" />
                     </div>
 
                  <!-- jQuery -->
@@ -262,28 +272,6 @@
                <%-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>--%>
       
                 <script>
-                    var resourceCounter = 1; // Initialize the counter
-
-                    $(document).ready(function () {
-                        // Handle "Next" button click
-                        $('.next-tab').on('click', function () {
-                            var currentTab = $('.nav-link.active');
-                            var nextTab = currentTab.parent().next().find('.nav-link');
-                            if (nextTab.length > 0) {
-                                nextTab.tab('show');
-                            }
-                        });
-
-                        // Handle "Previous" button click
-                        $('.prev-tab').on('click', function () {
-                            var currentTab = $('.nav-link.active');
-                            var prevTab = currentTab.parent().prev().find('.nav-link');
-                            if (prevTab.length > 0) {
-                                prevTab.tab('show');
-                            }
-                        });
-                    });
-
                     function showThumbnail(input) {
                         var file = input.files[0];
                         var thumbnailContainer = document.getElementById('thumbnailContainer');
@@ -299,20 +287,47 @@
                         }
                     }
 
-                    function showTrailer(input) {
-                        var file = input.files[0];
-                        var trailerContainer = document.getElementById('trailerContainer');
+                    $(document).ready(function () {
+                        // Handle "Next" button click
+                        $('.next-tab').on('click', function () {
+                            // Get the validation group from the data attribute
+                            var validationGroup = $(this).data('validation-group');
 
-                        if (file) {
-                            var reader = new FileReader();
-                            reader.onload = function (e) {
-                                trailerContainer.innerHTML = '<video width="100%" height="100%" controls><source src="' + e.target.result + '" type="video/mp4">Your browser does not support the video tag.</video>';
+                            // Trigger client-side validation
+                            var isValid = Page_ClientValidate(validationGroup);
+
+                            // If validation passed, proceed to the next tab and enable it
+                            if (isValid) {
+                                var currentTab = $('.nav-link.active');
+                                var nextTab = currentTab.parent().next().find('.nav-link');
+                                if (nextTab.length > 0) {
+                                    nextTab.removeAttr('disabled').click(); // Remove 'disabled' attribute and trigger click
+                                }
                             }
-                            reader.readAsDataURL(file);
-                        } else {
-                            trailerContainer.innerHTML = '<i class="bi bi-play" style="font-size: 3rem; color: #ccc;"></i>';
-                        }
-                    }
+                        });
+
+                        // Handle "Save" button click
+                        $('.save-btn').on('click', function () {
+                            var validationGroup = $(this).data('validation-group');
+
+                            if (validationGroup === 'AdvanceInfoValidation') {
+                                var isValid = Page_ClientValidate(validationGroup);
+
+                                if (isValid && confirm('Are you sure you want to save?')) {
+                                    // Your save logic here
+                                }
+                            }
+                        });
+
+                        // Handle "Previous" button click
+                        $('.prev-tab').on('click', function () {
+                            var currentTab = $('.nav-link.active');
+                            var prevTab = currentTab.parent().prev().find('.nav-link');
+                            if (prevTab.length > 0) {
+                                prevTab.click(); // Use click() to trigger the click event
+                            }
+                        });
+                    });
                 </script>
                 </div>
             </div>

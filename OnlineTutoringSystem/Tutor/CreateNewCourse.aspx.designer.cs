@@ -69,6 +69,15 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.TextBox txtCoursePrice;
 
         /// <summary>
+        /// regexPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regexPrice;
+
+        /// <summary>
         /// ddlCourseLanguage control.
         /// </summary>
         /// <remarks>
@@ -87,6 +96,15 @@ namespace OnlineTutoringSystem.Tutor
         protected global::System.Web.UI.WebControls.TextBox txtCourseDuration;
 
         /// <summary>
+        /// ValidationSummary1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
+
+        /// <summary>
         /// fileUploadThumbnail control.
         /// </summary>
         /// <remarks>
@@ -94,15 +112,6 @@ namespace OnlineTutoringSystem.Tutor
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fileUploadThumbnail;
-
-        /// <summary>
-        /// fileUploadTrailer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fileUploadTrailer;
 
         /// <summary>
         /// txtCourseDescription control.
@@ -148,5 +157,14 @@ namespace OnlineTutoringSystem.Tutor
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
+
+        /// <summary>
+        /// ValidationSummary2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary2;
     }
 }

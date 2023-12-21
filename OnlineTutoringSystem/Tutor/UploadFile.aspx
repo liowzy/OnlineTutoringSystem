@@ -34,7 +34,8 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="../Student/HomePage.aspx">Home</a></li>
-                    <li class="breadcrumb-item active">File Management</li>
+                    <li class="breadcrumb-item active"><a href="ResourceManagement.aspx">Resource Management</a></li>
+                    <li class="breadcrumb-item active">Upload File</li>
                 </ol>
             </nav>
         </div>
@@ -45,22 +46,33 @@
         <div class="col-xl-8">
             <h3 class="mb-4">File Management</h3>
 
+           <!-- Add RequiredFieldValidator for txtResourceName -->
             <div class="mb-3">
                 <label for="txtResourceName" class="form-label">Resource Name:</label>
                 <asp:TextBox runat="server" ID="txtResourceName" CssClass="form-control" placeholder="Enter Resource Name"></asp:TextBox>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtResourceName" Display="Dynamic" ErrorMessage="Resource Name is required." CssClass="text-danger" ValidationGroup="AddResourceValidation"/>
             </div>
+
+            <!-- Add RequiredFieldValidator for txtFileName -->
             <div class="mb-3">
                 <label for="txtFileName" class="form-label">File Name:</label>
                 <asp:TextBox runat="server" ID="txtFileName" CssClass="form-control" placeholder="Enter File Name"></asp:TextBox>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtFileName" Display="Dynamic" ErrorMessage="File Name is required." CssClass="text-danger" ValidationGroup="AddResourceValidation"/>
             </div>
+
+            <!-- Add RequiredFieldValidator for fileUpload -->
             <div class="mb-3">
                 <label for="fileUpload" class="form-label">Upload File:</label>
                 <asp:FileUpload runat="server" ID="fileUpload" CssClass="form-control"/>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="fileUpload" Display="Dynamic" ErrorMessage="File is required." CssClass="text-danger" ValidationGroup="AddResourceValidation"/>
             </div>
+
+            <!-- ValidationSummary to display a summary of errors -->
+            <asp:ValidationSummary runat="server" ID="ValidationSummary1" HeaderText="Please correct the following errors:" ShowSummary="true" DisplayMode="BulletList" CssClass="text-danger" ValidationGroup="AddResourceValidation"/>
 
             <!-- Button to Add Resource -->
             <div class="mb-3">
-                <asp:Button ID="btnAddResource" runat="server" Text="Add Resource" OnClick="btnAddResource_Click" CssClass="btn btn-primary" />
+                <asp:Button ID="btnAddResource" runat="server" Text="Add Resource" OnClick="btnAddResource_Click" CssClass="btn btn-primary" ValidationGroup="AddResourceValidation"/>
             </div>
 
             <!-- GridView to Display Resources -->

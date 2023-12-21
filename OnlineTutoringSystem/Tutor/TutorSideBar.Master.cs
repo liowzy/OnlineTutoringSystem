@@ -21,7 +21,7 @@ namespace OnlineTutoringSystem
 
         protected void btnSchedule_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Schedule.aspx");
+            Response.Redirect("CreateSchedule.aspx");
         }
 
         protected void btnProfile_Click(object sender, EventArgs e)

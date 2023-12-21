@@ -38,6 +38,7 @@ namespace OnlineTutoringSystem.Tutor
             {
                 string tempcourseId = Session["courseId"]?.ToString();
                 LoadTutorData();
+                BindCourseCategories();
 
                 // Check if the course ID is provided in the query string
                 if (Request.QueryString["courseId"] != null)
@@ -53,6 +54,43 @@ namespace OnlineTutoringSystem.Tutor
             }
         }
 
+        protected void BindCourseCategories()
+        {
+            YourDataAccessLayer dataAccess = new YourDataAccessLayer();
+            DataTable dtCategories = dataAccess.GetCourseCategories();
+
+            ddlCourseCategory.DataSource = dtCategories;
+            ddlCourseCategory.DataTextField = "cat_name";
+            ddlCourseCategory.DataValueField = "cat_id";
+            ddlCourseCategory.DataBind();
+        }
+        public class YourDataAccessLayer
+        {
+            // Your connection string
+            private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+            public DataTable GetCourseCategories()
+            {
+                DataTable dtCategories = new DataTable();
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT cat_id, cat_name FROM Category";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dtCategories);
+                        }
+                    }
+                }
+
+                return dtCategories;
+            }
+        }
+
+
         protected void btnEdit_Click(object sender, EventArgs e)
         {
             // Set ReadOnly property to false for all TextBox controls
@@ -66,16 +104,17 @@ namespace OnlineTutoringSystem.Tutor
         {
             // Enable or disable the TextBox controls based on the mode
             txtCourseName.ReadOnly = !editable;
-            txtCourseCategory.ReadOnly = !editable;
+            ddlCourseLanguage.Enabled = editable;
             txtCourseContent.ReadOnly = !editable;
             txtCourseDescription.ReadOnly = !editable;
             txtCourseDuration.ReadOnly = !editable;
-            txtCourseLanguage.ReadOnly = !editable;
-            txtCourseLevel.ReadOnly = !editable;
+            ddlCourseLanguage.Enabled = editable;
+            ddlCourseLevel.Enabled = editable;
             txtCoursePrice.ReadOnly = !editable;
             txtCourseRequirements.ReadOnly = !editable;
             txtCourseTargetAudience.ReadOnly = !editable;
             txtCourseTopic.ReadOnly = !editable;
+            ddlCourseCategory.Enabled = editable;
         }
 
         private void ToggleEditMode(bool enableEdit)
@@ -88,14 +127,14 @@ namespace OnlineTutoringSystem.Tutor
 
             SetTextBoxesEditable(enableEdit);
 
-            // Show or hide the FileUpload controls based on the mode
-            fileUploadTrailer.Visible = enableEdit;
+            //// Show or hide the FileUpload controls based on the mode
+            //fileUploadTrailer.Visible = enableEdit;
             fileUploadThumbnail.Visible = enableEdit;
 
             // If not in edit mode, clear the content of the FileUpload controls
             if (!enableEdit)
             {
-                fileUploadTrailer.Attributes.Clear();
+                //fileUploadTrailer.Attributes.Clear();
                 fileUploadThumbnail.Attributes.Clear();
             }
         }
@@ -173,10 +212,10 @@ namespace OnlineTutoringSystem.Tutor
                         query += ", course_pic = @CourseThumbnail";
                     }
 
-                    if (fileUploadTrailer.HasFile)
-                    {
-                        query += ", course_video = @CourseTrailer";
-                    }
+                    //if (fileUploadTrailer.HasFile)
+                    //{
+                    //    query += ", course_video = @CourseTrailer";
+                    //}
 
                     query += " WHERE course_id = @CourseId";
 
@@ -184,11 +223,11 @@ namespace OnlineTutoringSystem.Tutor
                     {
                         command.Parameters.AddWithValue("@CourseId", courseId);
                         command.Parameters.AddWithValue("@CourseName", txtCourseName.Text);
-                        command.Parameters.AddWithValue("@CourseCategory", txtCourseCategory.Text);
-                        command.Parameters.AddWithValue("@CourseLevel", txtCourseLevel.Text);
+                        command.Parameters.AddWithValue("@CourseCategory", ddlCourseCategory.Text);
+                        command.Parameters.AddWithValue("@CourseLevel", ddlCourseLevel.Text);
                         command.Parameters.AddWithValue("@CourseTopic", txtCourseTopic.Text);
                         command.Parameters.AddWithValue("@CoursePrice", Convert.ToSingle(txtCoursePrice.Text));
-                        command.Parameters.AddWithValue("@CourseLanguage", txtCourseLanguage.Text);
+                        command.Parameters.AddWithValue("@CourseLanguage", ddlCourseLanguage.Text);
                         command.Parameters.AddWithValue("@CourseDuration", txtCourseDuration.Text);
                         command.Parameters.AddWithValue("@CourseDescription", txtCourseDescription.Text);
                         command.Parameters.AddWithValue("@CourseContent", txtCourseContent.Text);
@@ -205,14 +244,14 @@ namespace OnlineTutoringSystem.Tutor
                             command.Parameters.AddWithValue("@CourseThumbnail", thumbnailBytes);
                         }
 
-                        if (fileUploadTrailer.HasFile)
-                        {
-                            // If a file is uploaded, read it into a byte array
-                            int trailerLength = fileUploadTrailer.PostedFile.ContentLength;
-                            byte[] trailerBytes = new byte[trailerLength];
-                            fileUploadTrailer.PostedFile.InputStream.Read(trailerBytes, 0, trailerLength);
-                            command.Parameters.AddWithValue("@CourseTrailer", trailerBytes);
-                        }
+                        //if (fileUploadTrailer.HasFile)
+                        //{
+                        //    // If a file is uploaded, read it into a byte array
+                        //    int trailerLength = fileUploadTrailer.PostedFile.ContentLength;
+                        //    byte[] trailerBytes = new byte[trailerLength];
+                        //    fileUploadTrailer.PostedFile.InputStream.Read(trailerBytes, 0, trailerLength);
+                        //    command.Parameters.AddWithValue("@CourseTrailer", trailerBytes);
+                        //}
 
                         int rowsAffected = command.ExecuteNonQuery();
 
@@ -365,11 +404,11 @@ namespace OnlineTutoringSystem.Tutor
             {
                 // Display course information
                 txtCourseName.Text = course.CourseName;
-                txtCourseCategory.Text = course.CourseCategory;
-                txtCourseLevel.Text = course.CourseLevel;
+                ddlCourseCategory.Text = course.CourseCategory;
+                ddlCourseLevel.Text = course.CourseLevel;
                 txtCourseTopic.Text = course.CourseTopic;
                 txtCoursePrice.Text = course.CoursePrice.ToString();
-                txtCourseLanguage.Text = course.CourseLanguage;
+                ddlCourseLanguage.Text = course.CourseLanguage;
                 txtCourseDuration.Text = course.CourseDuration;
                 txtCourseDescription.Text = course.CourseDescription;
                 txtCourseContent.Text = course.CourseContent;
@@ -381,12 +420,12 @@ namespace OnlineTutoringSystem.Tutor
                 string thumbnailBase64 = Convert.ToBase64String(thumbnailBytes);
                 imgCourseThumbnail.ImageUrl = "data:image/jpeg;base64," + thumbnailBase64;
 
-                // Display the trailer video
-                byte[] trailerBytes = course.CourseTrailer;
-                string trailerBase64 = Convert.ToBase64String(trailerBytes)
-                           .Replace("\r\n", string.Empty)
-                           .Replace(" ", string.Empty);
-                iframeCourseTrailer.Attributes["src"] = "data:video/mp4;base64," + trailerBase64;
+                //// Display the trailer video
+                //byte[] trailerBytes = course.CourseTrailer;
+                //string trailerBase64 = Convert.ToBase64String(trailerBytes)
+                //           .Replace("\r\n", string.Empty)
+                //           .Replace(" ", string.Empty);
+                //iframeCourseTrailer.Attributes["src"] = "data:video/mp4;base64," + trailerBase64;
             }
             else
             {
@@ -404,7 +443,7 @@ namespace OnlineTutoringSystem.Tutor
             {
                 connection.Open();
 
-                string query = "SELECT course_id, course_name, course_category, course_level, course_topic, course_fee, course_language, course_duration, course_desc, course_overview, course_targetAudience, course_requirement, course_pic, course_video FROM Course WHERE course_id = @courseId";
+                string query = "SELECT course_id, course_name, course_category, course_level, course_topic, course_fee, course_language, course_duration, course_desc, course_content, course_targetAudience, course_requirement, course_pic FROM Course WHERE course_id = @courseId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -426,11 +465,11 @@ namespace OnlineTutoringSystem.Tutor
                             course.CourseLanguage = reader["course_language"].ToString();
                             course.CourseDuration = reader["course_duration"].ToString();
                             course.CourseDescription = reader["course_desc"].ToString();
-                            course.CourseContent = reader["course_overview"].ToString();
+                            course.CourseContent = reader["course_content"].ToString();
                             course.CourseTargetAudience = reader["course_targetAudience"].ToString();
                             course.CourseRequirements = reader["course_requirement"].ToString();
                             course.CourseThumbnail = (byte[])reader["course_pic"];
-                            course.CourseTrailer = (byte[])reader["course_video"];
+                            //course.CourseTrailer = (byte[])reader["course_video"];
                         }
                     }
                 }

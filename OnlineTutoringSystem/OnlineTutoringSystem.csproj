@@ -323,8 +323,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AddResourceFile.aspx" />
-    <Content Include="addschedule.aspx" />
     <Content Include="App_Data\dB.mdf" />
     <Content Include="App_Data\dB_log.ldf">
       <DependentUpon>dB.mdf</DependentUpon>
@@ -3698,12 +3696,12 @@
     <Content Include="Tutor\assets\img\slides-3.jpg" />
     <Content Include="Tutor\calander.js" />
     <Content Include="Tutor\Profile.aspx" />
-    <Content Include="Tutor\Schedule.aspx" />
     <Content Include="Tutor\CreateNewCourse.aspx" />
     <Content Include="Tutor\MyCourses.aspx" />
     <Content Include="Tutor\CourseDetail.aspx" />
     <Content Include="Tutor\ResourceManagement.aspx" />
     <Content Include="Tutor\UploadFile.aspx" />
+    <Content Include="Tutor\CreateSchedule.aspx" />
     <Content Include="Web.config" />
     <Content Include="Entry\Registration.aspx" />
     <Content Include="Entry\Login.aspx" />
@@ -3721,20 +3719,6 @@
     <Content Include="Entry\VerifyEmail.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddResourceFile.aspx.cs">
-      <DependentUpon>AddResourceFile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AddResourceFile.aspx.designer.cs">
-      <DependentUpon>AddResourceFile.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="addschedule.aspx.cs">
-      <DependentUpon>addschedule.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="addschedule.aspx.designer.cs">
-      <DependentUpon>addschedule.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -3866,12 +3850,6 @@
     <Compile Include="Tutor\Profile.aspx.designer.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Tutor\Schedule.aspx.cs">
-      <DependentUpon>Schedule.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Tutor\Schedule.aspx.designer.cs">
-      <DependentUpon>Schedule.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Tutor\CreateNewCourse.aspx.cs">
       <DependentUpon>CreateNewCourse.aspx</DependentUpon>
     </Compile>
@@ -3988,6 +3966,13 @@
     </Compile>
     <Compile Include="Entry\VerifyEmail.aspx.designer.cs">
       <DependentUpon>VerifyEmail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tutor\CreateSchedule.aspx.cs">
+      <DependentUpon>CreateSchedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutor\CreateSchedule.aspx.designer.cs">
+      <DependentUpon>CreateSchedule.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
