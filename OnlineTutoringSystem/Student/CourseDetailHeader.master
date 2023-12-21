@@ -114,104 +114,145 @@
             </div>
 
             <div class="col-4">
-                <div class="col-9 p-3 border shadow">
-                    <div class="row align-items-center pb-2 pt-3">
-                        <div class="col-6 d-flex align-items-center">
-                            <i class="bi bi-currency-dollar h5 me-2 mb-0"></i>
-                            <asp:Label ID="CourseFeeLabelRight" runat="server" Text="Course Fee" CssClass="fw-bold"></asp:Label>
+                <div class="row">
+                    <div class="col-9 p-3 border shadow">
+                        <div class="row align-items-center pb-2 pt-3">
+                            <div class="col-6 d-flex align-items-center">
+                                <i class="bi bi-currency-dollar h5 me-2 mb-0"></i>
+                                <asp:Label ID="CourseFeeLabelRight" runat="server" Text="Course Fee" CssClass="fw-bold"></asp:Label>
+                            </div>
+                            <div class="col-6 text-right">
+                                <asp:Label ID="CourseFeeValueRight" runat="server"></asp:Label>
+                            </div>
                         </div>
-                        <div class="col-6 text-right">
-                            <asp:Label ID="CourseFeeValueRight" runat="server"></asp:Label>
-                        </div>
-                    </div>
-                    <hr class="col-11 my-2" />
+                        <hr class="col-11 my-2" />
 
-                    <!-- Right Side: Course Level, Duration, Language -->
-                    <div class="row align-items-center pb-2 pt-3">
-                        <div class="col-6 d-flex align-items-center">
-                            <i class="bi bi-layers h5 me-2 mb-0"></i>
-                            <asp:Label ID="CourseLevelLabel" runat="server" Text="Course Level" CssClass="fw-bold"></asp:Label>
+                        <!-- Right Side: Course Level, Duration, Language -->
+                        <div class="row align-items-center pb-2 pt-3">
+                            <div class="col-6 d-flex align-items-center">
+                                <i class="bi bi-layers h5 me-2 mb-0"></i>
+                                <asp:Label ID="CourseLevelLabel" runat="server" Text="Course Level" CssClass="fw-bold"></asp:Label>
+                            </div>
+                            <div class="col-6 text-right">
+                                <asp:Label ID="CourseLevelValue" runat="server"></asp:Label>
+                            </div>
                         </div>
-                        <div class="col-6 text-right">
-                            <asp:Label ID="CourseLevelValue" runat="server"></asp:Label>
-                        </div>
-                    </div>
 
-                    <div class="row align-items-center pb-2 pt-3">
-                        <div class="col-6 d-flex align-items-center">
-                            <i class="bi bi-clock h5 me-2 mb-0"></i>
-                            <asp:Label ID="DurationLabel" runat="server" Text="Duration" CssClass="fw-bold"></asp:Label>
+                        <div class="row align-items-center pb-2 pt-3">
+                            <div class="col-6 d-flex align-items-center">
+                                <i class="bi bi-clock h5 me-2 mb-0"></i>
+                                <asp:Label ID="DurationLabel" runat="server" Text="Duration" CssClass="fw-bold"></asp:Label>
+                            </div>
+                            <div class="col-6 text-right">
+                                <asp:Label ID="DurationValue" runat="server"></asp:Label>
+                            </div>
                         </div>
-                        <div class="col-6 text-right">
-                            <asp:Label ID="DurationValue" runat="server"></asp:Label>
+
+                        <div class="row align-items-center pb-2 pt-3">
+                            <div class="col-6 d-flex align-items-center">
+                                <i class="bi bi-translate h5 me-2 mb-0"></i>
+                                <asp:Label ID="LanguageLabel" runat="server" Text="Language" CssClass="fw-bold"></asp:Label>
+                            </div>
+                            <div class="col-6 text-right">
+                                <asp:Label ID="LanguageValue" runat="server"></asp:Label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row align-items-center pb-2 pt-3">
-                        <div class="col-6 d-flex align-items-center">
-                            <i class="bi bi-translate h5 me-2 mb-0"></i>
-                            <asp:Label ID="LanguageLabel" runat="server" Text="Language" CssClass="fw-bold"></asp:Label>
+
+
+                        <%-------------------button--%>
+
+                        <hr class="col-11 my-2" />
+                        <div class="row align-items-center pb-2 pt-3 justify-content-center">
+                            <div class="row pt-2">
+                                <asp:Button ID="btnPurchase" runat="server" Text="Purchase" CssClass="btn" OnClick="btnPurchase_Click"
+                                    Style="background-color: #FF6636; color: white; border: none; border-radius: 0; font-weight: bold;"></asp:Button>
+                            </div>
+                            <div class="row pt-2">
+                                <asp:Button ID="btnAddToWishlist" runat="server" Text="Add to Wishlist" CssClass="btn" OnClick="btnAddToWishlist_Click"
+                                    Style="background-color: #FFEEE8; color: #FF6636; border: none; border-radius: 0; font-weight: bold;"></asp:Button>
+                            </div>
                         </div>
-                        <div class="col-6 text-right">
-                            <asp:Label ID="LanguageValue" runat="server"></asp:Label>
+
+                        <hr class="col-11 my-2" />
+                        <div class="row align-items-center pb-2 pt-3">
+                            <div class="col-6 d-flex align-items-center">
+                                <i class="bi bi-telephone h5 me-2 mb-0"></i>
+                                <asp:Label ID="WhatsAppTutor" runat="server" Text="Whatsapp Tutor" CssClass="fw-bold"></asp:Label>
+                            </div>
+                            <div class="col-6 text-right">
+                                <asp:ImageButton ID="btnWhatsApp" runat="server" ImageUrl="../imgs/wa.png" OnClick="btnWhatsApp_Click" Width="40px" Height="40px" />
+
+                            </div>
                         </div>
-                    </div>
-
-
-
-                    <%-------------------button--%>
-
-                    <hr class="col-11 my-2" />
-                    <div class="row align-items-center pb-2 pt-3 justify-content-center">
-                        <div class="row pt-2">
-                            <asp:Button ID="btnPurchase" runat="server" Text="Purchase" CssClass="btn" OnClick="btnPurchase_Click"
-                                Style="background-color: #FF6636; color: white; border: none; border-radius: 0; font-weight: bold;"></asp:Button>
-                        </div>
-                        <div class="row pt-2">
-                            <asp:Button ID="btnAddToWishlist" runat="server" Text="Add to Wishlist" CssClass="btn" OnClick="btnAddToWishlist_Click"
-                                Style="background-color: #FFEEE8; color: #FF6636; border: none; border-radius: 0; font-weight: bold;"></asp:Button>
-                        </div>
-                    </div>
-
-                    <hr class="col-11 my-2" />
-                    <div class="row align-items-center pb-2 pt-3">
-                        <div class="col-6 d-flex align-items-center">
-                            <i class="bi bi-telephone h5 me-2 mb-0"></i>
-                            <asp:Label ID="WhatsAppTutor" runat="server" Text="Whatsapp Tutor" CssClass="fw-bold"></asp:Label>
-                        </div>
-                        <div class="col-6 text-right"> 
-                    <asp:ImageButton ID="btnWhatsApp" runat="server" ImageUrl="../imgs/wa.png" OnClick="btnWhatsApp_Click" Width="40px" Height="40px"/>
-
-                        </div>
-                    </div>
-
                 </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-9 p-3 border shadow">
+                            <div class="row align-items-center pb-2 pt-3">
+            <h6 class="text-center">Schedule Information</h6>
+                                <asp:Label ID="LabelNoSchedule" runat="server" Text='No Schedule' Visible="False"></asp:Label>
+                                                <asp:DataList ID="DataList1" runat="server" CssClass="table" DataKeyField="schedule_id" DataSourceID="SqlDataSource1">
+                                    <ItemTemplate>
+                                        <div class='<%# Container.ItemIndex % 2 == 0 ? "odd-row" : "even-row" %>'>
 
-
+                                            <div class="row justify-content-between">
+                                                <div class="col-6">
+                                                    <asp:Label ID="LabelDate" runat="server" Text='<%# Eval("schedule_date", "{0:dd-MM-yyyy}") %>'></asp:Label>
+                                                </div>
+                                                <div class="col-6">
+                                                    <asp:Label ID="LabelStartTime" runat="server" Text='<%# Eval("schedule_startTime") %>' CssClass="text-muted"></asp:Label>
+                                                    -
+                            <asp:Label ID="LabelEndTime" runat="server" Text='<%# Eval("schedule_endTime") %>' CssClass="text-muted"></asp:Label>
+                                                </div>
+                                            </div>
+                                            <div class="row pt-2">
+                                                <div class="col">
+                                                    <asp:Label ID="LabelSubject" runat="server" CssClass="h6" Text='<%# Eval("schedule_subject") %>'></asp:Label>
+                                                </div>
+                                            </div>
+                                            <div class="row pt-2">
+                                                <div class="col">
+                                                    <asp:Label ID="LabelDescription" runat="server" Text='<%# Eval("schedule_description") %>' CssClass="text-muted"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:DataList>
+                            </div>
+                        </div>
+                    </div>
             </div>
-        </div>
 
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+                SelectCommand="SELECT S.schedule_id, S.schedule_date, S.schedule_startTime, S.schedule_endTime, S.schedule_subject, S.schedule_description FROM Schedule S WHERE S.course_id = @CourseId AND S.schedule_status = 'Active' ORDER BY S.schedule_date">
+                <SelectParameters>
+                    <asp:SessionParameter Name="CourseId" SessionField="courseId" Type="Int32" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+
+        </div>
     </div>
-     
-            <div class="chatbotBtn" onclick="openChatbotWindow()">
-            <i class='bx bxs-message-dots'></i>
-        </div>
 
-<script>
-    function openChatbotWindow() {
-        // Specify the URL of your chatbot.aspx page
-        var chatbotUrl = 'chatbot.aspx';
+    <div class="chatbotBtn" onclick="openChatbotWindow()">
+        <i class='bx bxs-message-dots'></i>
+    </div>
 
-        // Set the width and height of the new window
-        var windowWidth = 400;
-        var windowHeight = 600;
+    <script>
+        function openChatbotWindow() {
+            // Specify the URL of your chatbot.aspx page
+            var chatbotUrl = 'chatbot.aspx';
 
-        // Calculate the position to center the window on the screen
-        var windowLeft = (window.innerWidth - windowWidth) / 2;
-        var windowTop = (window.innerHeight - windowHeight) / 2;
+            // Set the width and height of the new window
+            var windowWidth = 400;
+            var windowHeight = 600;
 
-        // Open the new window with the specified properties
-        window.open(chatbotUrl, 'ChatbotWindow', 'width=' + windowWidth + ', height=' + windowHeight + ', left=' + windowLeft + ', top=' + windowTop);
-    }
-</script>
+            // Calculate the position to center the window on the screen
+            var windowLeft = (window.innerWidth - windowWidth) / 2;
+            var windowTop = (window.innerHeight - windowHeight) / 2;
+
+            // Open the new window with the specified properties
+            window.open(chatbotUrl, 'ChatbotWindow', 'width=' + windowWidth + ', height=' + windowHeight + ', left=' + windowLeft + ', top=' + windowTop);
+        }
+    </script>
 </asp:Content>

@@ -198,7 +198,7 @@ namespace OnlineTutoringSystem.Tutor
 
         protected void btnCreateSchedule_Click(object sender, EventArgs e)
         {
-           
+
             try
             {
                 // Update the course details in the database
@@ -272,7 +272,7 @@ namespace OnlineTutoringSystem.Tutor
 
                 if (duration.TotalMinutes < 5)
                 {
-                    
+
                     // Display an alert message
                     ScriptManager.RegisterStartupScript(this, GetType(), "validationAlert", "alert('The time duration should not be less than 5 minutes.');", true);
                     return;
@@ -362,7 +362,7 @@ namespace OnlineTutoringSystem.Tutor
 
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 string query = "SELECT schedule_id, schedule_date, schedule_startTime, schedule_endTime, " +
-                                "schedule_subject, schedule_description, schedule_status, google_meet, schedule_resource " +
+                                "schedule_subject, schedule_description, schedule_status, google_meet, schedule_resource ,file_id " +
                                 "FROM Schedule WHERE tutor_id = @TutorId";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -386,6 +386,9 @@ namespace OnlineTutoringSystem.Tutor
                             {
                                 // The schedule has expired, update status to "Inactive"
                                 row["schedule_status"] = "Inactive";
+                                // Update status in the database
+                                int scheduleId = (int)row["schedule_id"];
+                                UpdateScheduleStatusInDatabase(scheduleId, "Inactive");
                             }
                         }
 
@@ -406,6 +409,7 @@ namespace OnlineTutoringSystem.Tutor
                             row["schedule_description"] = row["schedule_description"].ToString();
                             row["google_meet"] = row["google_meet"].ToString();
                             row["schedule_resource"] = row["schedule_resource"].ToString();
+                            row["file_id"] = row["file_id"].ToString();
                         }
 
                         // Bind data to the DataList
@@ -422,6 +426,55 @@ namespace OnlineTutoringSystem.Tutor
                 // Handle the case when no event at the session
                 lblNoSchedule.Visible = true;
                 lblNoSchedule.Text = "No Schedule has been created.";
+            }
+        }
+
+        protected void btnOpen_Click(object sender, EventArgs e)
+        {
+            // Get the file_id from the clicked button
+            Button btn = (Button)sender;
+            string fileId = btn.CommandArgument;
+
+            string redirectUrl = "../Student/WebForm51.aspx?file_id=" + fileId;
+            Session["SelectedFileId"] = fileId;
+            // Use JavaScript to open the URL in a new tab
+            string script = "window.open('" + redirectUrl + "', '_blank');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "openInNewTab", script, true);
+        }
+
+        // Function to update schedule_status in the database
+        private void UpdateScheduleStatusInDatabase(int scheduleId, string newStatus)
+        {
+            try
+            {
+                // Connection string - Update this with your database connection details
+                string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+                string updateQuery = "UPDATE Schedule SET schedule_status = @Status WHERE schedule_id = @ScheduleId";
+
+                // Using statement ensures that the SqlConnection is closed and disposed when done
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    // Using statement ensures that the SqlCommand and SqlDataReader are closed and disposed when done
+                    using (SqlCommand command = new SqlCommand(updateQuery, connection))
+                    {
+                        // Add parameters to the SqlCommand to prevent SQL injection
+                        command.Parameters.AddWithValue("@Status", newStatus);
+                        command.Parameters.AddWithValue("@ScheduleId", scheduleId);
+
+                        // Open the connection
+                        connection.Open();
+
+                        // Execute the SQL command (UPDATE)
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions appropriately, e.g., log the error or show a user-friendly message
+                // You can also redirect to an error page
+                ScriptManager.RegisterStartupScript(this, GetType(), "errorAlert", $"alert('An error occurred: {ex.Message}');", true);
             }
         }
 
@@ -508,9 +561,9 @@ namespace OnlineTutoringSystem.Tutor
                     }
                 }
             }
-    }
+        }
 
-    [Serializable]
+        [Serializable]
         public class Schedule
         {
             public int ScheduleId { get; set; }
@@ -523,6 +576,10 @@ namespace OnlineTutoringSystem.Tutor
             public string GoogleMeetLink { get; set; }
             public int TutorId { get; set; }
             public int CourseId { get; set; }
+
+            // New property for file path
+            public string FilePath { get; set; }
+
             public string ScheduleResource { get; set; }
 
             // You can include other properties as needed
@@ -532,6 +589,6 @@ namespace OnlineTutoringSystem.Tutor
             public string EndTimeFormatted => EndTime.ToString(@"hh\:mm");
         }
 
-       
+
     }
 }
