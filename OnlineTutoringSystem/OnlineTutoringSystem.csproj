@@ -3670,7 +3670,6 @@
     <Content Include="Student\ViewTutor\ViewTutorSchedule.aspx" />
     <Content Include="Student\CourseReview.aspx" />
     <Content Include="Student\WebForm51.aspx" />
-    <Content Include="Tutor\assets\css\calander.css" />
     <Content Include="Tutor\assets\css\style.css" />
     <Content Include="Tutor\assets\img\apple-touch-icon.png" />
     <Content Include="Tutor\assets\img\card.jpg" />
@@ -3694,7 +3693,6 @@
     <Content Include="Tutor\assets\img\slides-1.jpg" />
     <Content Include="Tutor\assets\img\slides-2.jpg" />
     <Content Include="Tutor\assets\img\slides-3.jpg" />
-    <Content Include="Tutor\calander.js" />
     <Content Include="Tutor\Profile.aspx" />
     <Content Include="Tutor\CreateNewCourse.aspx" />
     <Content Include="Tutor\MyCourses.aspx" />
