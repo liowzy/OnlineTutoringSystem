@@ -1,6 +1,18 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Header.Master" AutoEventWireup="true" CodeBehind="Chatbot.aspx.cs" Inherits="OnlineTutoringSystem.WebForm9" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Chatbot.aspx.cs" Inherits="OnlineTutoringSystem.Student.Chatbot2" %>
 
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Chatbot</title>
+    <%--chatbot--%>
+    <link rel="stylesheet" href="../Content/Style.css"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Amiko&display=swap" rel="stylesheet"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
+    <script src="javascript/normal_script.js" defer></script>
+    <script src="javascript/chatbotScript.js" defer></script>
+    <script src="javascript/answer.js" defer></script>
     <style>
         header {
             background-color: transparent;
@@ -26,8 +38,9 @@
             display: none;
         }
     </style>
-
-    <div class="chatbotContainer">                
+</head>
+<body>
+   <div class="chatbotContainer">                
         <div class="chatbot">
             <div class="header">
                 <h2>Chatbot</h2>
@@ -44,4 +57,5 @@
             </div>
         </div>
     </div>
-</asp:Content>
+</body>
+</html>

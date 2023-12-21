@@ -18,8 +18,20 @@ namespace OnlineTutoringSystem
         {
             int studentID = Convert.ToInt32(Session["userId"]);
 
+            // Clear existing parameters before adding a new one
+            SqlDataSourceCourses.SelectParameters.Clear();
             // Set the parameter for the SQL query
+
             SqlDataSourceCourses.SelectParameters.Add("StudentID", DbType.Int32, studentID.ToString());
+            DataView dv = (DataView)SqlDataSourceCourses.Select(DataSourceSelectArguments.Empty);
+            if (dv.Count == 0)
+            {
+                Checkwl.Visible = true;
+            }
+            else
+            {
+                Checkwl.Visible = false;
+            }
         }
 
 

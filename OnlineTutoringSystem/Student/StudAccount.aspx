@@ -41,6 +41,24 @@
             padding-left: 15px;
             padding-right: 15px;
         }
+        .goToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: #333; / Dark grey background color /
+            color: white;
+            cursor: pointer;
+            padding: 10px 20px; / Adjust the padding for a rectangular shape /
+            border-radius: 10px; / Adjust the border-radius for a rounded rectangle /
+        }
+
+    #goToTopBtn:hover {
+        background-color: orange; / Change background color to orange on hover */
+        }
     </style>
     <div class="container-fluid p-4 text-center d-flex justify-content-center">
         <div class="col-md-8 bg-white p-4">
@@ -134,7 +152,7 @@
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-8 m-0 d-flex justify-content-end">
-                        <asp:Button ID="btnCreate" runat="server" CssClass="btn-orange" Style="margin: 0;" Text="Save Changes"  OnClick="btnCreate_Click1"/>
+                        <asp:Button ID="btnCreate" runat="server" class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636; margin: 0;" Text="Save Changes"  OnClick="btnCreate_Click1"/>
                     </div>
                 </div>
             </div>
@@ -205,7 +223,7 @@
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-8 m-0 d-flex justify-content-end">
-                        <asp:Button ID="Button66" runat="server" CssClass="btn-orange" Style="margin: 0;" Text="Save Changes" OnClick="Button66_Click" />
+                        <asp:Button ID="Button66" runat="server" class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636; margin: 0;" Text="Save Changes" OnClick="Button66_Click" />
                     </div>
                 </div>
             </div>
@@ -225,5 +243,6 @@
                } 
            </script>
         </div>
-    </div>
+        
+    </div> 
 </asp:Content>

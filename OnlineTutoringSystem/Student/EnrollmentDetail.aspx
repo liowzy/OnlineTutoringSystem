@@ -85,7 +85,7 @@
                                 </p>
                                 <!-- Rate Tutor and Course Button (Aligned to the right) -->
                                 <div class="text-right">
-                                    <asp:Button ID="btnRateTutorAndCourse" runat="server" CssClass="btn btn-primary" Text="Rate Tutor and Course" OnClick="btnRateTutorAndCourse_Click" />
+                                    <asp:Button ID="btnRateTutorAndCourse" runat="server" class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" style="background-color: #FF6636; border-color: #FF6636;" Text="Rate Tutor and Course" OnClick="btnRateTutorAndCourse_Click" />
                                 </div>
                             </div>
                         </div>

@@ -100,7 +100,7 @@
                                 <asp:Label ID="lblTotalToPay" runat="server" CssClass="form-control" Text="RM 100.00" ReadOnly="True"></asp:Label>
                             </div>
                             <!-- Payment Button -->
-                            <asp:Button ID="btnMakePayment" runat="server" Text="Make Payment" CssClass="btn btn-orange" ValidationGroup="PaymentValidation" OnClick="btnMakePayment_Click" />
+                            <asp:Button ID="btnMakePayment" runat="server" Text="Make Payment" class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" ValidationGroup="PaymentValidation" OnClick="btnMakePayment_Click" />
 
                             <asp:ValidationSummary ID="ValidationSummary1" ValidationGroup="PaymentValidation" runat="server" ForeColor="Red" />
                         </div>

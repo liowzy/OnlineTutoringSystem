@@ -46,6 +46,7 @@
                 </div>
             </div>  
             <div class="row justify-content-center"">
+                        <asp:Label ID="Checkwl" runat="server" Text="Your wishlist is empty" CssClass="h4 font-weight-bold text-muted" Visible="False"></asp:Label>
                 <asp:DataList ID="DataListCourses" runat="server" DataSourceID="SqlDataSourceCourses" RepeatColumns="4"
                     RepeatDirection="Horizontal" DataKeyField="course_id" OnSelectedIndexChanged="DataListCourses_SelectedIndexChanged">
                     <ItemTemplate>
@@ -83,7 +84,7 @@
 
                                         </div>
                                         <div class="col-6 text-right">
-                                            <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
+                                            <asp:LinkButton class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
 
                                         </div>
                                     </div>

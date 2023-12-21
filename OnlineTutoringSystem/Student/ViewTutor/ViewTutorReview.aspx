@@ -73,8 +73,8 @@
             background-color: #f8f9fa;
         }
     </style>
-
-   <div class="container">
+    
+    <div class="container mt-2">
        <asp:Label ID="Label1" runat="server" CssClass="h2" Text="Student Feedback"></asp:Label> 
         <hr />
         <asp:SqlDataSource ID="SqlDataSourceReviews" runat="server" 
@@ -84,7 +84,9 @@
                 <asp:SessionParameter Name="TutorId" SessionField="TutorId" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
-
+       
+            <asp:Label ID="Checkwl" runat="server" Text="No review" CssClass="h4 font-weight-bold text-muted" Visible="False"></asp:Label>
+            
         <asp:Repeater ID="RepeaterReviews" runat="server" DataSourceID="SqlDataSourceReviews">
             <ItemTemplate>
                 <div class="p-3 border shadow mb-2 <%# (Container.ItemIndex % 2 == 0) ? "even-bg" : "odd-bg" %>">

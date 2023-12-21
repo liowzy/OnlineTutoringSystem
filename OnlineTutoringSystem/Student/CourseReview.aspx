@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Student/CourseDetailHeader.master" AutoEventWireup="true" CodeBehind="CourseReview.aspx.cs" Inherits="OnlineTutoringSystem.Student.WebForm4" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap Icons CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
@@ -72,65 +73,66 @@
             background-color: #f8f9fa;
         }
     </style>
-     
+
     <div class="row justify-content-center">
-        <div class="col-8"> 
-        <asp:SqlDataSource ID="SqlDataSourceReviews" runat="server" 
-    ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
-    SelectCommand="SELECT R.review_comment, R.review_rating, R.review_date, S.stud_name, S.stud_picture 
+        <div class="col-8">
+            <asp:Label ID="Checkwl" runat="server" Text="No review" CssClass="h4 font-weight-bold text-muted" Visible="False"></asp:Label>
+            <asp:SqlDataSource ID="SqlDataSourceReviews" runat="server"
+                ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+                SelectCommand="SELECT R.review_comment, R.review_rating, R.review_date, S.stud_name, S.stud_picture 
                    FROM Review R 
                    INNER JOIN Student S ON R.student_id = S.stud_id 
                    WHERE R.course_id = @courseId">
-    <SelectParameters>
-        <asp:SessionParameter Name="courseId" SessionField="courseId" Type="Int32" />
-    </SelectParameters>
-</asp:SqlDataSource>
+                <SelectParameters>
+                    <asp:SessionParameter Name="courseId" SessionField="courseId" Type="Int32" />
+                </SelectParameters>
+            </asp:SqlDataSource>
 
 
-        <asp:Repeater ID="RepeaterReviews" runat="server" DataSourceID="SqlDataSourceReviews">
-            <ItemTemplate>
-                <div class="p-3 border shadow mb-2 <%# (Container.ItemIndex % 2 == 0) ? "even-bg" : "odd-bg" %>">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <!-- Show the student image in a round container --> 
+            <asp:Repeater ID="RepeaterReviews" runat="server" DataSourceID="SqlDataSourceReviews">
+                <ItemTemplate>
+                    <div class="p-3 border shadow mb-2 <%# (Container.ItemIndex % 2 == 0) ? "even-bg" : "odd-bg" %>">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- Show the student image in a round container -->
                                 <asp:Image ID="StudentImage" runat="server" CssClass="rounded-circle" AlternateText="Stud Image"
                                     Style="width: 15vh; height: 15vh; object-fit: cover;"
                                     ImageUrl='<%# "data:image/jpeg;base64," + Convert.ToBase64String((byte[])Eval("stud_picture")) %>' />
-                             
-                        </div>
-                        <div class="col-md-9"> 
-                            <div class="row p-2">
-                                <div class="col-md-6 ">
-                                    <span class="value">
-                                        <asp:Label runat="server" Text='<%# Eval("stud_name") %>' /></span>
-                                </div>
-                                <div class="col-md-6 ">
-                                    <span class="value">
-                                        <asp:Label runat="server" CssClass="text-muted" Text='<%# Eval("review_date", "{0:MM/dd/yyyy}") %>' /></span>
-                                </div>
+
                             </div>
-                            <!-- Show review rating in a new row -->
-                            <div class="row p-2">
-                                <div class="col-md-12 ">
-                                    <label class="label">Rating:</label>
-                                    <span class="value">
-                                        <asp:Label runat="server" Text='<%# Eval("review_rating") + " / 5" %>' /></span>
+                            <div class="col-md-9">
+                                <div class="row p-2">
+                                    <div class="col-md-6 ">
+                                        <span class="value">
+                                            <asp:Label runat="server" Text='<%# Eval("stud_name") %>' /></span>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <span class="value">
+                                            <asp:Label runat="server" CssClass="text-muted" Text='<%# Eval("review_date", "{0:MM/dd/yyyy}") %>' /></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- Show comment in a new row -->
-                            <div class="row p-2">
-                                <div class="col-md-12"> 
-                                    <span class="value">
-                                        <asp:Label runat="server" CssClass="text-muted" Text='<%# Eval("review_comment") %>' />
-                                    </span>
+                                <!-- Show review rating in a new row -->
+                                <div class="row p-2">
+                                    <div class="col-md-12 ">
+                                        <label class="label">Rating:</label>
+                                        <span class="value">
+                                            <asp:Label runat="server" Text='<%# Eval("review_rating") + " / 5" %>' /></span>
+                                    </div>
+                                </div>
+                                <!-- Show comment in a new row -->
+                                <div class="row p-2">
+                                    <div class="col-md-12">
+                                        <span class="value">
+                                            <asp:Label runat="server" CssClass="text-muted" Text='<%# Eval("review_comment") %>' />
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater> 
-            </div>
+                </ItemTemplate>
+            </asp:Repeater>
         </div>
+    </div>
 
 </asp:Content>

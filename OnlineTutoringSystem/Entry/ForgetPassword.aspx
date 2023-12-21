@@ -17,7 +17,7 @@
                         <asp:TextBox ID="tbEmail" runat="server" CssClass="form-control" />
                     </div>
                     <div class="form-group">
-                        <asp:Button ID="btnSendEmail" runat="server" Text="Send Email" OnClick="btnSend_Click"
+                        <asp:Button ID="btnSendEmail" runat="server" class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" Text="Send Email" OnClick="btnSend_Click"
                             CssClass="btn btn-primary" />
                     </div>
                 </div>

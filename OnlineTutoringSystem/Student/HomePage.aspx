@@ -81,7 +81,7 @@
             <div class="col-md-5 p-5" style="display: flex; flex-direction: column; align-items: flex-start;">
                 <asp:Label ID="lblTitle" runat="server" Text="Learn with Expert Anytime Anywhere" CssClass="h2 mb-3 font-weight-bold"></asp:Label>
                 <asp:Label ID="lblSubtitle" runat="server" Text="Our mission is to help people find the best courses online and learn with experts anytime, anywhere." CssClass="text-muted mb-3"></asp:Label>
-                <asp:Button ID="btnCreateAccount" runat="server" Text="Create Account" CssClass="btn-orange" OnClick="btnCreateAccount_Click" />
+                <asp:Button ID="btnCreateAccount" runat="server" Text="Create Account" class="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" OnClick="btnCreateAccount_Click" />
             </div>
             <div class="col-md-7 bg-image" style="background-image: url('../imgs/img1.png');">
             </div>
@@ -140,7 +140,7 @@
 
                                         </div>
                                         <div class="col-6 text-right">
-                                            <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
+                                            <asp:LinkButton CssClass="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("course_id") %>' OnCommand="selectBtn_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
 
                                         </div>
                                     </div>
@@ -212,7 +212,7 @@
 
                                         </div>
                                         <div class="col-6 text-right">
-                                            <asp:LinkButton CssClass="selectBtn btn-orange" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("tutor_id") %>' OnCommand="selectBtn2_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
+                                            <asp:LinkButton CssClass="btn btn-primary" style="background-color: #FF6636; border-color: #FF6636;" ID="selectBtn" runat="server" CommandName="Select" CommandArgument='<%# Eval("tutor_id") %>' OnCommand="selectBtn2_Command">View&nbsp;<i class="fa fa-arrow-right"></i></asp:LinkButton>
 
                                         </div>
                                     </div>
@@ -229,56 +229,7 @@
                 <asp:SqlDataSource ID="SqlDataSourceTutors" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
                     SelectCommand="SELECT TOP 4 Tutor.tutor_id, Tutor.tutor_picture, Tutor.tutor_name, Tutor.tutor_expertice,ISNULL(SUM(Review.review_rating), 0) AS total_rating, ISNULL(COUNT(Review.review_rating), 0) AS review_count, CASE WHEN COUNT(Review.review_rating) > 0 THEN SUM(Review.review_rating) / COUNT(Review.review_rating) ELSE NULL END AS average_rating FROM Tutor LEFT JOIN Review ON Tutor.tutor_id = Review.tutor_id GROUP BY Tutor.tutor_id, Tutor.tutor_picture, Tutor.tutor_name, Tutor.tutor_expertice  ORDER BY average_rating DESC"></asp:SqlDataSource>
        
-            </div>
-
-            <%--<div class="row justify-content-center" style="margin-left: 5%;">
-                <asp:Repeater ID="RepeaterTutors" runat="server" DataSourceID="SqlDataSourceTutors">
-                    <ItemTemplate>
-                        <div class="col-md-3 mb-4 mx-auto">
-                            <div class="card border justify-content-center prodDiv">
-                                <div class="prodPic">
-                                    <img src='data:image/jpeg;base64,<%# Convert.ToBase64String((byte[])Eval("tutor_picture")) %>'
-                                    class="card-img-top" style="width: 100%; height:100%; object-fit:cover;"/>
-                                </div>
-                                
-                                 
-
-                                <div class="card-body prodDivBody">
-                                    <h5 class="card-title"><%# Eval("tutor_name") %></h5>
-                                    <p class="card-text text-muted"><%# Eval("tutor_expertice") %></p>
-                                </div>
-                <asp:Button ID="ViewReviewButton" runat="server" Text="View" CssClass="btn btn-orange w-100 p-2" OnClick="ViewReviewButton_Click" CommandArgument='<%# Eval("tutor_id") %>' /> 
-                            </div> 
-                        </div>
-                    </ItemTemplate>
-                </asp:Repeater>
-                <asp:SqlDataSource ID="SqlDataSourceTutors" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
-    SelectCommand="
-        SELECT TOP 4 
-            Tutor.tutor_id, 
-            Tutor.tutor_picture, 
-            Tutor.tutor_name, 
-            Tutor.tutor_expertice,
-            ISNULL(SUM(Review.review_rating), 0) AS total_rating,
-            ISNULL(COUNT(Review.review_rating), 0) AS review_count,
-            CASE 
-                WHEN COUNT(Review.review_rating) > 0 THEN SUM(Review.review_rating) / COUNT(Review.review_rating)
-                ELSE NULL 
-            END AS average_rating 
-        FROM 
-            Tutor 
-        LEFT JOIN 
-            Review ON Tutor.tutor_id = Review.tutor_id 
-        GROUP BY 
-            Tutor.tutor_id, 
-            Tutor.tutor_picture, 
-            Tutor.tutor_name, 
-            Tutor.tutor_expertice 
-        ORDER BY 
-            average_rating DESC">
-</asp:SqlDataSource>
-
-            </div>--%>
+            </div> 
             <div class="row justify-content-center p-3">
                 <div class="col-auto">
                     <asp:Label ID="Label19" runat="server" Text="Thousands of students waiting for a instructor. Start teaching & earning now!" CssClass="m-0"></asp:Label>
@@ -291,5 +242,8 @@
     </div>
 
     
-            <div class="chatbotBtn"><a href="chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
+            <div class="chatbotBtn" onclick="openChatbotWindow()">
+            <i class='bx bxs-message-dots'></i>
+        </div>
+
 </asp:Content>

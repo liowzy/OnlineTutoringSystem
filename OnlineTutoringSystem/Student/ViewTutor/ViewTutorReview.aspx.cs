@@ -16,6 +16,16 @@ namespace OnlineTutoringSystem.Student.ViewTutor
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (SqlDataSourceReviews.Select(DataSourceSelectArguments.Empty) == null || SqlDataSourceReviews.Select(DataSourceSelectArguments.Empty).GetEnumerator().MoveNext() == false)
+            {
+                // No reviews, make the Checkwl label visible
+                Checkwl.Visible = true;
+            }
+            else
+            {
+                // Reviews exist, make the Checkwl label invisible
+                Checkwl.Visible = false;
+            }
         } 
          
 
