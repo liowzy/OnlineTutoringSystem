@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -112,15 +113,32 @@ namespace OnlineTutoringSystem
             string gender = RadioButtonListGender.SelectedItem.Value;  
             string confirmPassword = TextBox2.Text;
             string userType = DropDownList11.SelectedValue; // Student or Tutor
-            DateTime dob = DateTime.Parse(tbDob.Text);  
+            //DateTime dob = DateTime.Parse(tbDob.Text);  
             string phoneNo = tbPhone.Text;
 
-            if (dob > DateTime.Now)
+            DateTime today = DateTime.Now;
+            int minimumAge = (userType == "Student") ? 15 : 18;
+
+            DateTime maximumValidDate = today.AddYears(-minimumAge);
+
+            DateTime dob;
+
+            if (!DateTime.TryParseExact(tbDob.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dob))
             {
                 // Display an error message indicating that the date of birth is invalid
-                ClientScript.RegisterStartupScript(this.GetType(), "InvalidDateAlert", "alert('Date of Birth cannot be in the future.');", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "InvalidDateAlert", "alert('Invalid date format for Date of Birth.');", true);
                 return;
             }
+
+            if (dob > maximumValidDate)
+            {
+                // Display an error message indicating that the date of birth is invalid
+                ClientScript.RegisterStartupScript(this.GetType(), "InvalidDateAlert", "alert('Date of Birth must be more than " + minimumAge + " years ago.');", true);
+                return;
+            }
+
+
+
 
             // Check if the email already exists in the database
             if (!CheckEmailExist(email))

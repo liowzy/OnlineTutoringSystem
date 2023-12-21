@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -101,6 +102,8 @@ namespace OnlineTutoringSystem.Student
 
         protected void btnCreate_Click1(object sender, EventArgs e)
         {
+           
+
             bool success = UpdateUserData();
 
             if (success)
@@ -143,6 +146,8 @@ namespace OnlineTutoringSystem.Student
             }
         }
 
+        
+
         private bool UpdateUserData()
         { 
                 // Get the user ID from the session
@@ -157,7 +162,15 @@ namespace OnlineTutoringSystem.Student
                 string phoneNumber = TextBox19.Text;
                 string dob = tbDateOfBirth.Text;
 
-                string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            // Validate Date of Birth
+            if (!IsValidDob(dob))
+            {
+                // Show error alert
+                ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", "alert('Invalid Date of Birth. Please make sure it is at least 15 years old.');", true);
+                return false;
+            }
+
+            string connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -203,6 +216,21 @@ namespace OnlineTutoringSystem.Student
                 } 
         }
 
+        private bool IsValidDob(string dob)
+        {
+            DateTime currentDate = DateTime.Now;
+            DateTime dateOfBirth;
+
+            if (DateTime.TryParse(dob, out dateOfBirth))
+            {
+                // Check if the user is at least 18 years old
+                return currentDate.Year - dateOfBirth.Year >= 15;
+            }
+
+            // If the date is not a valid DateTime, consider it as invalid
+            return false;
+        }
+
         protected void Button66_Click(object sender, EventArgs e)
         {
             int userId = Convert.ToInt32(Session["userID"]);
@@ -213,9 +241,9 @@ namespace OnlineTutoringSystem.Student
             string newPassword = TextBox14.Text;
             string confirmNewPassword = TextBox23.Text;
 
-            if (newPassword != confirmNewPassword)
+             if (currentPassword == newPassword)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "MismatchAlert", "alert('New password and confirm password do not match.');", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "MismatchAlert", "alert('New password cannot same as current password.');", true);
                 return;
             }
 
