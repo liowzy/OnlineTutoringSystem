@@ -81,10 +81,15 @@ namespace OnlineTutoringSystem.Tutor
                 // Trigger validation explicitly for the ResourceValidationGroup
                 Page.Validate("ResourceValidationGroup");
             }
+            else
+            {
+                // Add the default item for the case when there are multiple courses
+                ListItem defaultItem = new ListItem("Please select a course", "");
+                ddlCourse.Items.Insert(0, defaultItem);
 
-            // Add the default item for the case when there are multiple courses
-            ListItem defaultItem = new ListItem("Please select a course", "");
-            ddlCourse.Items.Insert(0, defaultItem);
+                // Trigger validation explicitly for the ResourceValidationGroup
+                Page.Validate("ResourceValidationGroup");
+            }
         }
 
 
@@ -263,6 +268,14 @@ namespace OnlineTutoringSystem.Tutor
                     return;
                 }
 
+                if (duration.TotalMinutes < 5)
+                {
+                    
+                    // Display an alert message
+                    ScriptManager.RegisterStartupScript(this, GetType(), "validationAlert", "alert('The time duration should not be less than 5 minutes.');", true);
+                    return;
+                }
+
                 // Validate the time duration (endTime - startTime)
                 TimeSpan startTimeValue = TimeSpan.Parse(startTime);
                 TimeSpan endTimeValue = TimeSpan.Parse(endTime);
@@ -346,8 +359,8 @@ namespace OnlineTutoringSystem.Tutor
 
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 string query = "SELECT schedule_id, schedule_date, schedule_startTime, schedule_endTime, " +
-                               "schedule_subject, schedule_description, schedule_status, google_meet, schedule_resource " +
-                               "FROM Schedule WHERE tutor_id = @TutorId";
+                                "schedule_subject, schedule_description, schedule_status, google_meet, schedule_resource " +
+                                "FROM Schedule WHERE tutor_id = @TutorId";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -360,6 +373,18 @@ namespace OnlineTutoringSystem.Tutor
 
                         DataTable dataTable = new DataTable();
                         dataTable.Load(reader);
+
+                        // Iterate through the rows and update schedule_status based on the end time
+                        foreach (DataRow row in dataTable.Rows)
+                        {
+                            DateTime scheduleEndTime = (DateTime)row["schedule_date"] + (TimeSpan)row["schedule_endTime"];
+
+                            if (scheduleEndTime < DateTime.Now)
+                            {
+                                // The schedule has expired, update status to "Inactive"
+                                row["schedule_status"] = "Inactive";
+                            }
+                        }
 
                         // Convert date and time columns explicitly
                         foreach (DataRow row in dataTable.Rows)
@@ -396,6 +421,7 @@ namespace OnlineTutoringSystem.Tutor
                 lblNoSchedule.Text = "No Schedule has been created.";
             }
         }
+
 
         protected void DataList1_ItemDataBound(object sender, DataListItemEventArgs e)
         {
@@ -470,7 +496,7 @@ namespace OnlineTutoringSystem.Tutor
                     if (rowsAffected > 0)
                     {
                         // Record deleted successfully
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "deleteSuccess", "alert('Booking is deleted successfully.');", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "deleteSuccess", "alert('Schedule is deleted successfully.');", true);
                     }
                     else
                     {

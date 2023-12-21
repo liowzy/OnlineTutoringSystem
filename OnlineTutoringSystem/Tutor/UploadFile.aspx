@@ -33,7 +33,7 @@
             <h1>File Management</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="../Student/HomePage.aspx">Home</a></li>
+                    <li class="breadcrumb-item"><a href="Profile.aspx">Home</a></li>
                     <li class="breadcrumb-item active"><a href="ResourceManagement.aspx">Resource Management</a></li>
                     <li class="breadcrumb-item active">Upload File</li>
                 </ol>
@@ -92,11 +92,14 @@
         </asp:TemplateField>
                     <asp:TemplateField HeaderText="Actions">
                 <ItemTemplate>
+                    <asp:Label runat="server" ID="lblNoResourcesMessage" CssClass="text-danger" Visible="false"></asp:Label>
                     <asp:Button ID="btnDelete" runat="server" CommandName="DeleteFile" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger" CausesValidation="false" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete this file?');" />
                  <asp:Button ID="btnAddMore" runat="server" CommandName="AddMoreFile" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-success" CausesValidation="false" Text="Add More File" OnClick="btnAddMore_Click" />
             </ItemTemplate>
             </asp:TemplateField></Columns>
                 </asp:GridView>
+
+                  <asp:Label runat="server" ID="lblNoResourcesMessage" CssClass="text-danger" Visible="false"></asp:Label>
             </div>
 
             <!-- Button to Submit (for testing) -->

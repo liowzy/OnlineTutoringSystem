@@ -74,6 +74,15 @@
 
     <%-------------------------------------------course----------------------------------%>
     <main id="main" class="main">
+        <div class="pagetitle">
+                <h1>Course Management</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="Profile.aspx">Home</a></li>
+                        <li class="breadcrumb-item active">My Courses</li>
+                    </ol>
+                </nav>
+            </div>
 
     <div class="container-fluid p-2 text-center pb-0"> 
         <div class="row">

@@ -143,13 +143,32 @@ namespace OnlineTutoringSystem.Tutor
                     FileName = "[no file]",
                     FilePath = null
                 });
+
+                // Hide the "Delete" and "Add More File" buttons
+                GridViewResource.Columns[2].Visible = false;  // Assuming the index 2 corresponds to the "Actions" column
+
+                // Display a message in a label
+                lblNoResourcesMessage.Visible = true;
+                lblNoResourcesMessage.Text = "Please add a resource first";
             }
+            else
+            {
+                // Show the "Delete" and "Add More File" buttons
+                GridViewResource.Columns[2].Visible = true;
+
+                // Hide the message label
+                lblNoResourcesMessage.Visible = false;
+                lblNoResourcesMessage.Text = string.Empty;
+            }
+
             ViewState["Resources"] = resources;
+
             // Retrieve the data from the database and set it as the DataSource
             GridViewResource.DataSource = resources;
             GridViewResource.DataBind();
             ClearFormFields();
         }
+
 
         protected void GridViewResource_RowCommand(object sender, GridViewCommandEventArgs e)
         {

@@ -37,7 +37,7 @@
             <h1>View/Edit Course</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="../Student/HomePage.aspx">Home</a></li>
+                    <li class="breadcrumb-item"><a href="Profile.aspx">Home</a></li>
                     <li class="breadcrumb-item active"><a href="MyCourses.aspx">My Courses</a></li>
                     <li class="breadcrumb-item active">View Course</li>
                 </ol>
