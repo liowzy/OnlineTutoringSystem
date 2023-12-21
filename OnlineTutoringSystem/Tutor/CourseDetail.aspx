@@ -173,6 +173,16 @@
                         </div>
                     </div>
 
+                    <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="ddlCourseStatus">Course Status</label>
+                                <asp:DropDownList ID="ddlCourseStatus" runat="server" CssClass="form-control"  Enabled="false">
+                                    <asp:ListItem Text="Complete" Value="F"></asp:ListItem>
+                                    <asp:ListItem Text="In Progress" Value="T"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+
                     <!-- Hidden field to store course ID -->
                     <asp:HiddenField ID="hdnCourseId" runat="server" />
                     
