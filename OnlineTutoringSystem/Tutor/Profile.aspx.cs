@@ -153,6 +153,8 @@ namespace OnlineTutoringSystem.Tutor
             {
                 // Show success alert
                 ClientScript.RegisterStartupScript(this.GetType(), "SuccessAlert", "alert('Changes saved successfully.');", true);
+
+                LoadTutorData();
             }
             else
             {
