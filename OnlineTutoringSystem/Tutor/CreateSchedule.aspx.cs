@@ -66,15 +66,15 @@ namespace OnlineTutoringSystem.Tutor
             YourDataAccessLayer dataAccess = new YourDataAccessLayer();
             DataTable dtCourses = dataAccess.GetCourses(tutorId);
 
-            // Check if it's the first load (not a postback)
-            if (!IsPostBack)
+            // Bind the actual courses
+            ddlCourse.DataSource = dtCourses;
+            ddlCourse.DataTextField = "course_name";
+            ddlCourse.DataValueField = "course_id";
+            ddlCourse.DataBind();
+
+            // Check if it's the first load (not a postback) and there is only one course
+            if (!IsPostBack && dtCourses.Rows.Count == 1)
             {
-                // Create a new ListItem for the default selection
-                ListItem defaultItem = new ListItem("Please select a course", "");
-
-                // Add the default item to the beginning of the list
-                ddlCourse.Items.Insert(0, defaultItem);
-
                 // Set the default selection for ddlCourse
                 ddlCourse.SelectedIndex = 0;
 
@@ -82,12 +82,11 @@ namespace OnlineTutoringSystem.Tutor
                 Page.Validate("ResourceValidationGroup");
             }
 
-            // Bind the actual courses after adding the default item
-            ddlCourse.DataSource = dtCourses;
-            ddlCourse.DataTextField = "course_name";
-            ddlCourse.DataValueField = "course_id";
-            ddlCourse.DataBind();
+            // Add the default item for the case when there are multiple courses
+            ListItem defaultItem = new ListItem("Please select a course", "");
+            ddlCourse.Items.Insert(0, defaultItem);
         }
+
 
         protected void BindCourseResource()
         {

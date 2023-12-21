@@ -102,21 +102,13 @@
                         
                     </asp:DropDownList>
                 </div>
-                <div class="col-md-3 mb-2">
-                    <!-- Rating Dropdown -->
-                    <label for="ddlRating" class="form-label" style="color: #FF6636; margin-left: -200px; font-weight: bold;">Rating by:</label>
-                    <asp:DropDownList ID="ddlRating" runat="server" CssClass="form-select" aria-label="Rating" style="background-color: white; font-weight: bold;" OnSelectedIndexChanged="ddlRating_SelectedIndexChanged" AutoPostBack="true">
-                        <asp:ListItem Text="Rating by..." Value="" Disabled="true" Selected="true" />
-                        <asp:ListItem Text="All Ratings" Value="" />
-                        <asp:ListItem Text="0 star" Value="0.0" />
-                        <asp:ListItem Text="1 star" Value="1.0" />
-                        <asp:ListItem Text="2 stars" Value="2.0" />
-                        <asp:ListItem Text="3 stars" Value="3.0" />
-                        <asp:ListItem Text="4 stars" Value="4.0" />
-                    </asp:DropDownList>
-                </div>
             </div>
             <!-- End Sorting Options -->
+              
+            <asp:Label runat="server" ID="lblNoCourse" CssClass="text-info" Visible="false">
+                <h1 style="margin-top:30px">No Course Has Been Created.</h1>
+                <h3 style="color:darkred; margin-top:20px">### Please Create A Course Before View Your Courses ###</h3>
+            </asp:Label>
 
             <div class="row justify-content-center pt-2" style="margin-left: 1.5%;">
                 <asp:DataList ID="DataListCourses" runat="server" DataSourceID="SqlDataSourceCourses" RepeatColumns="4"

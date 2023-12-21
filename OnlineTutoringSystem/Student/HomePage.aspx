@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../Content/css/studentMaster.css" />
     <link rel="stylesheet" href="../Content/fontawesome-free-5.15.4-web/css/all.min.css"> 
 
+
     <style>
         body {
             margin: 0;
@@ -289,7 +290,25 @@
             </div>
         </div>
     </div>
-
+                <div class="chatbotBtn" onclick="openChatbotWindow()">
+                <i class='bx bxs-message-dots'></i>
+            </div>   
     
-            <div class="chatbotBtn"><a href="chatbot.aspx"><i class='bx bxs-message-dots'></i></a></div>
+    <script>
+        function openChatbotWindow() {
+            // Specify the URL of your chatbot.aspx page
+            var chatbotUrl = 'chatbot.aspx';
+
+            // Set the width and height of the new window
+            var windowWidth = 400;
+            var windowHeight = 600;
+
+            // Calculate the position to center the window on the screen
+            var windowLeft = (window.innerWidth - windowWidth) / 2;
+            var windowTop = (window.innerHeight - windowHeight) / 2;
+
+            // Open the new window with the specified properties
+            window.open(chatbotUrl, 'ChatbotWindow', 'width=' + windowWidth + ', height=' + windowHeight + ', left=' + windowLeft + ', top=' + windowTop);
+        }
+    </script>
 </asp:Content>

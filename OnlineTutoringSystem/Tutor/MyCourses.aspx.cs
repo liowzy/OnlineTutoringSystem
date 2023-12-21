@@ -38,17 +38,18 @@ namespace OnlineTutoringSystem.Tutor
                     // Perform the category filter using the retrieved category
                     ExecuteCategory(selectedCategory, tutorId);
                 }
-                // Check if the rating is present in the query string
-                else if (Request.QueryString["rating"] != null)
-                {
-                    string rating = Server.UrlDecode(Request.QueryString["rating"]);
-
-                    // Perform the rating filter using the retrieved rating
-                    ExecuteRating(rating, tutorId);
-                }
 
                 // Populate the course category dropdown on page load
                 PopulateCourseCategoryDropdown();
+
+                if (DataListCourses.Items.Count == 0)
+                {
+                    lblNoCourse.Visible = true;
+                }
+                else
+                {
+                    lblNoCourse.Visible = false;
+                }
             }
         }
 
@@ -195,57 +196,6 @@ namespace OnlineTutoringSystem.Tutor
             SqlDataSourceCourses.SelectParameters.Add("TutorId", tutorId.ToString());
         }
 
-        protected void ddlRating_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string selectedRating = ddlRating.SelectedValue; // Use SelectedValue for DropDownList
-            int tutorId = GetTutorId(); // Retrieve the tutor ID
-
-            // Check if "All Ratings" is selected or if the selected rating is non-numeric
-            if (selectedRating == "" || !int.TryParse(selectedRating, out int numericRating))
-            {
-                // Clear the rating filter
-                SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name " +
-                                           "FROM Course c " +
-                                           "JOIN Category cat ON c.cat_id = cat.cat_id " +
-                                           "WHERE c.tutor_id = @TutorId " +
-                                           "ORDER BY course_id ASC";
-
-                // Clear existing parameters
-                SqlDataSourceCourses.SelectParameters.Clear();
-                SqlDataSourceCourses.SelectParameters.Add("TutorId", tutorId.ToString());
-            }
-            else
-            {
-                ExecuteRating(selectedRating, tutorId);
-            }
-
-            // Bind the data to the DataListCourses
-            DataListCourses.DataSourceID = "SqlDataSourceCourses";
-            DataListCourses.DataBind(); // AutoPostBack should handle this automatically
-        }
-
-        private void ExecuteRating(string rating, int tutorId)
-        {
-            if (double.TryParse(rating, out double ratingValue))
-            {
-                // Set the rating filter in the SQL query
-                SqlDataSourceCourses.SelectCommand = "SELECT c.course_id, c.course_pic, c.course_name, c.course_fee, cat.cat_name " +
-                                                     "FROM Course c " +
-                                                     "JOIN Category cat ON c.cat_id = cat.cat_id " +
-                                                     "WHERE c.course_id IN (SELECT course_id FROM Review WHERE tutor_id = @TutorId AND review_rating = @Rating) " +
-                                                     "ORDER BY course_id ASC";
-
-                // Clear existing parameters and add the new parameters
-                SqlDataSourceCourses.SelectParameters.Clear();
-
-                // Add the Rating parameter
-                SqlDataSourceCourses.SelectParameters.Add("Rating", DbType.Double, ratingValue.ToString());
-
-                // Add the tutorId parameter
-                SqlDataSourceCourses.SelectParameters.Add("TutorId", tutorId.ToString());
-            }
-        }
-
         protected void DataListCourses_ItemDataBound(object sender, DataListItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -276,17 +226,19 @@ namespace OnlineTutoringSystem.Tutor
                     // For example, you can set its properties or attach events
                     txtSearch.Attributes["placeholder"] = "Search your course";
                 }
+            }
+        }
 
-                // Find the ddlRating DropDownList within the current item
-                DropDownList ddlRating = e.Item.FindControl("ddlRating") as DropDownList;
-
-                // Check if the control is found
-                if (ddlRating != null)
-                {
-                    // Perform actions with ddlRating if needed
-                    // For example, you can set its default value or attach events
-                    ddlRating.Items.FindByValue("All Ratings").Selected = true; // Set default value
-                }
+        protected void DataListCourses_DataBound(object sender, EventArgs e)
+        {
+            // Check if there are no items in the DataList
+            if (DataListCourses.Items.Count == 0)
+            {
+                lblNoCourse.Visible = true;
+            }
+            else
+            {
+                lblNoCourse.Visible = false;
             }
         }
 
