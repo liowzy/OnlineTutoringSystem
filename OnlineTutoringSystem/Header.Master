@@ -277,35 +277,14 @@
                         <!--Grid column-->
                         <div class="col-5 mb-4 mb-md-0 ">
 
-                            <div class="logo-container d-flex flex-row justify-content-center">
+                            <div class="logo-container d-flex flex-row justify-content-left">
                                 <asp:Image ID="Image11" runat="server" ImageUrl="~/imgs/logo.png" Style="height: auto; height: 45%;" AlternateText="Logo" />
                                 <asp:Label ID="Label11" runat="server" Text="E Tutor" CssClass="company-name h2 fw-bold mt-1"></asp:Label>
                             </div>
 
                             <p class="d-flex flex-row justify-content-center">Elevate Your Learning Journey: Empower, Engage, Excel with E-Tutor!</p>
 
-                            <ul class="list-unstyled d-flex flex-row justify-content-center">
-                                <li class="p-2">
-                                    <a class="text-white px-2" href="#!">
-                                        <i class="fab fa-facebook-square fa-2x"></i>
-                                    </a>
-                                </li>
-                                <li class="p-2">
-                                    <a class="text-white px-2" href="#!">
-                                        <i class="fab fa-instagram fa-2x"></i>
-                                    </a>
-                                </li>
-                                <li class="p-2">
-                                    <a class="text-white px-2" href="#!">
-                                        <i class="fab fa-youtube fa-2x"></i>
-                                    </a>
-                                </li>
-                                <li class="p-2">
-                                    <a class="text-white px-2" href="#!">
-                                        <i class="fab fa-twitter fa-2x"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                             
 
                         </div>
                         <!--Grid column-->

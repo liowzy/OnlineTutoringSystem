@@ -31,6 +31,7 @@
                 background-color: #FF8C00;
                 color: #fff;
             }
+
         .even-row {
             background-color: #f9f9f9; /* Set your desired color for even rows */
             padding: 10px; /* Adjust padding as needed */
@@ -41,19 +42,19 @@
             padding: 10px; /* Adjust padding as needed */
         }
     </style>
-    
+
     <div class="container mt-2">
         <asp:Label ID="Label1" runat="server" CssClass="h2" Text="Tutor Schedule"></asp:Label>
         <hr />
-        
-            <asp:Label ID="Checkwl" runat="server" Text="No schedule" CssClass="h4 font-weight-bold text-muted" Visible="False"></asp:Label>
-            
+
+        <asp:Label ID="Checkwl" runat="server" Text="No schedule" CssClass="h4 font-weight-bold text-muted" Visible="False"></asp:Label>
+
         <asp:DataList ID="DataList1" runat="server" CssClass="table" DataKeyField="schedule_id">
-            <itemtemplate>
+            <ItemTemplate>
                 <div class='<%# Container.ItemIndex % 2 == 0 ? "odd-row" : "even-row" %>'>
 
                     <div class="row justify-content-between">
-                        <div class="col-8"> 
+                        <div class="col-8">
                             <asp:Label ID="LabelDate" runat="server" Text='<%# Eval("schedule_date", "{0:dd-MM-yyyy}") %>'></asp:Label>
                         </div>
                         <div class="col-4">
@@ -71,14 +72,9 @@
                         <div class="col">
                             <asp:Label ID="LabelDescription" runat="server" Text='<%# Eval("schedule_description") %>' CssClass="text-muted"></asp:Label>
                         </div>
-                    </div>
-                    <div class="row m-0 d-flex justify-content-end align-self-center">
-                <div class="col text-right">
-                    <asp:Button ID="ButtonMakeBooking" runat="server" Text="Make Booking" CssClass="btn btn-orange m-0" onClick="MakeBooking_Click"/>
+                    </div> 
                 </div>
-            </div>
-                </div>
-            </itemtemplate>
+            </ItemTemplate>
         </asp:DataList>
 
     </div>

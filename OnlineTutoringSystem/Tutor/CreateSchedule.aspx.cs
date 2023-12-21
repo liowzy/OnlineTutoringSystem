@@ -198,7 +198,7 @@ namespace OnlineTutoringSystem.Tutor
 
         protected void btnCreateSchedule_Click(object sender, EventArgs e)
         {
-           
+
             try
             {
                 // Update the course details in the database
@@ -272,7 +272,7 @@ namespace OnlineTutoringSystem.Tutor
 
                 if (duration.TotalMinutes < 5)
                 {
-                    
+
                     // Display an alert message
                     ScriptManager.RegisterStartupScript(this, GetType(), "validationAlert", "alert('The time duration should not be less than 5 minutes.');", true);
                     return;
@@ -561,9 +561,9 @@ namespace OnlineTutoringSystem.Tutor
                     }
                 }
             }
-    }
+        }
 
-    [Serializable]
+        [Serializable]
         public class Schedule
         {
             public int ScheduleId { get; set; }
@@ -589,6 +589,6 @@ namespace OnlineTutoringSystem.Tutor
             public string EndTimeFormatted => EndTime.ToString(@"hh\:mm");
         }
 
-       
+
     }
 }

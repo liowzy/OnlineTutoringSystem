@@ -40,9 +40,11 @@ namespace OnlineTutoringSystem.Student.ViewTutor
 
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 string query = "SELECT schedule_id, schedule_date, schedule_startTime, schedule_endTime, " +
-                               "schedule_subject, schedule_description, tutor_id " +
-                               "FROM Schedule " +
-                               "WHERE tutor_id = @TutorId";
+               "schedule_subject, schedule_description, tutor_id " +
+               "FROM Schedule " +
+               "WHERE tutor_id = @TutorId AND schedule_status = 'Active'";
+
+
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -55,6 +57,21 @@ namespace OnlineTutoringSystem.Student.ViewTutor
 
                         DataTable dataTable = new DataTable();
                         dataTable.Load(reader);
+
+                        // Iterate through the rows and update schedule_status based on the end time
+                        foreach (DataRow row in dataTable.Rows)
+                        {
+                            DateTime scheduleEndTime = (DateTime)row["schedule_date"] + (TimeSpan)row["schedule_endTime"];
+
+                            if (scheduleEndTime < DateTime.Now)
+                            {
+                                // The schedule has expired, update status to "Inactive"
+                                row["schedule_status"] = "Inactive";
+                                // Update status in the database
+                                int scheduleId = (int)row["schedule_id"];
+                                UpdateScheduleStatusInDatabase(scheduleId, "Inactive");
+                            }
+                        }
 
                         // Convert date and time columns explicitly
                         foreach (DataRow row in dataTable.Rows)
@@ -89,96 +106,41 @@ namespace OnlineTutoringSystem.Student.ViewTutor
             }
         }
 
-
-        protected void MakeBooking_Click(object sender, EventArgs e)
+        private void UpdateScheduleStatusInDatabase(int scheduleId, string newStatus)
         {
-            // Check if the tutor ID and user ID are stored in the session
-            if (Session["userId"] != null)
+            try
             {
-                int userId = Convert.ToInt32(Session["userId"]);
+                // Connection string - Update this with your database connection details
+                string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-                // Access the DataList item that contains the button
-                Button button = (Button)sender;
-                DataListItem item = (DataListItem)button.NamingContainer;
+                string updateQuery = "UPDATE Schedule SET schedule_status = @Status WHERE schedule_id = @ScheduleId";
 
-                // Retrieve data from the DataList item
-                string date = ((Label)item.FindControl("LabelDate")).Text;
-                string startTime = ((Label)item.FindControl("LabelStartTime")).Text;
-                string endTime = ((Label)item.FindControl("LabelEndTime")).Text;
-                int scheduleId = Convert.ToInt32(DataList1.DataKeys[item.ItemIndex]);
-
-
-                // Check for clashes with another class
-                if (!IsClash(userId, date, startTime, endTime))
+                // Using statement ensures that the SqlConnection is closed and disposed when done
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    // Insert the new schedule entry into the database
-                    string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                    string insertQuery = "INSERT INTO StudentBooking (schedule_date,schedule_startTime, schedule_endTime, " +
-                        "student_id, schedule_id) VALUES (@Date, @StartTime, @EndTime, @StudentId, @ScheduleId)";
-
-                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    // Using statement ensures that the SqlCommand and SqlDataReader are closed and disposed when done
+                    using (SqlCommand command = new SqlCommand(updateQuery, connection))
                     {
-                        using (SqlCommand command = new SqlCommand(insertQuery, connection))
-                        {
-                            command.Parameters.AddWithValue("@Date", DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture));
-                            command.Parameters.AddWithValue("@StartTime", TimeSpan.Parse(startTime));
-                            command.Parameters.AddWithValue("@EndTime", TimeSpan.Parse(endTime));
-                            command.Parameters.AddWithValue("@StudentId", userId);
-                            command.Parameters.AddWithValue("@ScheduleId", scheduleId);
-                            command.Parameters.AddWithValue("@TutorId", userId);
+                        // Add parameters to the SqlCommand to prevent SQL injection
+                        command.Parameters.AddWithValue("@Status", newStatus);
+                        command.Parameters.AddWithValue("@ScheduleId", scheduleId);
 
-                            connection.Open();
-                            int rowsAffected = command.ExecuteNonQuery();
+                        // Open the connection
+                        connection.Open();
 
-                            if (rowsAffected > 0)
-                            {
-                                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Booking successful!');", true);
-                            }
-                            else
-                            {
-                                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Booking failed!');", true);
-                            }
-                        }
+                        // Execute the SQL command (UPDATE)
+                        command.ExecuteNonQuery();
                     }
                 }
-                else
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Booking failed! You have clashes with another class.');", true);
-                }
             }
-            else
+            catch (Exception ex)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Login before making a booking.');", true);
+                // Handle exceptions appropriately, e.g., log the error or show a user-friendly message
+                // You can also redirect to an error page
+                ScriptManager.RegisterStartupScript(this, GetType(), "errorAlert", $"alert('An error occurred: {ex.Message}');", true);
             }
         }
 
-        // Function to check for clashes with another class
-        private bool IsClash(int tutorId, string date, string startTime, string endTime)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            string clashQuery = "SELECT COUNT(*) FROM StudentBooking " +
-                                "WHERE student_id = @TutorId " +
-                                "AND schedule_date = @Date " +
-                                "AND ((schedule_startTime <= @StartTime AND schedule_endTime > @StartTime) OR " +
-                                "(schedule_startTime < @EndTime AND schedule_endTime >= @EndTime) OR " +
-                                "(schedule_startTime >= @StartTime AND schedule_endTime <= @EndTime))";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                using (SqlCommand command = new SqlCommand(clashQuery, connection))
-                {
-                    command.Parameters.AddWithValue("@TutorId", tutorId);
-                    command.Parameters.AddWithValue("@Date", DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture));
-                    command.Parameters.AddWithValue("@StartTime", TimeSpan.Parse(startTime));
-                    command.Parameters.AddWithValue("@EndTime", TimeSpan.Parse(endTime));
-
-                    connection.Open();
-                    int clashCount = (int)command.ExecuteScalar();
-
-                    return clashCount > 0;
-                }
-            }
-        }
 
 
     }

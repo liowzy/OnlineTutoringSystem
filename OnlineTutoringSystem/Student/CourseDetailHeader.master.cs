@@ -23,6 +23,8 @@ namespace OnlineTutoringSystem.Student
                 string courseId = Session["courseId"].ToString();
                 int userId = Convert.ToInt32(Session["userId"]);
                 FetchCourseDetails(courseId);
+
+                LabelNoSchedule.Visible = DataList1.Items.Count == 0;
                 if (IsCoursePurchased(userId,int.Parse(courseId)))
                 { 
                     btnPurchase.Enabled = false;
